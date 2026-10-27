@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Cron job failed to run at scheduled time</title>
+<meta name="description" content="Fix the n8n Cron node error &quot;Job failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-cron-job-failed.html">
+<meta property="og:title" content="n8n Cron job failed to run at scheduled time">
+<meta property="og:description" content="Fix the n8n Cron node error &quot;Job failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Cron job failed to run at scheduled time",
+  "description":"Fix the n8n Cron node error \"Job failed\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Cron node error: Job failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Cron job failed to run at scheduled time</h1>
+<div class="err">Error: Job failed · Node: Cron</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "Job failed" error in n8n, it means that the Cron job you've set up has encountered an issue and was unable to complete successfully. This error can be frustrating, especially if you're relying on the Cron job to automate a critical process. In this article, we'll dive into the common causes of this error and provide a step-by-step guide to fix it.</p>
+<h2>The three most common causes</h2>
+<p>Before we dive into the fix, let's cover the three most common causes of the "Job failed" error:</p>
+<ol>
+<li><strong>Incorrect node configuration</strong>: Double-check that the nodes in your workflow are configured correctly. Make sure that API keys, authentication tokens, and other sensitive information are entered correctly.</li>
+<li><strong>Network issues</strong>: Check your network connection and ensure that the nodes in your workflow can communicate with each other.</li>
+<li><strong>Timeouts</strong>: Cron jobs can be sensitive to timeouts. If a node takes too long to execute, the Cron job may fail.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Job failed" error, follow these steps:</p>
+<ol>
+<li><strong>Check the Cron job logs</strong>: Go to the Cron job logs in n8n and check for any error messages. This will give you an idea of what went wrong.</li>
+<li><strong>Check the node configuration</strong>: Review the node configuration for the Cron job and ensure that everything is set up correctly.</li>
+<li><strong>Add retries to the Cron node</strong>: Configure the Cron node to retry the job if it fails. You can do this by going to the Cron node's Settings tab and enabling "Retry On Fail". Set the "Max Tries" to a reasonable number (e.g., 3) and the "Wait Between Tries (ms)" to a few seconds (e.g., 5000).</li>
+<li><strong>Add a delay to the workflow</strong>: If the Cron job is taking too long to execute, add a delay to the workflow using the "Wait" node. This will give the Cron job more time to complete.</li>
+<li><strong>Use the "Continue On Fail" setting</strong>: If you want to continue processing the workflow even if the Cron job fails, enable the "Continue On Fail" setting on the Cron node.</li>
+</ol>
+<p>Here's an example of how you can configure the Cron node to retry the job:</p>
+<pre><code class="language-json">{
+  "name": "Cron Node",
+  "type": "n8n:\/\/node\/cron",
+  "parameters": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTriesMs": 5000
+  }
+}</code></pre>
+<p>You can paste this code into the Cron node's Settings tab to configure the retries.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Job failed" error from coming back, make sure to:</p>
+<ul>
+<li>Regularly review your Cron job logs to catch any issues early on.</li>
+<li>Test your Cron jobs regularly to ensure they're working as expected.</li>
+<li>Keep your n8n instance up-to-date with the latest security patches and updates.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the steps above and the "Job failed" error persists, it's time to escalate the issue. Reach out to your n8n support team or contact our support forums for further assistance. Provide as much detail as possible about the error, including any error messages, node configurations, and workflow logs. This will help us identify the root cause of the issue and provide a more effective solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

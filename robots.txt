@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://flipppro.github.io/n8n-error-fixes/sitemap.xml

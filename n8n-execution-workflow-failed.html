@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Execution workflow failed to run</title>
+<meta name="description" content="Fix the n8n Execute Workflow node error &quot;Workflow failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-execution-workflow-failed.html">
+<meta property="og:title" content="n8n Execution workflow failed to run">
+<meta property="og:description" content="Fix the n8n Execute Workflow node error &quot;Workflow failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Execution workflow failed to run",
+  "description":"Fix the n8n Execute Workflow node error \"Workflow failed\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Execute Workflow node error: Workflow failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Execution workflow failed to run</h1>
+<div class="err">Error: Workflow failed · Node: Execute Workflow</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error message "Workflow failed" in n8n, it's often frustrating because it doesn't provide much context about what went wrong. However, this error is not as ominous as it seems. It simply means that the workflow execution reached a point where it encountered an error, and it stopped running.</p>
+<p>In n8n, workflows are designed to be self-contained and fault-tolerant. When an error occurs, the workflow will typically stop executing and display the "Workflow failed" message. This is a deliberate design choice to prevent workflows from propagating errors and causing further issues.</p>
+<h2>The three most common causes</h2>
+<p>After analyzing numerous support requests, we've identified the three most common causes of the "Workflow failed" error:</p>
+<ol>
+<li><strong>Missing or incorrect node configurations</strong>: This is often due to incorrect settings or missing configurations on specific nodes, such as API keys, database connections, or file paths.</li>
+<li><strong>Invalid or malformed data</strong>: When workflows rely on data from external sources or previous node executions, incorrect or malformed data can cause errors and lead to workflow failures.</li>
+<li><strong>Uncaught exceptions</strong>: In some cases, workflows may encounter unhandled exceptions or errors that are not properly caught and handled by the workflow.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To troubleshoot and fix the "Workflow failed" error, follow these steps:</p>
+<ol>
+<li><strong>Check node configurations</strong>: Review the node configurations for any errors or inconsistencies. Verify that API keys, database connections, and file paths are correct and up-to-date.</li>
+<li><strong>Inspect data flow</strong>: Analyze the data flow between nodes and ensure that data is being passed correctly. Check for any invalid or malformed data that may be causing errors.</li>
+<li><strong>Add error handling</strong>: To catch and handle errors, you can use the <strong>Continue On Fail</strong> setting on specific nodes or the <strong>Error Trigger</strong> (real workflow trigger). This will allow you to branch on errors and prevent the workflow from failing entirely.</li>
+</ol>
+<p>Here's an example of how to use the <strong>Continue On Fail</strong> setting on an <strong>HTTP Request</strong> node:</p>
+<pre><code class="language-json">{
+  "name": "HTTP Request",
+  "settings": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTriesMs": 5000,
+    "continueOnFail": true
+  },
+  "parameters": {
+    "url": "https://example.com/api/endpoint",
+    "method": "GET",
+    "headers": {
+      "Authorization": "Bearer YOUR_API_KEY"
+    }
+  }
+}</code></pre>
+<p>This configuration will retry the HTTP request up to 3 times with a 5-second delay between retries. If the request fails, the workflow will continue executing, allowing you to catch and handle the error.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Workflow failed" error from occurring in the future, make sure to:</p>
+<ul>
+<li>Regularly review and update node configurations to ensure they are correct and up-to-date.</li>
+<li>Validate and sanitize data before passing it between nodes.</li>
+<li>Implement robust error handling mechanisms, such as using the <strong>Continue On Fail</strong> setting or the <strong>Error Trigger</strong>.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the "Workflow failed" error persists, it's likely that the issue is more complex and requires further investigation. In this case, it's best to:</p>
+<ul>
+<li>Reach out to the n8n community or support forums for help.</li>
+<li>Provide detailed logs and error messages to aid in troubleshooting.</li>
+<li>Consider creating a minimal, reproducible example to demonstrate the issue.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

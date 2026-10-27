@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Webhook node throws 'OAuth2 refresh token revoked' error</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;OAuth2 refresh token revoked&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-oauth-refresh-token-revoked.html">
+<meta property="og:title" content="Webhook node throws 'OAuth2 refresh token revoked' error">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;OAuth2 refresh token revoked&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Webhook node throws 'OAuth2 refresh token revoked' error",
+  "description":"Fix the n8n Webhook node error \"OAuth2 refresh token revoked\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: OAuth2 refresh token revoked"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Webhook node throws 'OAuth2 refresh token revoked' error</h1>
+<div class="err">Error: OAuth2 refresh token revoked · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the "OAuth2 refresh token revoked" error in n8n, it means that the refresh token associated with the OAuth2 connection has been revoked by the OAuth2 provider. This can happen for various reasons, such as:</p>
+<ul>
+<li>The user has revoked the authorization for the application</li>
+<li>The OAuth2 provider has revoked the refresh token due to inactivity or other reasons</li>
+<li>The refresh token has expired</li>
+</ul>
+<p>Regardless of the reason, the error indicates that the OAuth2 connection is no longer valid, and you need to take steps to resolve the issue.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Token revocation due to user action</strong>: The user has revoked the authorization for the application, causing the refresh token to be revoked.</li>
+<li><strong>Token expiration</strong>: The refresh token has expired, and the OAuth2 provider has revoked it.</li>
+<li><strong>Token revocation due to OAuth2 provider settings</strong>: The OAuth2 provider has revoked the refresh token due to inactivity or other reasons.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the issue, follow these steps:</p>
+<ol>
+<li><strong>Check the OAuth2 connection</strong>: Go to the OAuth2 connection settings and check the "Refresh Token" field. If the token is revoked, you will see an error message.</li>
+<li><strong>Re-authorize the application</strong>: If the token was revoked due to user action, you need to re-authorize the application. Go to the OAuth2 provider's website and re-authorize the application.</li>
+<li><strong>Update the refresh token</strong>: If the token was revoked due to expiration, you need to update the refresh token. Go to the OAuth2 connection settings and update the "Refresh Token" field with a new token.</li>
+<li><strong>Configure retries</strong>: To handle this error, configure the Webhook node to retry the request after a certain delay. You can do this by setting the "Retry On Fail" option to "Yes" and configuring the "Max Tries" and "Wait Between Tries (ms)" options.</li>
+</ol>
+<p>Here's an example code block that you can use in a Code node to configure the retries:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "Webhook",
+      "settings": {
+        "retryOnFail": "yes",
+        "maxTries": "3",
+        "waitBetweenTries": "10000"
+      },
+      "parameters": {
+        "url": "https://example.com/webhook",
+        "options": {
+          "method": "POST",
+          "headers": {
+            "Authorization": "Bearer {{OAuth2 Refresh Token}}"
+          }
+        }
+      }
+    }
+  ]
+}</code></pre>
+<p>This code block configures the Webhook node to retry the request up to 3 times, with a 10-second delay between retries.</p>
+<ol>
+<li><strong>Add a delay</strong>: To add a delay between retries, you can use the "Wait" node. Add a "Wait" node after the Webhook node and configure it to wait for a certain amount of time (e.g., 10 seconds).</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the OAuth2 connection settings and update the refresh token as needed.</li>
+<li>Configure the Webhook node to retry the request after a certain delay.</li>
+<li>Monitor the workflow logs to detect any issues with the OAuth2 connection.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the error persists, it may be a sign of a more serious issue with the OAuth2 connection or the workflow configuration. In this case, you should:</p>
+<ul>
+<li>Check the OAuth2 provider's documentation to see if there are any known issues or restrictions that may be causing the error.</li>
+<li>Reach out to the n8n community or support team for further assistance.</li>
+<li>Review the workflow configuration and OAuth2 connection settings to ensure that everything is properly configured.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

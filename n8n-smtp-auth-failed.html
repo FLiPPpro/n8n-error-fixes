@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Send Email SMTP Authentication Failed — Fix</title>
+<meta name="description" content="Fix the n8n Send Email node error &quot;Invalid login: 535 Authentication failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-smtp-auth-failed.html">
+<meta property="og:title" content="n8n Send Email SMTP Authentication Failed — Fix">
+<meta property="og:description" content="Fix the n8n Send Email node error &quot;Invalid login: 535 Authentication failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Send Email SMTP Authentication Failed — Fix",
+  "description":"Fix the n8n Send Email node error \"Invalid login: 535 Authentication failed\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Send Email node error: Invalid login: 535 Authentication failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Send Email SMTP Authentication Failed — Fix</h1>
+<div class="err">Error: Invalid login: 535 Authentication failed · Node: Send Email</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Invalid login: 535 Authentication failed" is a generic error that can occur when sending emails via n8n's Send Email node. It's not a specific error that points directly to the cause, but rather a symptom of a more underlying issue. In this case, the error is related to authentication failure, which can be caused by various factors.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Using account password instead of App Password or OAuth2</strong>: Gmail and Outlook require App Password or OAuth2 for authentication, not account passwords. If you're using an account password, you'll encounter this error.</li>
+<li><strong>Two-Factor Authentication (2FA) blocking SMTP</strong>: If 2FA is enabled on your email account, it may block SMTP connections, resulting in authentication failure.</li>
+<li><strong>Incorrect SMTP settings</strong>: Incorrect SMTP settings, such as the wrong server, port, or authentication details, can also cause this error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Switch to App Password or OAuth2</strong>: If you're using Gmail or Outlook, switch to using an App Password or OAuth2 for authentication. You can do this by creating a new App Password in your email account settings or generating an OAuth2 token.</li>
+<li><strong>Disable 2FA</strong>: If 2FA is enabled on your email account, disable it temporarily to test if it resolves the issue.</li>
+<li><strong>Verify SMTP settings</strong>: Double-check your SMTP settings to ensure they're correct. You can do this by checking your email account settings or consulting with your email provider.</li>
+</ol>
+<p>To automate the process of retrying the email sending, you can use the following code in a Code node:</p>
+<pre><code class="language-javascript">const retryOptions = {
+  maxTries: 3,
+  waitBetweenTries: 10000 // 10 seconds
+};
+
+// Set the retry options on the Send Email node
+n8n.nodes.SendEmail.settings.retryOnFail = true;
+n8n.nodes.SendEmail.settings.maxTries = retryOptions.maxTries;
+n8n.nodes.SendEmail.settings.waitBetweenTries = retryOptions.waitBetweenTries;</code></pre>
+<p>This code sets the retry options on the Send Email node to retry up to 3 times with a 10-second wait between retries.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Use App Password or OAuth2 for authentication</li>
+<li>Disable 2FA if necessary</li>
+<li>Verify SMTP settings regularly</li>
+<li>Monitor your email account settings for any changes that may affect SMTP connections</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it may be necessary to escalate the issue to your email provider's support team or n8n's support team. Provide them with the error message and any relevant logs or configurations to help them troubleshoot the issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

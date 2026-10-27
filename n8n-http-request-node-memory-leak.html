@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP Request node causing memory leak in n8n workflow</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;Error: Memory leak detected in node 'HTTP Request'&quot; — the three most common causes and a step-by-step solution you can past">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-request-node-memory-leak.html">
+<meta property="og:title" content="HTTP Request node causing memory leak in n8n workflow">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;Error: Memory leak detected in node 'HTTP Request'&quot; — the three most common causes and a step-by-step solution you can past">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"HTTP Request node causing memory leak in n8n workflow",
+  "description":"Fix the n8n HTTP Request node error \"Error: Memory leak detected in node 'HTTP Request'\" — the three most common causes and a step-by-step solution you can past",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: Error: Memory leak detected in node 'HTTP Request'"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>HTTP Request node causing memory leak in n8n workflow</h1>
+<div class="err">Error: Error: Memory leak detected in node 'HTTP Request' · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Memory leak detected in node 'HTTP Request'" error message indicates that the HTTP Request node is consuming increasing amounts of memory, causing the workflow to slow down or even crash. This issue is likely due to the node not being properly configured to handle failed requests, leading to a buildup of memory usage over time.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Insufficient retry settings</strong>: If the HTTP Request node is not configured to retry failed requests, it will continue to consume memory as it attempts to send the request again and again.</li>
+<li><strong>Missing error handling</strong>: If the node is not configured to handle errors properly, it will not be able to release the memory it has allocated, leading to a memory leak.</li>
+<li><strong>Infinite loops</strong>: If the HTTP Request node is not properly configured, it can create an infinite loop of requests, causing the memory usage to increase exponentially.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Configure retry settings</strong>: Go to the HTTP Request node's Settings tab and set the "Retry On Fail" option to "Yes". Set the "Max Tries" option to a reasonable number (e.g., 3-5). Set the "Wait Between Tries (ms)" option to a small value (e.g., 100-500).</li>
+<li><strong>Add error handling</strong>: Go to the HTTP Request node's Settings tab and set the "Continue On Fail" option to "Yes". This will allow the node to continue running even if the request fails.</li>
+<li><strong>Add a delay</strong>: Add a "Wait" node after the HTTP Request node to introduce a delay between requests. This will give the node a chance to release any allocated memory.</li>
+<li><strong>Configure the node to handle errors</strong>: Go to the HTTP Request node's Settings tab and set the "Error Handling" option to "Continue". This will allow the node to continue running even if an error occurs.</li>
+</ol>
+<p>Here's an example of how you can configure the retry settings using a Code node:</p>
+<pre><code class="language-json">{
+  "retryOnFail": true,
+  "maxTries": 3,
+  "waitBetweenTries": 100
+}</code></pre>
+<p>You can paste this code into a Code node and set it as an expression for the HTTP Request node's "Retry Settings" field.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, make sure to:</p>
+<ul>
+<li>Regularly review and update your workflow to ensure that it is properly configured and optimized.</li>
+<li>Monitor your workflow's memory usage and adjust the retry settings and error handling as needed.</li>
+<li>Consider adding additional error handling and logging to help diagnose and fix issues.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and the issue persists, it's likely that there's a more complex issue at play. In this case, you should:</p>
+<ul>
+<li>Reach out to the n8n community for further assistance and guidance.</li>
+<li>Review the n8n documentation and forums to see if others have experienced similar issues.</li>
+<li>Consider seeking help from a n8n expert or consultant to help resolve the issue.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

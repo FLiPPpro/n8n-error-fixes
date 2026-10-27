@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Slack node returns SSL disabled error</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-ssl-disabled.html">
+<meta property="og:title" content="n8n Slack node returns SSL disabled error">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Slack node returns SSL disabled error",
+  "description":"Fix the n8n Slack node error \"SSL connection is required\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: SSL connection is required"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Slack node returns SSL disabled error</h1>
+<div class="err">Error: SSL connection is required · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error "SSL connection is required" when trying to connect to Slack in n8n indicates that the node is unable to establish a secure connection to the Slack API. This is a common issue when the SSL/TLS settings on the Slack node are not properly configured.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>SSL/TLS settings not configured</strong>: The most common cause of this error is that the SSL/TLS settings on the Slack node are not properly configured. This can be due to the node being created with default settings or the settings being changed incorrectly.</li>
+<li><strong>Incorrect Slack API endpoint</strong>: Another common cause of this error is using an incorrect Slack API endpoint. Make sure you are using the correct endpoint for the Slack API.</li>
+<li><strong>Missing or incorrect SSL/TLS certificates</strong>: In some cases, the error can be caused by missing or incorrect SSL/TLS certificates. This can be due to a misconfiguration of the SSL/TLS settings on the node.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the issue, follow these steps:</p>
+<ol>
+<li><strong>Check the SSL/TLS settings</strong>: Go to the Slack node's Settings tab and check the SSL/TLS settings. Make sure the "Use SSL" option is enabled.</li>
+<li><strong>Configure the SSL/TLS certificates</strong>: If you are using a self-signed certificate, you will need to configure the SSL/TLS certificates on the node. You can do this by clicking on the "Configure" button next to the "SSL/TLS Certificates" field.</li>
+<li><strong>Use the correct Slack API endpoint</strong>: Make sure you are using the correct Slack API endpoint. You can find the correct endpoint in the Slack API documentation.</li>
+<li><strong>Verify the SSL/TLS settings</strong>: After configuring the SSL/TLS settings, verify that the node is able to establish a secure connection to the Slack API.</li>
+</ol>
+<p>Here is an example of how to configure the SSL/TLS certificates using a Code node:</p>
+<pre><code class="language-javascript">const ssl = {
+  "cert": "-----BEGIN CERTIFICATE-----\n... certificate contents ...",
+  "key": "-----BEGIN RSA PRIVATE KEY-----\n... private key contents ..."
+};
+
+// Set the SSL/TLS certificates on the node
+n8n.setNodeOption("ssl", ssl);</code></pre>
+<p>Replace the <code>certificate contents</code> and <code>private key contents</code> with the actual contents of your SSL/TLS certificates.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the SSL/TLS settings on the node</li>
+<li>Verify that the SSL/TLS certificates are up-to-date and properly configured</li>
+<li>Use the correct Slack API endpoint</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the issue persists, it may be necessary to escalate the issue to the n8n support team. Provide as much detail as possible about the issue, including the error message, the node configuration, and any relevant logs.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

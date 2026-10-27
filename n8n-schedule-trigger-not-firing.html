@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Schedule Trigger Not Firing — Fix</title>
+<meta name="description" content="Fix the n8n Schedule Trigger node error &quot;workflow does not run on schedule&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-schedule-trigger-not-firing.html">
+<meta property="og:title" content="n8n Schedule Trigger Not Firing — Fix">
+<meta property="og:description" content="Fix the n8n Schedule Trigger node error &quot;workflow does not run on schedule&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Schedule Trigger Not Firing — Fix",
+  "description":"Fix the n8n Schedule Trigger node error \"workflow does not run on schedule\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Schedule Trigger node error: workflow does not run on schedule"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Schedule Trigger Not Firing — Fix</h1>
+<div class="err">Error: workflow does not run on schedule · Node: Schedule Trigger</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error message "workflow does not run on schedule", it means that n8n is not executing your workflow as planned. This can be due to various reasons, but we'll focus on the three most common causes: Workflow isn't Active, timezone mismatch, or multiple instances racing.</p>
+<h2>The three most common causes</h2>
+<h3>1. Workflow isn't Active</h3>
+<p>This is the simplest cause, yet often overlooked. Make sure that the workflow is enabled and set to run on schedule. Check the workflow settings to ensure that the "Enabled" toggle is turned on and the schedule is configured correctly.</p>
+<h3>2. Timezone mismatch</h3>
+<p>If your workflow is set to run at a specific time, but your n8n instance is not configured to use the same timezone, the workflow will not run as scheduled. Check your n8n instance's timezone settings to ensure they match the timezone set in the workflow.</p>
+<h3>3. Multiple instances racing</h3>
+<p>If you have multiple instances of n8n running, they may interfere with each other's schedules. This can cause workflows to run multiple times, leading to unexpected behavior. Check your n8n instance's settings to ensure that only one instance is running.</p>
+<h2>Step-by-step fix</h2>
+<p>To fix the issue, follow these steps:</p>
+<ol>
+<li><strong>Check workflow settings</strong>:</li>
+</ol>
+<p>* Go to the workflow settings and ensure that the "Enabled" toggle is turned on. 	* Verify that the schedule is configured correctly.</p>
+<ol>
+<li><strong>Configure timezone</strong>:</li>
+</ol>
+<p>* Go to your n8n instance's settings and check the timezone settings. 	* Ensure that the timezone matches the one set in the workflow.</p>
+<ol>
+<li><strong>Check for multiple instances</strong>:</li>
+</ol>
+<p>* Check your n8n instance's settings to ensure that only one instance is running. 	* If you have multiple instances, consider setting up a load balancer or a more robust deployment strategy.</p>
+<ol>
+<li><strong>Use a Code node to add a delay</strong>:</li>
+</ol>
+<p>* Create a new Code node and add the following JavaScript code:</p>
+<pre><code class="language-javascript">const delay = 60000; // 1 minute in milliseconds
+return new Promise(resolve =&gt; setTimeout(resolve, delay));</code></pre>
+<p>* This code will add a 1-minute delay to the workflow. You can adjust the delay value as needed.</p>
+<ol>
+<li><strong>Use an Error Trigger to branch on error</strong>:</li>
+</ol>
+<p>* Create a new Error Trigger and configure it to trigger on workflow errors. 	* Use the "Continue On Fail" setting to branch on error and continue with the workflow.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, consider the following:</p>
+<ul>
+<li><strong>Monitor your workflow logs</strong>: Regularly check your workflow logs to identify any issues or errors.</li>
+<li><strong>Use a scheduling library</strong>: Consider using a scheduling library like <code>node-schedule</code> to manage your workflows' schedules.</li>
+<li><strong>Implement retry logic</strong>: Use the retry options on the node itself (e.g., HTTP Request node) to implement retry logic.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's time to escalate. Reach out to your n8n support team or contact our community forums for further assistance. Provide as much detail as possible about your workflow, n8n instance, and any error messages you're seeing. This will help our support team to better understand the issue and provide a more accurate solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

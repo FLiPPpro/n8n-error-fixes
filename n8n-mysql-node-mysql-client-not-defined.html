@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Error Mysql Client not defined in n8n Mysql Node</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;MysqlClient is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-node-mysql-client-not-defined.html">
+<meta property="og:title" content="Error Mysql Client not defined in n8n Mysql Node">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;MysqlClient is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Error Mysql Client not defined in n8n Mysql Node",
+  "description":"Fix the n8n MySQL node error \"MysqlClient is not defined\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: MysqlClient is not defined"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Error Mysql Client not defined in n8n Mysql Node</h1>
+<div class="err">Error: MysqlClient is not defined · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "MysqlClient is not defined" indicates that the n8n workflow is unable to connect to the MySQL database due to a missing or undefined <code>MysqlClient</code> object. This object is a crucial part of the MySQL node in n8n, responsible for establishing a connection to the database.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Missing or incorrect database credentials</strong>: Ensure that the database credentials (username, password, host, and port) are correctly configured in the MySQL node's Settings tab.</li>
+<li><strong>Incompatible n8n version</strong>: Make sure that the n8n version you are using is compatible with the MySQL node. You can check the compatibility by visiting the n8n documentation.</li>
+<li><strong>Missing or outdated npm packages</strong>: The MySQL node relies on npm packages to function. Ensure that the <code>mysql</code> package is installed and up-to-date.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the "MysqlClient is not defined" error, follow these steps:</p>
+<ol>
+<li><strong>Check the database credentials</strong>: Open the MySQL node's Settings tab and verify that the database credentials (username, password, host, and port) are correctly configured.</li>
+<li><strong>Install or update the <code>mysql</code> package</strong>: Open your terminal and navigate to your n8n project directory. Run the following command to install or update the <code>mysql</code> package:</li>
+</ol>
+<pre><code class="language-bash">npm install mysql</code></pre>
+<ol>
+<li><strong>Verify the <code>MysqlClient</code> object</strong>: To ensure that the <code>MysqlClient</code> object is defined, you can add a Code node to your workflow with the following JavaScript code:</li>
+</ol>
+<pre><code class="language-javascript">const mysql = require('mysql');
+
+const mysqlClient = mysql.createConnection({
+  host: 'your_host',
+  user: 'your_username',
+  password: 'your_password',
+  database: 'your_database'
+});
+
+console.log(mysqlClient);</code></pre>
+<p>Replace the placeholders (<code>your_host</code>, <code>your_username</code>, <code>your_password</code>, and <code>your_database</code>) with your actual database credentials. This code will create a new <code>MysqlClient</code> object and log it to the console. If the object is defined, you should see it printed in the console.</p>
+<ol>
+<li><strong>Configure the MySQL node</strong>: With the <code>MysqlClient</code> object defined, you can now configure the MySQL node to use it. In the MySQL node's Settings tab, set the <code>MysqlClient</code> field to the <code>mysqlClient</code> object created in the previous step.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring again in the future, follow these best practices:</p>
+<ul>
+<li>Regularly update your n8n version and npm packages to ensure compatibility and security.</li>
+<li>Store your database credentials securely using environment variables or a secrets manager.</li>
+<li>Test your workflow regularly to catch any configuration issues before they cause errors.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the error persists, it may be necessary to escalate the issue to the n8n support team. Provide them with the following information:</p>
+<ul>
+<li>The exact error message and any relevant logs.</li>
+<li>Your n8n version and npm package versions.</li>
+<li>Your workflow configuration, including any custom nodes or settings.</li>
+<li>Any relevant database credentials or configuration files.</li>
+</ul>
+<p>This will help the support team to diagnose and resolve the issue more efficiently.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

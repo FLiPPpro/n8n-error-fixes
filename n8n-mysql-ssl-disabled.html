@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n MySQL node returns SSL disabled error</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-ssl-disabled.html">
+<meta property="og:title" content="n8n MySQL node returns SSL disabled error">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n MySQL node returns SSL disabled error",
+  "description":"Fix the n8n MySQL node error \"SSL connection is required\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: SSL connection is required"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n MySQL node returns SSL disabled error</h1>
+<div class="err">Error: SSL connection is required · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "SSL connection is required" error in n8n while connecting to a MySQL database, it means that the MySQL node is unable to establish a secure connection to the database. This is typically due to the MySQL node's settings not being configured to use SSL/TLS encryption.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why you might encounter this error:</p>
+<ol>
+<li><strong>MySQL node settings</strong>: The MySQL node's settings are not configured to use SSL/TLS encryption. This is the most common cause of the error.</li>
+<li><strong>Database configuration</strong>: The MySQL database itself is not configured to allow SSL/TLS connections.</li>
+<li><strong>Certificate or key issues</strong>: There are issues with the SSL/TLS certificate or key used by the MySQL node.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check the MySQL node settings</strong>: Go to the MySQL node's Settings tab and check the "Use SSL" setting. If it's not enabled, toggle it on.</li>
+<li><strong>Configure the SSL/TLS settings</strong>: In the MySQL node's Settings tab, configure the SSL/TLS settings to match your database's requirements. This may include specifying the path to the certificate and key files.</li>
+<li><strong>Test the connection</strong>: Save the changes and test the connection by running a workflow. If the connection fails, check the error message for more information.</li>
+</ol>
+<p>Here's an example of how you can configure the SSL/TLS settings in a Code node:</p>
+<pre><code class="language-json">{
+  "name": "MySQL Node Settings",
+  "settings": {
+    "useSSL": true,
+    "sslCa": "/path/to/ca.crt",
+    "sslCert": "/path/to/client.crt",
+    "sslKey": "/path/to/client.key"
+  }
+}</code></pre>
+<p>You can paste this code into a Code node and then use the <code>{{ }}</code> syntax to reference the settings in the MySQL node.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly review and update the MySQL node's settings to match any changes to your database's configuration.</li>
+<li>Ensure that the SSL/TLS certificate and key files are up-to-date and correctly configured.</li>
+<li>Monitor the error logs for any issues related to SSL/TLS connections.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and still encounter the "SSL connection is required" error, it may be worth escalating the issue to your database administrator or a senior developer. They can help you investigate and resolve any underlying issues related to the database configuration or certificate/key files.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

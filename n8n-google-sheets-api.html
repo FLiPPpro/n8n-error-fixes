@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Sheets Node Error - API Request Failed</title>
+<meta name="description" content="Fix the n8n Google Sheets node error &quot;Google Sheets API request failed: invalid credentials&quot; — the three most common causes and a step-by-step solution you can ">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-sheets-api.html">
+<meta property="og:title" content="Google Sheets Node Error - API Request Failed">
+<meta property="og:description" content="Fix the n8n Google Sheets node error &quot;Google Sheets API request failed: invalid credentials&quot; — the three most common causes and a step-by-step solution you can ">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Google Sheets Node Error - API Request Failed",
+  "description":"Fix the n8n Google Sheets node error \"Google Sheets API request failed: invalid credentials\" — the three most common causes and a step-by-step solution you can ",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Sheets node error: Google Sheets API request failed: invalid credentials"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Google Sheets Node Error - API Request Failed</h1>
+<div class="err">Error: Google Sheets API request failed: invalid credentials · Node: Google Sheets</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Google Sheets API request failed: invalid credentials" is a common issue that occurs when the Google Sheets node is unable to authenticate with the Google Sheets API. This can happen for a variety of reasons, including expired or invalid credentials, incorrect API key, or issues with the Google Sheets API itself.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Expired or invalid credentials</strong>: This is the most common cause of the error. If your credentials are expired or invalid, the Google Sheets node will not be able to authenticate with the API.</li>
+<li><strong>Incorrect API key</strong>: If you are using an API key instead of OAuth credentials, ensure that the API key is correct and not expired.</li>
+<li><strong>Issues with the Google Sheets API</strong>: Occasionally, issues with the Google Sheets API itself can cause authentication failures.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check your credentials</strong>: Ensure that your credentials are valid and not expired. You can check the expiration date of your credentials in the Google Cloud Console.</li>
+<li><strong>Update your credentials</strong>: If your credentials are expired or invalid, update them in the Google Cloud Console and then update the credentials in n8n.</li>
+<li><strong>Verify your API key</strong>: If you are using an API key, ensure that it is correct and not expired. You can find your API key in the Google Cloud Console.</li>
+<li><strong>Check the Google Sheets API</strong>: If you are still experiencing issues, check the status of the Google Sheets API in the Google Cloud Console. If there are any issues with the API, you will need to wait for the issue to be resolved.</li>
+</ol>
+<p>Here is a concrete code block that you can use to update your credentials in n8n:</p>
+<pre><code class="language-json">{
+  "name": "Update Google Sheets Credentials",
+  "parameters": {
+    "credentials": {
+      "type": "OAuth2",
+      "clientId": "YOUR_CLIENT_ID",
+      "clientSecret": "YOUR_CLIENT_SECRET",
+      "redirectUri": "YOUR_REDIRECT_URI",
+      "scopes": "https://www.googleapis.com/auth/spreadsheets"
+    }
+  }
+}</code></pre>
+<p>You can paste this code into a Code node in n8n to update your credentials.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly update your credentials to ensure they are not expired.</li>
+<li>Monitor the status of the Google Sheets API to ensure it is not experiencing any issues.</li>
+<li>Use a retry mechanism to handle temporary authentication failures.</li>
+</ul>
+<p>You can configure a retry mechanism on the Google Sheets node by going to the Settings tab and enabling "Retry On Fail". You can also configure the "Max Tries" and "Wait Between Tries (ms)" settings to control the retry behavior.</p>
+<h2>When to escalate</h2>
+<p>If you have tried the steps above and are still experiencing issues, it may be necessary to escalate the issue to the n8n support team. Be sure to provide as much detail as possible about the error, including any error messages and any steps you have taken to troubleshoot the issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

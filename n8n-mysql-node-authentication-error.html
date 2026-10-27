@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySQL node in n8n authentication issue with username</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;Error authenticating: Invalid username&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-node-authentication-error.html">
+<meta property="og:title" content="MySQL node in n8n authentication issue with username">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;Error authenticating: Invalid username&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MySQL node in n8n authentication issue with username",
+  "description":"Fix the n8n MySQL node error \"Error authenticating: Invalid username\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: Error authenticating: Invalid username"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MySQL node in n8n authentication issue with username</h1>
+<div class="err">Error: Error authenticating: Invalid username · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the error "Error authenticating: Invalid username" in n8n, it means that the username you've provided for the MySQL node is not valid or recognized by the MySQL server. This can be due to a variety of reasons such as a typo in the username, a mismatch between the username in n8n and the actual username in MySQL, or a more complex issue with the MySQL server's authentication mechanism.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Typo in the username</strong>: Double-check that the username you've entered in the MySQL node's settings is correct. Make sure you've entered the exact same username as it appears in the MySQL server.</li>
+<li><strong>Username mismatch</strong>: Ensure that the username you've entered in n8n matches the actual username in MySQL. If you're using a different username or alias in MySQL, update the n8n configuration accordingly.</li>
+<li><strong>MySQL server authentication issues</strong>: If you're using a MySQL server with a complex authentication mechanism (e.g., SSL/TLS certificates, IP whitelisting), verify that your configuration is correct and that the MySQL server is not rejecting your authentication attempts.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Verify the username</strong>: Double-check that the username you've entered in the MySQL node's settings is correct. Make sure you've entered the exact same username as it appears in the MySQL server.</li>
+<li><strong>Update the n8n configuration</strong>: If you've determined that the username is correct, but the error persists, try updating the n8n configuration to use the correct username. You can do this by creating a new Code node with the following JavaScript code:</li>
+</ol>
+<pre><code class="language-javascript">const username = 'your_correct_username';
+const password = 'your_correct_password';
+const host = 'your_mysql_host';
+const database = 'your_mysql_database';
+
+// Update the MySQL node's settings with the correct credentials
+nodes['MySQL'].credentials.username = username;
+nodes['MySQL'].credentials.password = password;
+nodes['MySQL'].credentials.host = host;
+nodes['MySQL'].credentials.database = database;</code></pre>
+<p>Replace <code>your_correct_username</code>, <code>your_correct_password</code>, <code>your_mysql_host</code>, and <code>your_mysql_database</code> with the actual values for your MySQL server.</p>
+<ol>
+<li><strong>Test the connection</strong>: After updating the n8n configuration, test the connection to the MySQL server by running a simple query using the MySQL node. If the connection is successful, you should see the query results in the n8n workflow.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly review and update your n8n configuration to ensure that the username and password are correct.</li>
+<li>Use a secure password storage mechanism, such as a secrets manager, to store sensitive credentials like database passwords.</li>
+<li>Monitor your n8n workflow logs for any authentication-related issues and investigate promptly.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and the error persists, it's likely that the issue is more complex and requires further investigation. In this case, escalate the issue to your n8n support team or a senior engineer who can help you troubleshoot the problem. Be prepared to provide detailed logs and configuration information to aid in the investigation.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

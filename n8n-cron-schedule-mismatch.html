@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cron Node Schedule Mismatch Error in n8n Workflow</title>
+<meta name="description" content="Fix the n8n Cron node error &quot;Cron expression does not match any of the given dates&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-cron-schedule-mismatch.html">
+<meta property="og:title" content="Cron Node Schedule Mismatch Error in n8n Workflow">
+<meta property="og:description" content="Fix the n8n Cron node error &quot;Cron expression does not match any of the given dates&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Cron Node Schedule Mismatch Error in n8n Workflow",
+  "description":"Fix the n8n Cron node error \"Cron expression does not match any of the given dates\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Cron node error: Cron expression does not match any of the given dates"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Cron Node Schedule Mismatch Error in n8n Workflow</h1>
+<div class="err">Error: Cron expression does not match any of the given dates · Node: Cron</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Cron expression does not match any of the given dates" error in n8n indicates that the Cron node's schedule is not correctly configured. This means that the Cron node is not triggering as expected, and it's not because of a problem with the node itself, but rather with the way it's being used.</p>
+<p>When you set up a Cron node, you're specifying a schedule for it to run. This schedule is defined by a Cron expression, which is a string that follows a specific format. The Cron expression defines when the node should run, and if it doesn't match any of the given dates, the node won't trigger.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why you might be seeing this error:</p>
+<ol>
+<li><strong>Incorrect Cron expression</strong>: The most common cause is that the Cron expression is not correctly formatted. Make sure you've followed the correct format for the Cron expression, which is <code>second minute hour day month day_of_week</code>.</li>
+<li><strong>Schedule mismatch</strong>: Another common cause is that the schedule you've set up doesn't match the actual schedule you want to use. For example, if you've set up a Cron expression to run every minute, but you only want it to run every hour, the node won't trigger.</li>
+<li><strong>Time zone issues</strong>: n8n uses the system's time zone by default. If your system's time zone is not set correctly, it can cause issues with the Cron expression. Make sure your system's time zone is set correctly.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li>Check the Cron expression: Make sure the Cron expression is correctly formatted and matches the schedule you want to use.</li>
+<li>Verify the schedule: Double-check that the schedule you've set up matches the actual schedule you want to use.</li>
+<li>Check the time zone: Make sure your system's time zone is set correctly.</li>
+</ol>
+<p>Here's an example of how to set up a Cron expression in a Code node:</p>
+<pre><code class="language-json">{
+  "name": "Cron Expression",
+  "type": "code",
+  "parameters": {
+    "script": "cronExpression = '0 0 * * *'; // Run every day at midnight"
+  }
+}</code></pre>
+<p>You can then use the <code>cronExpression</code> variable in the Cron node's schedule field.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Double-check the Cron expression and schedule every time you make a change.</li>
+<li>Use a consistent time zone across your system.</li>
+<li>Test the Cron node regularly to ensure it's working as expected.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error still persists, it's time to escalate the issue. Reach out to the n8n community or support team for further assistance. Provide as much detail as possible about the error, including the Cron expression, schedule, and any relevant logs. This will help the support team to better understand the issue and provide a solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

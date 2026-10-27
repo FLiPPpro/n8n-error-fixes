@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Wait node returns SSL connection required error</title>
+<meta name="description" content="Fix the n8n Wait node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-wait-ssl-error.html">
+<meta property="og:title" content="n8n Wait node returns SSL connection required error">
+<meta property="og:description" content="Fix the n8n Wait node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Wait node returns SSL connection required error",
+  "description":"Fix the n8n Wait node error \"SSL connection is required\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Wait node error: SSL connection is required"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Wait node returns SSL connection required error</h1>
+<div class="err">Error: SSL connection is required · Node: Wait</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "SSL connection is required" error in n8n, it means that the Wait node is trying to establish a connection to a resource that requires a Secure Sockets Layer (SSL) or Transport Layer Security (TLS) connection. This is a common issue when working with APIs or services that enforce SSL connections.</p>
+<h2>The three most common causes</h2>
+<p>Here are the three most common causes of this error:</p>
+<ol>
+<li><strong>Incorrect node configuration</strong>: Make sure that the Wait node is configured to connect to the correct resource, and that the connection settings are set to use SSL or TLS.</li>
+<li><strong>Missing SSL certificate</strong>: If the resource you're trying to connect to requires an SSL certificate, ensure that it's installed and configured correctly on the node.</li>
+<li><strong>Incompatible node settings</strong>: Check that the node settings are compatible with the resource you're trying to connect to. For example, if the resource uses a self-signed certificate, you may need to configure the node to accept it.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "SSL connection is required" error, follow these steps:</p>
+<ol>
+<li>Open the Wait node and navigate to the Settings tab.</li>
+<li>Ensure that the "Use SSL" option is enabled.</li>
+<li>If the resource requires a specific SSL certificate, upload it to the node by clicking on the "Upload Certificate" button.</li>
+<li>If the resource uses a self-signed certificate, you may need to configure the node to accept it. To do this, click on the "Advanced" tab and set the "Verify Certificate" option to "False".</li>
+</ol>
+<p>Here's an example of how to configure the Wait node to use an SSL certificate:</p>
+<pre><code class="language-json">{
+  "name": "Wait",
+  "type": "wait",
+  "config": {
+    "url": "https://example.com/api/resource",
+    "method": "GET",
+    "headers": {
+      "Authorization": "Bearer {{token}}"
+    },
+    "useSSL": true,
+    "verifyCertificate": false
+  }
+}</code></pre>
+<p>In this example, the Wait node is configured to use an SSL connection to connect to the <code>https://example.com/api/resource</code> endpoint. The <code>verifyCertificate</code> option is set to <code>false</code> to accept the self-signed certificate.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "SSL connection is required" error from coming back, make sure to:</p>
+<ul>
+<li>Regularly update your SSL certificates to ensure they're valid and trusted.</li>
+<li>Monitor your node logs for any errors related to SSL connections.</li>
+<li>Test your node configuration regularly to ensure it's working correctly.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and still encounter the "SSL connection is required" error, it may be a sign of a more serious issue. In this case, you should:</p>
+<ul>
+<li>Check the resource documentation to ensure that the SSL connection settings are correct.</li>
+<li>Reach out to the resource provider to see if there are any known issues with SSL connections.</li>
+<li>Consider escalating the issue to your n8n support team for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Google Sheets &quot;Range Not Found&quot; — Fix</title>
+<meta name="description" content="Fix the n8n Google Sheets node error &quot;Unable to parse range&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-sheets-range-not-found.html">
+<meta property="og:title" content="n8n Google Sheets &quot;Range Not Found&quot; — Fix">
+<meta property="og:description" content="Fix the n8n Google Sheets node error &quot;Unable to parse range&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Google Sheets \"Range Not Found\" — Fix",
+  "description":"Fix the n8n Google Sheets node error \"Unable to parse range\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Sheets node error: Unable to parse range"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Google Sheets &quot;Range Not Found&quot; — Fix</h1>
+<div class="err">Error: Unable to parse range · Node: Google Sheets</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error "Unable to parse range" in n8n's Google Sheets node is a generic message that can have multiple causes. However, it generally indicates that the node is unable to understand the range or sheet reference you provided. This can happen when the sheet name contains special characters or spaces, or when the range refers to a non-existent tab.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Unquoted sheet names</strong>: If the sheet name contains spaces or special characters, it's not properly quoted. Make sure to enclose the sheet name in double quotes (<code>"</code>) when referencing it in the Google Sheets node.</li>
+<li><strong>Non-existent tabs</strong>: If the range references a tab that doesn't exist in the Google Sheets document, the node will throw an error. Double-check that the tab exists and the range is correct.</li>
+<li><strong>Invalid range syntax</strong>: Ensure that the range syntax is correct. A valid range should be in the format <code>sheetName!range</code>, where <code>sheetName</code> is the name of the sheet and <code>range</code> is the cell range (e.g., <code>A1:B2</code>).</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check the sheet name</strong>: If the sheet name contains spaces or special characters, enclose it in double quotes (<code>"</code>) in the Google Sheets node.</li>
+</ol>
+<pre><code class="language-json">{
+  "sheet": {
+    "name": "\"My Sheet\"",
+    "range": "A1:B2"
+  }
+}</code></pre>
+<ol>
+<li><strong>Verify the tab exists</strong>: Make sure the tab referenced by the range exists in the Google Sheets document. If not, create the tab or adjust the range to reference an existing tab.</li>
+<li><strong>Validate the range syntax</strong>: Ensure the range syntax is correct. If you're unsure, try referencing a different range or sheet to isolate the issue.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, consider the following:</p>
+<ul>
+<li><strong>Use a Code node to validate the range</strong>: Write a JavaScript function in a Code node to validate the range syntax and ensure it references an existing tab.</li>
+</ul>
+<pre><code class="language-javascript">const spreadsheet = {
+  "sheets": [
+    {
+      "name": "My Sheet",
+      "range": "A1:B2"
+    }
+  ]
+};
+
+const range = spreadsheet.sheets[0].range;
+const sheetName = spreadsheet.sheets[0].name;
+
+if (!range || !sheetName) {
+  return { error: "Invalid range or sheet name" };
+}
+
+// Validate range syntax
+if (range.indexOf("!") === -1) {
+  return { error: "Invalid range syntax" };
+}
+
+// Validate sheet existence
+const sheet = spreadsheet.sheets.find((sheet) =&gt; sheet.name === sheetName);
+if (!sheet) {
+  return { error: "Sheet not found" };
+}</code></pre>
+<ul>
+<li><strong>Configure retry options</strong>: Set up retry options on the HTTP Request node to automatically retry failed requests.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely a more complex issue. Consider the following:</p>
+<ul>
+<li><strong>Check the Google Sheets API documentation</strong>: Ensure you're using the correct API endpoint and syntax for the Google Sheets node.</li>
+<li><strong>Verify the Google Sheets document</strong>: Check that the Google Sheets document is properly configured and the sheet and range exist.</li>
+<li><strong>Consult the n8n documentation</strong>: Review the n8n documentation for the Google Sheets node to ensure you're using the correct configuration options.</li>
+<li><strong>Reach out to the n8n community</strong>: Post on the n8n community forum or Discord channel for assistance from experienced users and developers.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

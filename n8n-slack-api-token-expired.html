@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slack node reports API token has expired in n8n</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;API token has expired&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-api-token-expired.html">
+<meta property="og:title" content="Slack node reports API token has expired in n8n">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;API token has expired&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Slack node reports API token has expired in n8n",
+  "description":"Fix the n8n Slack node error \"API token has expired\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: API token has expired"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Slack node reports API token has expired in n8n</h1>
+<div class="err">Error: API token has expired · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error "API token has expired" in n8n, it means that the Slack API token you're using in your workflow has reached its expiration date. This token is used to authenticate your workflow with the Slack API, and without a valid token, your workflow will not be able to interact with Slack.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Token expiration</strong>: The most common cause is that the token has simply expired. This can happen if you've set a short expiration time for your token or if you've forgotten to renew it.</li>
+<li><strong>Token not properly set up</strong>: Another common cause is that the token is not properly set up in your n8n workflow. Make sure that you've entered the token correctly and that it's set as the <code>Authorization</code> header in the <code>HTTP Request</code> node.</li>
+<li><strong>Token not renewed</strong>: If you've set up a token with a renewal process, but haven't properly implemented it, the token may expire and not be renewed.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the token expiration</strong>: Go to the Slack API dashboard and check the token expiration date. If it's expired, renew the token and update the token in your n8n workflow.</li>
+<li><strong>Check the token setup</strong>: Go to the <code>HTTP Request</code> node in your n8n workflow and check that the token is set as the <code>Authorization</code> header. Make sure that the token is entered correctly and that it's set to the correct scope.</li>
+<li><strong>Implement token renewal</strong>: If you've set up a token with a renewal process, implement it correctly. You can do this by using a <code>Code</code> node to call the Slack API and renew the token.</li>
+</ol>
+<pre><code class="language-json">{
+  "name": "Renew Token",
+  "type": "n8n",
+  "parameters": {
+    "code": "https://api.slack.com/docs/token-revocation",
+    "method": "POST",
+    "header": {
+      "Authorization": "Bearer {{token}}"
+    },
+    "body": {
+      "token": "{{token}}"
+    }
+  }
+}</code></pre>
+<p>This code block shows an example of how to renew a token using the Slack API. You'll need to replace <code>{{token}}</code> with the actual token you're using.</p>
+<ol>
+<li><strong>Update the token</strong>: Once you've renewed the token, update it in your n8n workflow.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Set a reminder to renew the token before it expires</li>
+<li>Implement a token renewal process using a <code>Code</code> node</li>
+<li>Use a longer token expiration time to give yourself more time to renew the token</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed these steps and the error still persists, it may be time to escalate the issue. This could be due to a more complex issue with your n8n workflow or with the Slack API. In this case, reach out to the n8n support team or a Slack API expert for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

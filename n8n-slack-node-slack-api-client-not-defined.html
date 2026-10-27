@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Error Slack Api Client not defined in n8n Slack Node</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;SlackClient is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-node-slack-api-client-not-defined.html">
+<meta property="og:title" content="Error Slack Api Client not defined in n8n Slack Node">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;SlackClient is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Error Slack Api Client not defined in n8n Slack Node",
+  "description":"Fix the n8n Slack node error \"SlackClient is not defined\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: SlackClient is not defined"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Error Slack Api Client not defined in n8n Slack Node</h1>
+<div class="err">Error: SlackClient is not defined · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the error "SlackClient is not defined" in n8n, it means that the Slack node is unable to connect to the Slack API. This is because the <code>SlackClient</code> object, which is responsible for making API calls to Slack, has not been properly initialized.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Missing Slack API credentials</strong>: Make sure that you have entered your Slack API credentials correctly in the Slack node's Settings tab. This includes the Client ID, Client Secret, and Bot Token.</li>
+<li><strong>Incorrect Slack API credentials</strong>: Double-check that your Slack API credentials are correct and that you have not accidentally entered the wrong credentials.</li>
+<li><strong>Missing or incorrect Slack workspace</strong>: Ensure that you have selected the correct Slack workspace from the dropdown list in the Slack node's Settings tab.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check your Slack API credentials</strong>: Open the Slack node's Settings tab and verify that you have entered your Slack API credentials correctly. Make sure that the Client ID, Client Secret, and Bot Token are entered exactly as they appear in your Slack API settings.</li>
+<li><strong>Create a Code node to initialize the SlackClient</strong>: Create a new Code node and paste the following JavaScript code:</li>
+</ol>
+<pre><code class="language-javascript">const { SlackClient } = require('n8n-slack');
+
+const slackClient = new SlackClient({
+  clientId: 'YOUR_CLIENT_ID',
+  clientSecret: 'YOUR_CLIENT_SECRET',
+  token: 'YOUR_BOT_TOKEN'
+});
+
+// You can now use the slackClient object in your workflow</code></pre>
+<p>Replace <code>YOUR_CLIENT_ID</code>, <code>YOUR_CLIENT_SECRET</code>, and <code>YOUR_BOT_TOKEN</code> with your actual Slack API credentials.</p>
+<ol>
+<li><strong>Configure the Slack node to use the initialized SlackClient</strong>: In the Slack node's Settings tab, select the <code>Use custom Slack client</code> option and enter the <code>slackClient</code> object created in the Code node.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring again in the future, make sure to:</p>
+<ul>
+<li>Regularly check your Slack API credentials to ensure they are correct and up-to-date.</li>
+<li>Use the Code node to initialize the SlackClient and configure the Slack node to use it.</li>
+<li>Test your workflow regularly to catch any errors or issues before they become major problems.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the error persists, it may be worth escalating the issue to the n8n community or support team. They may be able to provide additional guidance or assistance in resolving the issue. Be sure to provide as much detail as possible about your workflow, including any relevant node configurations and error messages.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Postgres &quot;SSL connection is required&quot; — Fix</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;no pg_hba.conf entry / SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-ssl-required.html">
+<meta property="og:title" content="n8n Postgres &quot;SSL connection is required&quot; — Fix">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;no pg_hba.conf entry / SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Postgres \"SSL connection is required\" — Fix",
+  "description":"Fix the n8n Postgres node error \"no pg_hba.conf entry / SSL connection is required\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: no pg_hba.conf entry / SSL connection is required"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Postgres &quot;SSL connection is required&quot; — Fix</h1>
+<div class="err">Error: no pg_hba.conf entry / SSL connection is required · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error message "no pg_hba.conf entry / SSL connection is required" in n8n, it means that the Postgres node is trying to connect to your Postgres database without using SSL encryption. This is a security requirement for many managed Postgres services like Supabase, Neon, and RDS, which is why you're seeing this error.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why this error occurs:</p>
+<ol>
+<li><strong>Postgres credential has SSL disabled</strong>: When you create a Postgres credential in n8n, you need to make sure that the "Use SSL" option is enabled. If it's not, the Postgres node will try to connect without SSL, resulting in this error.</li>
+<li><strong>Incorrect Postgres connection URL</strong>: If you're using a managed Postgres service, the connection URL might require SSL encryption. Make sure you're using the correct connection URL and that it includes the SSL parameters.</li>
+<li><strong>Postgres node configuration</strong>: The Postgres node in n8n has a "Use SSL" option that needs to be enabled. If this option is disabled, the node will try to connect without SSL.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li>Go to the Postgres credential in n8n and make sure that the "Use SSL" option is enabled.</li>
+<li>If you're using a managed Postgres service, check the connection URL to make sure it includes the SSL parameters. For example, if you're using Supabase, the connection URL should look like this: <code>postgresql://user:password@supabase-host:5432/database?sslmode=require</code></li>
+<li>If you're using a self-hosted Postgres instance, make sure that the <code>pg_hba.conf</code> file is configured to allow SSL connections. You can do this by adding the following line to the <code>pg_hba.conf</code> file: <code>hostssl all all 0.0.0.0/0 trust</code></li>
+<li>Go to the Postgres node in your workflow and make sure that the "Use SSL" option is enabled.</li>
+</ol>
+<p>Here's an example of how you can modify the Postgres connection URL to include the SSL parameters using a Code node:</p>
+<pre><code class="language-json">{
+  "connectionUrl": "postgresql://user:password@supabase-host:5432/database?sslmode=require",
+  "useSsl": true
+}</code></pre>
+<p>You can paste this code into a Code node and then use the <code>connectionUrl</code> and <code>useSsl</code> variables in the Postgres node.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Enable the "Use SSL" option in the Postgres credential.</li>
+<li>Use the correct connection URL that includes the SSL parameters.</li>
+<li>Regularly check the <code>pg_hba.conf</code> file to make sure it's configured correctly.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error still persists, it's time to escalate the issue. Reach out to your n8n support team or the support team of your managed Postgres service for further assistance. Provide them with the error message and the steps you've taken to troubleshoot the issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

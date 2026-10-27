@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Set node type mismatch error message</title>
+<meta name="description" content="Fix the n8n Set node error &quot;value is not of expected type&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-set-type-mismatch.html">
+<meta property="og:title" content="n8n Set node type mismatch error message">
+<meta property="og:description" content="Fix the n8n Set node error &quot;value is not of expected type&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Set node type mismatch error message",
+  "description":"Fix the n8n Set node error \"value is not of expected type\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Set node error: value is not of expected type"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Set node type mismatch error message</h1>
+<div class="err">Error: value is not of expected type · Node: Set</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "value is not of expected type" error in the Set node, it means that the value you're trying to set for a field does not match the expected data type. This can happen when the field is expecting a string, but you're passing a number, or vice versa.</p>
+<p>The Set node is designed to update the values of fields in an object. It's a simple but powerful node that can be used to manipulate data in a workflow. However, when the data type of the value you're trying to set doesn't match the expected type, the node will throw an error.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Data type mismatch</strong>: This is the most common cause of the error. When you're setting a field value, make sure that the data type of the value matches the expected type of the field.</li>
+<li><strong>Incorrect field type</strong>: If you're using a field with a specific data type, such as a date or a boolean, make sure that the value you're setting is of the correct type.</li>
+<li><strong>Nested objects</strong>: If you're working with nested objects, make sure that the value you're setting is an object with the correct structure.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check the field type</strong>: Make sure that the field type matches the data type of the value you're setting.</li>
+<li><strong>Check the value type</strong>: Verify that the value you're setting is of the correct type.</li>
+<li><strong>Use the correct syntax</strong>: If you're setting a field value using an expression, make sure that you're using the correct syntax.</li>
+</ol>
+<p>Here's an example of how to fix the error using a Code node:</p>
+<pre><code class="language-javascript">// Assuming you have a field called "name" of type string
+// and you want to set its value to "John Doe"
+const name = "John Doe";
+const data = {
+  name: name
+};
+return data;</code></pre>
+<p>In this example, we're setting the value of the "name" field to "John Doe", which is a string. Make sure that the field type matches the data type of the value.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the error from coming back, follow these best practices:</p>
+<ul>
+<li><strong>Use the correct data type</strong>: Make sure that the data type of the value you're setting matches the expected type of the field.</li>
+<li><strong>Use the correct syntax</strong>: Verify that you're using the correct syntax when setting field values using expressions.</li>
+<li><strong>Test your workflow</strong>: Test your workflow thoroughly to ensure that it's working as expected.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the steps above and the error persists, it may be time to escalate the issue. This could involve:</p>
+<ul>
+<li><strong>Checking the n8n documentation</strong>: Make sure that you're using the correct nodes and options.</li>
+<li><strong>Checking the n8n community forums</strong>: See if others have encountered similar issues and how they resolved them.</li>
+<li><strong>Contacting n8n support</strong>: If you're still stuck, contact n8n support for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Error Trigger node fails with condition error message</title>
+<meta name="description" content="Fix the n8n Error Trigger node error &quot;Condition error: node 'error' does not exist&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-error-trigger-condition-error.html">
+<meta property="og:title" content="n8n Error Trigger node fails with condition error message">
+<meta property="og:description" content="Fix the n8n Error Trigger node error &quot;Condition error: node 'error' does not exist&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Error Trigger node fails with condition error message",
+  "description":"Fix the n8n Error Trigger node error \"Condition error: node 'error' does not exist\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Error Trigger node error: Condition error: node 'error' does not exist"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Error Trigger node fails with condition error message</h1>
+<div class="err">Error: Condition error: node 'error' does not exist · Node: Error Trigger</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Condition error: node 'error' does not exist" is a common issue when using the Error Trigger node in n8n. This error occurs when the Error Trigger node is unable to find an error in the workflow's error data.</p>
+<p>In n8n, the Error Trigger node is a workflow trigger that allows you to trigger a workflow based on an error condition. When an error occurs in a workflow, the error data is stored in the workflow's error data. The Error Trigger node checks this error data to determine if an error has occurred.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>No error data</strong>: The most common cause is that there is no error data available in the workflow's error data. This can happen if the workflow is not configured to store error data or if the error data is not being populated correctly.</li>
+<li><strong>Error data not being populated</strong>: Another common cause is that the error data is not being populated correctly. This can happen if the workflow is not configured to store error data or if the error data is not being populated due to a configuration issue.</li>
+<li><strong>Error Trigger node not configured correctly</strong>: The third common cause is that the Error Trigger node is not configured correctly. This can happen if the node is not configured to check for error data or if the node is not configured to trigger the workflow based on an error condition.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, you need to ensure that the Error Trigger node is configured correctly and that the error data is being populated correctly. Here are the steps to follow:</p>
+<ol>
+<li><strong>Check the Error Trigger node configuration</strong>: Go to the Error Trigger node and check its configuration. Ensure that the node is configured to check for error data and that it is configured to trigger the workflow based on an error condition.</li>
+<li><strong>Check the workflow configuration</strong>: Go to the workflow configuration and check if the workflow is configured to store error data. Ensure that the workflow is configured to store error data and that the error data is being populated correctly.</li>
+<li><strong>Check the error data</strong>: Go to the workflow's error data and check if there is any error data available. Ensure that the error data is being populated correctly and that it is being populated due to a configuration issue.</li>
+<li><strong>Use a Code node to populate error data</strong>: If the error data is not being populated correctly, you can use a Code node to populate the error data. Here is an example of how you can use a Code node to populate the error data:</li>
+</ol>
+<pre><code class="language-javascript">// Populate error data
+const error = {
+  message: 'Error message',
+  code: 'Error code'
+};
+
+// Set error data
+workflow.set('error', error);</code></pre>
+<ol>
+<li><strong>Configure the Error Trigger node to check for error data</strong>: Once the error data is being populated correctly, configure the Error Trigger node to check for error data. Ensure that the node is configured to trigger the workflow based on an error condition.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, ensure that the Error Trigger node is configured correctly and that the error data is being populated correctly. Here are some tips to prevent this error:</p>
+<ul>
+<li>Ensure that the workflow is configured to store error data.</li>
+<li>Ensure that the error data is being populated correctly.</li>
+<li>Configure the Error Trigger node to check for error data.</li>
+<li>Use a Code node to populate error data if necessary.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the error is still occurring, it may be necessary to escalate the issue. Escalation is necessary when:</p>
+<ul>
+<li>The error is occurring due to a complex configuration issue.</li>
+<li>The error is occurring due to a bug in the n8n software.</li>
+<li>You are unable to resolve the issue on your own.</li>
+</ul>
+<p>In this case, contact the n8n support team for further assistance. Provide as much detail as possible about the issue, including the error message, the workflow configuration, and any relevant code.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

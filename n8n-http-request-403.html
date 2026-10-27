@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP Request node returns 403 Forbidden in n8n</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;403 Forbidden&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-request-403.html">
+<meta property="og:title" content="HTTP Request node returns 403 Forbidden in n8n">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;403 Forbidden&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"HTTP Request node returns 403 Forbidden in n8n",
+  "description":"Fix the n8n HTTP Request node error \"403 Forbidden\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: 403 Forbidden"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>HTTP Request node returns 403 Forbidden in n8n</h1>
+<div class="err">Error: 403 Forbidden · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "403 Forbidden" error message in n8n indicates that the HTTP request you're making to a server is being denied access. This is not an error with n8n itself, but rather a response from the server indicating that the request is not authorized.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why you might encounter a "403 Forbidden" error in n8n:</p>
+<ol>
+<li><strong>Incorrect authentication</strong>: Make sure you're using the correct authentication credentials for the server you're trying to access. This includes API keys, username/password combinations, or any other authentication method required by the server.</li>
+<li><strong>Insufficient permissions</strong>: Verify that the credentials you're using have the necessary permissions to access the server's resources. Some servers may require specific roles or permissions to access certain data or functionality.</li>
+<li><strong>Server configuration</strong>: The server itself may be configured to deny access to your request. This could be due to a misconfigured firewall, a rate limiting policy, or a specific security setting.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the "403 Forbidden" error, follow these steps:</p>
+<ol>
+<li><strong>Verify authentication credentials</strong>: Double-check that your authentication credentials are correct and up-to-date. Make sure you're using the correct API key, username, and password.</li>
+<li><strong>Check server permissions</strong>: Ensure that the credentials you're using have the necessary permissions to access the server's resources. Consult the server's documentation or contact the server administrator if you're unsure.</li>
+<li><strong>Add retry options</strong>: Configure the HTTP Request node to retry the request a certain number of times with a delay between retries. This can help you avoid the error and allow the workflow to continue.</li>
+</ol>
+<p>Here's an example of how you can configure the HTTP Request node to retry the request:</p>
+<pre><code class="language-json">{
+  "name": "HTTP Request",
+  "settings": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTries": 5000 // 5 seconds
+  }
+}</code></pre>
+<p>You can also add a delay using the "Wait" node to introduce a pause between retries:</p>
+<pre><code class="language-json">{
+  "name": "Wait",
+  "settings": {
+    "milliseconds": 5000 // 5 seconds
+  }
+}</code></pre>
+<ol>
+<li><strong>Add error handling</strong>: Configure the workflow to branch on error using the "Error Trigger" or the "Continue On Fail" setting on the node. This will allow the workflow to continue running even if the HTTP request fails.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "403 Forbidden" error from occurring in the future, make sure to:</p>
+<ul>
+<li>Verify your authentication credentials regularly</li>
+<li>Ensure that your credentials have the necessary permissions to access the server's resources</li>
+<li>Monitor your server's configuration and security settings to prevent misconfigurations</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the "403 Forbidden" error persists, it may be necessary to escalate the issue to the server administrator or the n8n support team. Provide them with as much information as possible, including:</p>
+<ul>
+<li>The exact error message</li>
+<li>Your authentication credentials</li>
+<li>The server's configuration and security settings</li>
+<li>Any relevant workflow configurations or node settings</li>
+</ul>
+<p>This will help them diagnose the issue and provide a solution to resolve the error.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

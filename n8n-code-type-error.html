@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Code node type error message</title>
+<meta name="description" content="Fix the n8n Code node error &quot;value is not of expected type&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-type-error.html">
+<meta property="og:title" content="n8n Code node type error message">
+<meta property="og:description" content="Fix the n8n Code node error &quot;value is not of expected type&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Code node type error message",
+  "description":"Fix the n8n Code node error \"value is not of expected type\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: value is not of expected type"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Code node type error message</h1>
+<div class="err">Error: value is not of expected type · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "value is not of expected type" error in n8n, it means that the Code node is trying to perform an operation on a value that doesn't match the expected data type. This can happen when you're trying to manipulate data in a way that doesn't account for its actual type.</p>
+<p>For example, if you're trying to concatenate a string with a number, n8n will throw this error because it expects the second operand to be a string, not a number.</p>
+<h2>The three most common causes</h2>
+<p>Here are the most common reasons why this error occurs:</p>
+<ol>
+<li><strong>Incorrect data type</strong>: As mentioned earlier, this error occurs when you're trying to perform an operation on a value with the wrong data type.</li>
+<li><strong>Missing type coercion</strong>: n8n doesn't automatically coerce data types, so if you're trying to perform an operation that requires a specific type, you need to explicitly convert the value.</li>
+<li><strong>Invalid expression</strong>: If you're using an expression to manipulate data, make sure it's correct and doesn't contain any syntax errors.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the data type</strong>: Verify that the data type of the value you're trying to manipulate matches the expected type.</li>
+<li><strong>Use type coercion</strong>: If you need to convert a value to a specific type, use the <code>typeof</code> operator or the <code>parseInt</code>/<code>parseFloat</code> functions.</li>
+<li><strong>Correct the expression</strong>: If you're using an expression, make sure it's correct and doesn't contain any syntax errors.</li>
+</ol>
+<p>Here's an example code block that demonstrates how to use type coercion:</p>
+<pre><code class="language-javascript">// Assuming you have a string variable called "name" and you want to convert it to an integer
+let age = parseInt(name);</code></pre>
+<p>In this example, we're using the <code>parseInt</code> function to convert the string value of <code>name</code> to an integer. If the string can't be converted to an integer, <code>parseInt</code> will return <code>NaN</code> (Not a Number).</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, follow these best practices:</p>
+<ol>
+<li><strong>Validate data types</strong>: Always verify the data type of the values you're working with.</li>
+<li><strong>Use type coercion</strong>: Use type coercion functions like <code>parseInt</code> or <code>parseFloat</code> to convert values to the correct type.</li>
+<li><strong>Test your expressions</strong>: Thoroughly test your expressions to ensure they're correct and don't contain any syntax errors.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it may be time to escalate the issue. Here are some scenarios where you should consider escalating:</p>
+<ul>
+<li>You're not sure what's causing the error or how to fix it.</li>
+<li>You've tried all the above steps and the error still occurs.</li>
+<li>You're experiencing frequent errors that are impacting your workflow.</li>
+</ul>
+<p>In this case, it's best to reach out to the n8n community or support team for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

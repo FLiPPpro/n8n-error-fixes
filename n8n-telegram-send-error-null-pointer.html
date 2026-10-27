@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Telegram Send Node Error: TypeError: Cannot read properties of null</title>
+<meta name="description" content="Fix the n8n Telegram node error &quot;TypeError: Cannot read properties of null (reading 'X')&quot; — the three most common causes and a step-by-step solution you can pas">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-telegram-send-error-null-pointer.html">
+<meta property="og:title" content="Telegram Send Node Error: TypeError: Cannot read properties of null">
+<meta property="og:description" content="Fix the n8n Telegram node error &quot;TypeError: Cannot read properties of null (reading 'X')&quot; — the three most common causes and a step-by-step solution you can pas">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Telegram Send Node Error: TypeError: Cannot read properties of null",
+  "description":"Fix the n8n Telegram node error \"TypeError: Cannot read properties of null (reading 'X')\" — the three most common causes and a step-by-step solution you can pas",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Telegram node error: TypeError: Cannot read properties of null (reading 'X')"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Telegram Send Node Error: TypeError: Cannot read properties of null</h1>
+<div class="err">Error: TypeError: Cannot read properties of null (reading 'X') · Node: Telegram</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "TypeError: Cannot read properties of null (reading 'X')" is a common issue in n8n workflows, especially when working with nodes that rely on external APIs or data sources. In this case, the error is occurring on the Telegram node, which is attempting to send a message with a null recipient.</p>
+<p>This error is telling you that the Telegram node is trying to access a property (in this case, 'X') on a null value. This usually happens when the node is expecting a value to be present, but it's not.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Missing or incorrect API credentials</strong>: Make sure that the Telegram node is properly configured with the correct API credentials. If the credentials are missing or incorrect, the node will not be able to access the Telegram API, leading to a null value.</li>
+<li><strong>Invalid or missing recipient</strong>: Double-check that the recipient field in the Telegram node is properly populated. If the recipient is null or empty, the node will throw an error.</li>
+<li><strong>Node configuration issues</strong>: Ensure that the Telegram node is properly configured, including the correct API endpoint, method, and authentication settings.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check the recipient field</strong>: Verify that the recipient field in the Telegram node is properly populated. If it's null or empty, update the field with the correct recipient.</li>
+<li><strong>Configure the Telegram node</strong>: Ensure that the Telegram node is properly configured, including the correct API endpoint, method, and authentication settings.</li>
+<li><strong>Add a conditional statement</strong>: To prevent the error from occurring, add a conditional statement to check if the recipient field is null before attempting to send the message. You can use the "Error Trigger" workflow trigger or the "Continue On Fail" setting on the node to achieve this.</li>
+</ol>
+<p>Here's an example code block that you can use in a "Code" node to add a conditional statement:</p>
+<pre><code class="language-javascript">if ({{ recipient }} === null) {
+  return { status: 'error', message: 'Recipient is null' };
+}</code></pre>
+<p>This code checks if the <code>recipient</code> field is null, and if so, returns an error message. If the field is not null, the code continues to the next step.</p>
+<ol>
+<li><strong>Update the Telegram node settings</strong>: Configure the Telegram node to retry the operation if it fails. You can do this by setting the "Retry On Fail" option to "Yes" and configuring the "Max Tries" and "Wait Between Tries (ms)" options.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from occurring in the future, make sure to:</p>
+<ul>
+<li>Regularly review and update your workflow configurations to ensure that all nodes are properly configured.</li>
+<li>Use conditional statements to check for null or empty values before attempting to access them.</li>
+<li>Configure nodes to retry operations if they fail.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed these steps and the issue persists, it may be necessary to escalate the issue to the n8n support team. Be sure to provide detailed information about the issue, including the error message, node configurations, and any relevant code.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

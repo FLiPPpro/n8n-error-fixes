@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Code node execution error on Linux server</title>
+<meta name="description" content="Fix the n8n Code node error &quot;Error executing code: Command not found&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-node-execution-error.html">
+<meta property="og:title" content="n8n Code node execution error on Linux server">
+<meta property="og:description" content="Fix the n8n Code node error &quot;Error executing code: Command not found&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Code node execution error on Linux server",
+  "description":"Fix the n8n Code node error \"Error executing code: Command not found\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: Error executing code: Command not found"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Code node execution error on Linux server</h1>
+<div class="err">Error: Error executing code: Command not found · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "Error executing code: Command not found" error in n8n, it means that the code you've written in a Code node is attempting to execute a command that doesn't exist on your system. This can happen when you're trying to run a custom command or script that relies on specific dependencies or executables.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Missing dependencies</strong>: The code in your Code node is trying to execute a command that requires a specific dependency or executable, but it's not installed on your system.</li>
+<li><strong>Typo in command</strong>: You've entered the command incorrectly, and it's not recognized by your system.</li>
+<li><strong>Incorrect path</strong>: The command or executable is installed, but it's not in the system's PATH, so the Code node can't find it.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the command</strong>: Double-check the command you've entered in the Code node. Make sure it's correct and matches the command you're trying to execute.</li>
+<li><strong>Verify dependencies</strong>: Ensure that all dependencies required by the command are installed on your system. You can do this by checking the command's documentation or running <code>apt-get install</code> (on Ubuntu-based systems) or <code>yum install</code> (on Red Hat-based systems) to install the necessary packages.</li>
+<li><strong>Specify the full path</strong>: If the command or executable is installed but not in the system's PATH, specify the full path to the executable in the Code node. For example, if you have a Python script in a directory like <code>/home/user/bin</code>, you can use the full path in the Code node like this: <code>python /home/user/bin/script.py</code></li>
+<li><strong>Use a Code node with a specific interpreter</strong>: If you're trying to execute a script that requires a specific interpreter (like Python or Node.js), make sure to select the correct interpreter in the Code node's settings.</li>
+</ol>
+<p>Here's an example code block that demonstrates how to specify the full path to an executable in a Code node:</p>
+<pre><code class="language-json">{
+  "name": "Execute custom script",
+  "parameters": {
+    "command": "/home/user/bin/script.sh",
+    "type": "script"
+  }
+}</code></pre>
+<p>In this example, the Code node is trying to execute a shell script located at <code>/home/user/bin/script.sh</code>. Make sure to replace the path with the actual location of your script.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Double-check the command and dependencies before executing the code.</li>
+<li>Use the full path to the executable if it's not in the system's PATH.</li>
+<li>Test the code in a Code node with a specific interpreter if required.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely that there's an underlying issue with your system or the n8n configuration. In this case, it's best to:</p>
+<ul>
+<li>Check the n8n logs for any errors or warnings related to the Code node.</li>
+<li>Verify that the system's PATH is correctly set and includes all necessary directories.</li>
+<li>Reach out to the n8n community or support team for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

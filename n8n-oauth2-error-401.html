@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OAuth2 Node Returns Error 401 Unauthorized</title>
+<meta name="description" content="Fix the n8n OAuth2 node error &quot;401 Unauthorized&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-oauth2-error-401.html">
+<meta property="og:title" content="OAuth2 Node Returns Error 401 Unauthorized">
+<meta property="og:description" content="Fix the n8n OAuth2 node error &quot;401 Unauthorized&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"OAuth2 Node Returns Error 401 Unauthorized",
+  "description":"Fix the n8n OAuth2 node error \"401 Unauthorized\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"OAuth2 node error: 401 Unauthorized"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>OAuth2 Node Returns Error 401 Unauthorized</h1>
+<div class="err">Error: 401 Unauthorized · Node: OAuth2</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter a 401 Unauthorized error in n8n, it means the OAuth2 node is unable to authenticate with the OAuth2 server. This error typically occurs when the credentials provided in the OAuth2 node are incorrect or when the OAuth2 server is not configured correctly.</p>
+<h2>The three most common causes</h2>
+<p>After troubleshooting many n8n workflows, we've identified the following three common causes for the 401 Unauthorized error:</p>
+<ol>
+<li><strong>Incorrect OAuth2 credentials</strong>: Double-check that the Client ID, Client Secret, and Authorization URL are correctly entered in the OAuth2 node.</li>
+<li><strong>OAuth2 server configuration issues</strong>: Verify that the OAuth2 server is correctly configured and that the redirect URI matches the one specified in the OAuth2 node.</li>
+<li><strong>Token expiration or invalid token</strong>: Ensure that the access token is valid and not expired. You can check the token expiration time by inspecting the token response from the OAuth2 server.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the 401 Unauthorized error, follow these steps:</p>
+<ol>
+<li><strong>Verify OAuth2 credentials</strong>:</li>
+</ol>
+<p>* Go to the OAuth2 node and check the Client ID, Client Secret, and Authorization URL. 	* Ensure that these values are correctly entered and match the OAuth2 server configuration.</p>
+<ol>
+<li><strong>Check OAuth2 server configuration</strong>:</li>
+</ol>
+<p>* Verify that the OAuth2 server is correctly configured and that the redirect URI matches the one specified in the OAuth2 node. 	* Check the OAuth2 server documentation for any specific configuration requirements.</p>
+<ol>
+<li><strong>Check token expiration or invalid token</strong>:</li>
+</ol>
+<p>* Inspect the token response from the OAuth2 server to check the token expiration time. 	* If the token is expired, obtain a new token using the refresh token (if available).</p>
+<ol>
+<li><strong>Configure retry options</strong>:</li>
+</ol>
+<p>* Go to the OAuth2 node and configure the retry options via the Settings tab: 		+ Set "Retry On Fail" to <code>true</code>. 		+ Set "Max Tries" to a reasonable value (e.g., 3). 		+ Set "Wait Between Tries (ms)" to a suitable value (e.g., 5000).</p>
+<p>Here's an example code block that you can use in a Code node to check the token expiration time:</p>
+<pre><code class="language-javascript">const tokenResponse = {{tokenResponse}};
+const tokenExpirationTime = tokenResponse.expires_in;
+const currentTime = new Date().getTime();
+if (currentTime &gt; tokenExpirationTime) {
+  // Obtain a new token using the refresh token (if available)
+  const refreshToken = {{refreshToken}};
+  const newTokenResponse = await fetch('https://oauth2-server.com/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: `grant_type=refresh_token&amp;refresh_token=${refreshToken}`
+  });
+  const newToken = await newTokenResponse.json();
+  // Update the access token in the OAuth2 node
+  {{updateAccessToken(newToken.access_token)}}
+}</code></pre>
+<p>Note: Replace the placeholders (<code>{{tokenResponse}}</code>, <code>{{refreshToken}}</code>, and <code>{{updateAccessToken(newToken.access_token)}}</code>) with the actual values from your OAuth2 node.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the 401 Unauthorized error from occurring again, ensure that:</p>
+<ul>
+<li>The OAuth2 credentials are correctly entered and match the OAuth2 server configuration.</li>
+<li>The OAuth2 server is correctly configured and the redirect URI matches the one specified in the OAuth2 node.</li>
+<li>The access token is valid and not expired.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the 401 Unauthorized error persists, it's likely a more complex issue that requires further investigation. In this case, escalate the issue to the n8n support team, providing as much detail as possible about your workflow, OAuth2 server configuration, and error messages.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

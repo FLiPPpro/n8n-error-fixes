@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Sheets Node Authentication Failed Error in n8n Workflow</title>
+<meta name="description" content="Fix the n8n Google Sheets node error &quot;OAuth2 authentication failed: invalid credentials&quot; — the three most common causes and a step-by-step solution you can past">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-sheets-authentication-failed.html">
+<meta property="og:title" content="Google Sheets Node Authentication Failed Error in n8n Workflow">
+<meta property="og:description" content="Fix the n8n Google Sheets node error &quot;OAuth2 authentication failed: invalid credentials&quot; — the three most common causes and a step-by-step solution you can past">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Google Sheets Node Authentication Failed Error in n8n Workflow",
+  "description":"Fix the n8n Google Sheets node error \"OAuth2 authentication failed: invalid credentials\" — the three most common causes and a step-by-step solution you can past",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Sheets node error: OAuth2 authentication failed: invalid credentials"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Google Sheets Node Authentication Failed Error in n8n Workflow</h1>
+<div class="err">Error: OAuth2 authentication failed: invalid credentials · Node: Google Sheets</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "OAuth2 authentication failed: invalid credentials" is a generic error that can have multiple causes. In the context of the Google Sheets node in n8n, this error typically indicates that the node is unable to authenticate with your Google account using the provided credentials.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience and the nature of the error, the three most common causes of this issue are:</p>
+<ol>
+<li><strong>Incorrect client ID or secret</strong>: Make sure that you have entered the correct client ID and secret for your Google Sheets API. You can find these in the Google Cloud Console.</li>
+<li><strong>Insufficient permissions</strong>: Ensure that the account you are using has the necessary permissions to access the Google Sheets API.</li>
+<li><strong>Credentials not properly configured</strong>: Verify that the credentials are properly configured in the Google Sheets node, including the correct scope, redirect URI, and authentication method.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve this issue, follow these steps:</p>
+<ol>
+<li><strong>Verify your credentials</strong>: Double-check that you have entered the correct client ID and secret in the Google Sheets node. Make sure that the credentials are properly formatted and that you have selected the correct scope.</li>
+<li><strong>Check your account permissions</strong>: Ensure that the account you are using has the necessary permissions to access the Google Sheets API. You can check this in the Google Cloud Console.</li>
+<li><strong>Update your credentials</strong>: If you have made any changes to your credentials, update them in the Google Sheets node. You can do this by clicking on the "Update Credentials" button in the node's Settings tab.</li>
+<li><strong>Test your credentials</strong>: To test your credentials, you can use the "Test" button in the Google Sheets node. This will attempt to authenticate with your account using the provided credentials.</li>
+</ol>
+<p>Here is an example of how you can use the <code>Code</code> node to test your credentials:</p>
+<pre><code class="language-javascript">const credentials = {
+  "client_id": "YOUR_CLIENT_ID",
+  "client_secret": "YOUR_CLIENT_SECRET",
+  "redirect_uri": "YOUR_REDIRECT_URI",
+  "scope": "https://www.googleapis.com/auth/spreadsheets"
+};
+
+const auth = new google.auth.GoogleAuth({
+  client_id: credentials.client_id,
+  client_secret: credentials.client_secret,
+  redirect_uri: credentials.redirect_uri,
+  scope: credentials.scope
+});
+
+const token = await auth.getAccessToken();
+
+console.log(token);</code></pre>
+<p>Replace <code>YOUR_CLIENT_ID</code>, <code>YOUR_CLIENT_SECRET</code>, and <code>YOUR_REDIRECT_URI</code> with your actual credentials.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from recurring, make sure to:</p>
+<ul>
+<li>Regularly update your credentials to ensure that they are still valid.</li>
+<li>Verify that your account permissions are still correct.</li>
+<li>Use a secure method to store your client ID and secret, such as an environment variable or a secrets manager.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and are still experiencing issues, it may be necessary to escalate the issue to our support team. Please provide as much detail as possible about the issue, including any error messages you are seeing and any relevant configuration settings.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

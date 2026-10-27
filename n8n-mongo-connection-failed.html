@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MongoDB Node Connection Failed Error in n8n Workflow</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;MongoDB connection failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongo-connection-failed.html">
+<meta property="og:title" content="MongoDB Node Connection Failed Error in n8n Workflow">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;MongoDB connection failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MongoDB Node Connection Failed Error in n8n Workflow",
+  "description":"Fix the n8n MongoDB node error \"MongoDB connection failed\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: MongoDB connection failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MongoDB Node Connection Failed Error in n8n Workflow</h1>
+<div class="err">Error: MongoDB connection failed · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "MongoDB connection failed" error is a generic error message that doesn't provide much information about the actual cause of the issue. However, it's a clear indication that n8n is unable to establish a connection to your MongoDB database.</p>
+<p>When this error occurs, it means that n8n has attempted to connect to your MongoDB database using the credentials and settings you provided in the MongoDB node, but the connection was unsuccessful.</p>
+<h2>The three most common causes</h2>
+<p>After analyzing various scenarios, we've identified the three most common causes of the "MongoDB connection failed" error:</p>
+<ol>
+<li><strong>Incorrect MongoDB credentials</strong>: Double-check that you've entered the correct MongoDB username, password, and host in the MongoDB node's Settings tab.</li>
+<li><strong>MongoDB server not running or not accessible</strong>: Ensure that your MongoDB server is running and accessible from the n8n environment. You can use a tool like <code>telnet</code> or <code>curl</code> to test the connection to your MongoDB server.</li>
+<li><strong>Incorrect MongoDB database name or collection</strong>: Verify that you've entered the correct MongoDB database name and collection in the MongoDB node's Settings tab.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the "MongoDB connection failed" error, follow these steps:</p>
+<ol>
+<li><strong>Check your MongoDB credentials</strong>: Go to the MongoDB node's Settings tab and verify that you've entered the correct MongoDB username, password, and host.</li>
+<li><strong>Test your MongoDB connection</strong>: Use a tool like <code>telnet</code> or <code>curl</code> to test the connection to your MongoDB server. For example, you can use the following <code>curl</code> command to test the connection:</li>
+</ol>
+<pre><code class="language-bash">curl -u "your_username:your_password" "mongodb://your_host:27017/"</code></pre>
+<ol>
+<li><strong>Verify your MongoDB database name and collection</strong>: Ensure that you've entered the correct MongoDB database name and collection in the MongoDB node's Settings tab.</li>
+<li><strong>Configure retries</strong>: If you're confident that your MongoDB credentials and settings are correct, you can configure retries in the MongoDB node's Settings tab. Set the "Retry On Fail" option to <code>true</code>, and adjust the "Max Tries" and "Wait Between Tries (ms)" options as needed.</li>
+</ol>
+<p>Here's an example code block that you can use to test your MongoDB connection using a Code node:</p>
+<pre><code class="language-javascript">const MongoClient = require('mongodb').MongoClient;
+
+const url = 'mongodb://your_host:27017/';
+const dbName = 'your_database_name';
+const collectionName = 'your_collection_name';
+
+MongoClient.connect(url, function(err, client) {
+  if (err) {
+    console.error(err);
+  } else {
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    console.log('Connected to MongoDB!');
+  }
+});</code></pre>
+<p>Paste this code into a Code node, and adjust the <code>url</code>, <code>dbName</code>, and <code>collectionName</code> variables to match your MongoDB credentials and settings.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "MongoDB connection failed" error from occurring in the future, make sure to:</p>
+<ul>
+<li>Regularly test your MongoDB connection using a tool like <code>telnet</code> or <code>curl</code>.</li>
+<li>Verify that your MongoDB credentials and settings are up-to-date.</li>
+<li>Configure retries in the MongoDB node's Settings tab to handle temporary connection issues.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and still encounter the "MongoDB connection failed" error, it's likely that there's a more serious issue with your MongoDB server or configuration. In this case, you should:</p>
+<ul>
+<li>Check your MongoDB server logs for any error messages or warnings.</li>
+<li>Verify that your MongoDB server is running and accessible from the n8n environment.</li>
+<li>Consult with your MongoDB administrator or a MongoDB expert to resolve the issue.</li>
+</ul>
+<p>If you're still unable to resolve the issue, you may need to escalate the problem to the n8n support team for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

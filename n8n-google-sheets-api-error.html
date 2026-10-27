@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Google Sheets API error on spreadsheet</title>
+<meta name="description" content="Fix the n8n Google Sheets node error &quot;API error: ... ( error message )&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-sheets-api-error.html">
+<meta property="og:title" content="n8n Google Sheets API error on spreadsheet">
+<meta property="og:description" content="Fix the n8n Google Sheets node error &quot;API error: ... ( error message )&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Google Sheets API error on spreadsheet",
+  "description":"Fix the n8n Google Sheets node error \"API error: ... ( error message )\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Sheets node error: API error: ... ( error message )"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Google Sheets API error on spreadsheet</h1>
+<div class="err">Error: API error: ... ( error message ) · Node: Google Sheets</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the API error "... (error message)" while accessing Google Sheets in n8n, it means that the request to Google Sheets failed due to an issue with the API itself. This error is not related to n8n's configuration or setup, but rather a problem with the Google Sheets API.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Insufficient permissions</strong>: Make sure you have the necessary permissions to access the Google Sheets API. You can check the permissions in the Google Cloud Console.</li>
+<li><strong>API key or credentials issue</strong>: Ensure that your API key or credentials are correct and up-to-date. You can check the API key or credentials in the Google Cloud Console or in the n8n workflow.</li>
+<li><strong>Rate limiting or quota exceeded</strong>: Google Sheets API has rate limits and quotas. If you exceed these limits, you will encounter this error. You can check the usage in the Google Cloud Console.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check permissions</strong>: Go to the Google Cloud Console and check if you have the necessary permissions to access the Google Sheets API. If not, add the necessary permissions.</li>
+<li><strong>Verify API key or credentials</strong>: Ensure that your API key or credentials are correct and up-to-date. If not, update them in the Google Cloud Console or in the n8n workflow.</li>
+<li><strong>Check rate limiting or quota</strong>: Check the usage in the Google Cloud Console. If you have exceeded the rate limits or quotas, reduce the frequency of requests or increase the quotas.</li>
+</ol>
+<p>If you are still encountering the error after checking the above, you can add a retry mechanism to your workflow. To do this, follow these steps:</p>
+<ol>
+<li><strong>Add a Wait node</strong>: Add a Wait node to your workflow with a delay of 5-10 seconds. This will pause the workflow for a short period of time.</li>
+<li><strong>Add a HTTP Request node</strong>: Add a HTTP Request node to your workflow with the same settings as before. This will retry the request to Google Sheets.</li>
+<li><strong>Configure retry options</strong>: In the HTTP Request node, configure the retry options:</li>
+</ol>
+<p>* <strong>Retry On Fail</strong>: Enable this option to retry the request if it fails. 	* <strong>Max Tries</strong>: Set the maximum number of retries to 3-5. 	* <strong>Wait Between Tries (ms)</strong>: Set the delay between retries to 5-10 seconds.</p>
+<p>Here is a concrete code block that you can paste into a Code node:</p>
+<pre><code class="language-javascript">// Set the retry options
+const retryOptions = {
+  retryOnFail: true,
+  maxTries: 3,
+  waitBetweenTries: 5000 // 5 seconds
+};
+
+// Set the HTTP request options
+const httpRequestOptions = {
+  method: 'GET',
+  url: 'https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}',
+  headers: {
+    'Authorization': 'Bearer {apiKey}',
+    'Content-Type': 'application/json'
+  },
+  body: {
+    spreadsheetId: '{spreadsheetId}',
+    range: '{range}'
+  }
+};
+
+// Make the HTTP request with retry options
+n8n.nodes.httpRequest.request({
+  ...httpRequestOptions,
+  retryOptions
+});</code></pre>
+<p>This code sets the retry options and HTTP request options, and makes the HTTP request with the retry options.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, follow these best practices:</p>
+<ol>
+<li><strong>Monitor API usage</strong>: Regularly check the API usage in the Google Cloud Console to ensure you are not exceeding the rate limits or quotas.</li>
+<li><strong>Implement rate limiting</strong>: Implement rate limiting in your workflow to prevent excessive requests to the Google Sheets API.</li>
+<li><strong>Keep API keys and credentials up-to-date</strong>: Regularly update your API keys and credentials to ensure they are correct and up-to-date.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you have followed the above steps and are still encountering the error, it may be necessary to escalate the issue to the n8n support team or the Google Cloud Support team. Provide them with the error message, API usage, and any other relevant information to help them troubleshoot the issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n HTTP request error invalid status code</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;HTTP status code not allowed for this request method&quot; — the three most common causes and a step-by-step solution you can pa">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-invalid-status.html">
+<meta property="og:title" content="n8n HTTP request error invalid status code">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;HTTP status code not allowed for this request method&quot; — the three most common causes and a step-by-step solution you can pa">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n HTTP request error invalid status code",
+  "description":"Fix the n8n HTTP Request node error \"HTTP status code not allowed for this request method\" — the three most common causes and a step-by-step solution you can pa",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: HTTP status code not allowed for this request method"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n HTTP request error invalid status code</h1>
+<div class="err">Error: HTTP status code not allowed for this request method · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "HTTP status code not allowed for this request method" indicates that the HTTP request node in n8n is attempting to send a request with a status code that is not valid for the specified request method (e.g., GET, POST, PUT, DELETE, etc.). This can occur when the server returns an error status code that is not expected by the HTTP request node.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect status code</strong>: The HTTP request node is configured to expect a specific status code, but the server returns a different one. This can happen when the server returns an error status code, such as 404 (Not Found) or 500 (Internal Server Error).</li>
+<li><strong>Incompatible request method</strong>: The HTTP request node is configured to use a specific request method (e.g., GET, POST), but the server does not support this method for the specified endpoint.</li>
+<li><strong>Server-side issues</strong>: The server is experiencing issues, such as maintenance, downtime, or configuration problems, which prevent it from returning a valid status code.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve this issue, follow these steps:</p>
+<ol>
+<li><strong>Check the status code</strong>: Verify that the status code expected by the HTTP request node matches the one returned by the server. You can do this by checking the server's documentation or by inspecting the response in the n8n debug logs.</li>
+<li><strong>Configure retries</strong>: If the issue is due to a temporary server-side problem, you can configure the HTTP request node to retry the request after a certain delay. To do this, go to the HTTP request node's Settings tab and enable "Retry On Fail" with a suitable "Max Tries" and "Wait Between Tries (ms)" value.</li>
+<li><strong>Use a "Wait" node</strong>: If the issue is due to a server-side problem that requires a delay, you can add a "Wait" node to your workflow to pause the execution for a certain amount of time. This will allow the server to recover from its issue.</li>
+<li><strong>Inspect the request</strong>: Verify that the request being sent by the HTTP request node is correct. You can do this by adding a "Code" node to your workflow with a JavaScript expression that logs the request details to the console.</li>
+</ol>
+<p>Here's an example code block that you can use to log the request details to the console:</p>
+<pre><code class="language-javascript">const request = n8n.nodes.HTTPRequest.getNode('HTTP Request').request;
+console.log(request.method, request.url, request.headers);</code></pre>
+<p>This code block retrieves the request object from the HTTP request node and logs its method, URL, and headers to the console.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from recurring, make sure to:</p>
+<ol>
+<li><strong>Monitor server-side issues</strong>: Regularly check the server's status and documentation to ensure that it is functioning correctly.</li>
+<li><strong>Configure retries</strong>: Enable retries on the HTTP request node to handle temporary server-side issues.</li>
+<li><strong>Use a "Wait" node</strong>: Add a "Wait" node to your workflow to pause the execution in case of server-side issues.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the issue persists, it may be necessary to escalate the issue to the server administrators or the development team. Provide them with the following information:</p>
+<ul>
+<li>The error message and any relevant logs</li>
+<li>The request details, including the method, URL, headers, and body</li>
+<li>The server's documentation and configuration</li>
+<li>Any relevant workflow configurations and node settings</li>
+</ul>
+<p>This will help them to diagnose and resolve the issue more efficiently.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

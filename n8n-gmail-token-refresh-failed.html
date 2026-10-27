@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gmail node throws 'OAuth2 refresh token refresh failed' error</title>
+<meta name="description" content="Fix the n8n Gmail node error &quot;OAuth2 refresh token refresh failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-gmail-token-refresh-failed.html">
+<meta property="og:title" content="Gmail node throws 'OAuth2 refresh token refresh failed' error">
+<meta property="og:description" content="Fix the n8n Gmail node error &quot;OAuth2 refresh token refresh failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Gmail node throws 'OAuth2 refresh token refresh failed' error",
+  "description":"Fix the n8n Gmail node error \"OAuth2 refresh token refresh failed\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Gmail node error: OAuth2 refresh token refresh failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Gmail node throws 'OAuth2 refresh token refresh failed' error</h1>
+<div class="err">Error: OAuth2 refresh token refresh failed · Node: Gmail</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "OAuth2 refresh token refresh failed" error in n8n's Gmail node indicates that the refresh token, which is used to obtain a new access token when the current one expires, has failed to refresh. This can happen due to various reasons such as invalid refresh token, expired refresh token, or issues with the OAuth2 flow.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Invalid or expired refresh token</strong>: This can happen if the refresh token has expired or is invalid. You can check the refresh token's expiration time by looking at the <code>expires_in</code> field in the response from the OAuth2 flow.</li>
+<li><strong>OAuth2 flow issues</strong>: Issues with the OAuth2 flow, such as incorrect client ID or secret, can also cause the refresh token to fail.</li>
+<li><strong>Server-side issues</strong>: Server-side issues, such as network connectivity problems or server overload, can also cause the refresh token to fail.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "OAuth2 refresh token refresh failed" error, follow these steps:</p>
+<ol>
+<li><strong>Check the refresh token's expiration time</strong>: In the response from the OAuth2 flow, check the <code>expires_in</code> field to see if the refresh token has expired. If it has, you'll need to obtain a new refresh token.</li>
+<li><strong>Verify the OAuth2 flow</strong>: Double-check that the client ID and secret are correct, and that the OAuth2 flow is properly configured.</li>
+<li><strong>Use a retry mechanism</strong>: To handle temporary server-side issues, you can add a retry mechanism to the Gmail node. To do this, go to the node's Settings tab and configure the "Retry On Fail" option to retry the operation after a certain amount of time. You can also configure the "Max Tries" option to limit the number of retries.</li>
+</ol>
+<p>Here's an example of how to configure the retry mechanism using the node's Settings tab:</p>
+<pre><code class="language-json">{
+  "name": "Gmail",
+  "settings": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTries": 5000 // 5 seconds
+  }
+}</code></pre>
+<p>You can also use the "Wait" node to add a delay between retries. For example:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "Gmail",
+      "settings": {
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 5000 // 5 seconds
+      }
+    },
+    {
+      "name": "Wait",
+      "settings": {
+        "timeoutSeconds": 5000 // 5 seconds
+      }
+    }
+  ]
+}</code></pre>
+<ol>
+<li><strong>Check the node's logs</strong>: If the retry mechanism doesn't work, check the node's logs to see if there are any errors or issues that might be causing the problem.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "OAuth2 refresh token refresh failed" error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the refresh token's expiration time and obtain a new one if necessary.</li>
+<li>Verify that the OAuth2 flow is properly configured and that the client ID and secret are correct.</li>
+<li>Monitor the node's logs for any errors or issues that might be causing the problem.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error still persists, it's likely that there's a more serious issue with the OAuth2 flow or the server-side configuration. In this case, you should escalate the issue to your team's infrastructure or security team to investigate and resolve the problem.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

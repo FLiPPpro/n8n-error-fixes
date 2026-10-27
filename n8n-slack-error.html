@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slack Node Error - Channel Not Found</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;Slack channel not found&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-error.html">
+<meta property="og:title" content="Slack Node Error - Channel Not Found">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;Slack channel not found&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Slack Node Error - Channel Not Found",
+  "description":"Fix the n8n Slack node error \"Slack channel not found\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: Slack channel not found"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Slack Node Error - Channel Not Found</h1>
+<div class="err">Error: Slack channel not found · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Slack channel not found" error is a common issue that can occur when using the Slack node in n8n. This error is not a generic error message, but rather a specific error that indicates that the Slack node is unable to find the specified channel. This can happen for a variety of reasons, such as an invalid channel name, a channel that has been deleted, or a channel that you do not have permission to access.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of the "Slack channel not found" error are:</p>
+<ol>
+<li><strong>Invalid channel name</strong>: The most common cause of this error is an invalid channel name. Make sure that you are using the correct channel name, including the correct case and any special characters.</li>
+<li><strong>Channel has been deleted</strong>: If a channel has been deleted, the Slack node will not be able to find it. Check the Slack channel list to ensure that the channel still exists.</li>
+<li><strong>Insufficient permissions</strong>: If you do not have permission to access the channel, the Slack node will not be able to find it. Check your Slack permissions to ensure that you have the necessary access.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Slack channel not found" error, follow these steps:</p>
+<ol>
+<li><strong>Check the channel name</strong>: Double-check the channel name to ensure that it is correct, including the correct case and any special characters.</li>
+<li><strong>Verify channel existence</strong>: Check the Slack channel list to ensure that the channel still exists.</li>
+<li><strong>Check permissions</strong>: Check your Slack permissions to ensure that you have the necessary access to the channel.</li>
+<li><strong>Configure retry settings</strong>: Configure the Slack node's retry settings to attempt to reconnect to the channel. You can do this by going to the node's Settings tab and adjusting the "Retry On Fail", "Max Tries", and "Wait Between Tries (ms)" options.</li>
+</ol>
+<p>Here is an example of how to configure the retry settings in a Code node:</p>
+<pre><code class="language-json">{
+  "name": "Slack Node",
+  "parameters": {
+    "Retry On Fail": true,
+    "Max Tries": 3,
+    "Wait Between Tries (ms)": 5000
+  }
+}</code></pre>
+<ol>
+<li><strong>Use the Wait node</strong>: If the channel is temporarily unavailable, you can use the Wait node to add a delay before attempting to reconnect.</li>
+</ol>
+<pre><code class="language-json">{
+  "name": "Wait Node",
+  "parameters": {
+    "Duration": 30000 // 30 seconds
+  }
+}</code></pre>
+<ol>
+<li><strong>Use the Error Trigger</strong>: If the channel is permanently unavailable, you can use the Error Trigger to branch off to a different workflow.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Slack channel not found" error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the channel name and existence</li>
+<li>Verify your Slack permissions</li>
+<li>Configure the retry settings to attempt to reconnect to the channel</li>
+<li>Use the Wait node to add a delay before attempting to reconnect</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the "Slack channel not found" error persists, it may be necessary to escalate the issue to your n8n administrator or the Slack support team. This could be due to a more complex issue, such as a network problem or a Slack API limitation. Be sure to provide as much detail as possible about the error, including any relevant logs or error messages.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Invalid Query in MySQL Node n8n Error</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;Error: Invalid query&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-invalid-query.html">
+<meta property="og:title" content="Invalid Query in MySQL Node n8n Error">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;Error: Invalid query&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Invalid Query in MySQL Node n8n Error",
+  "description":"Fix the n8n MySQL node error \"Error: Invalid query\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: Error: Invalid query"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Invalid Query in MySQL Node n8n Error</h1>
+<div class="err">Error: Error: Invalid query · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "Error: Invalid query" error in n8n's MySQL node, it means that the query you're trying to execute is not valid SQL. This can happen for a variety of reasons, such as a typo in the query, a missing or extra semicolon, or an invalid SQL syntax.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience and user reports, the three most common causes of the "Error: Invalid query" error in the MySQL node are:</p>
+<ol>
+<li><strong>Typo in the query</strong>: A simple typo in the query can cause the error. Make sure to double-check the query for any spelling mistakes.</li>
+<li><strong>Missing or extra semicolon</strong>: A semicolon is required at the end of a SQL query. If you're missing a semicolon or have an extra one, it can cause the error.</li>
+<li><strong>Invalid SQL syntax</strong>: SQL has specific syntax rules that must be followed. If you're using an invalid syntax, such as a missing or extra bracket, it can cause the error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check the query</strong>: Double-check the query for any typos or spelling mistakes. Make sure to review the query carefully, as a small mistake can cause the error.</li>
+<li><strong>Verify the semicolon</strong>: Ensure that the query has a semicolon at the end. If you're using a semicolon in the middle of the query, remove it.</li>
+<li><strong>Check the SQL syntax</strong>: Verify that the SQL syntax is correct. Check for any missing or extra brackets, and ensure that the query is formatted correctly.</li>
+</ol>
+<p>Here's an example of a query that might cause the error:</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE name = 'John Doe'</code></pre>
+<p>To fix this query, you might need to add a semicolon at the end:</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE name = 'John Doe'; </code></pre>
+<p>Alternatively, you might need to remove the semicolon in the middle of the query:</p>
+<pre><code class="language-sql">SELECT * FROM users WHERE name = 'John Doe'</code></pre>
+<ol>
+<li><strong>Run the query in a Code node</strong>: If you're still having trouble, try running the query in a Code node. This will allow you to see the exact error message and debug the query further.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the error from coming back, make sure to:</p>
+<ol>
+<li><strong>Test the query</strong>: Before running the query in n8n, test it in a MySQL client or a Code node to ensure it's valid.</li>
+<li><strong>Use a Code node</strong>: If you're unsure about the query, run it in a Code node to see the exact error message.</li>
+<li><strong>Configure retries</strong>: Configure retries on the MySQL node to retry the query in case of an error.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and are still experiencing issues, it's time to escalate the problem. Reach out to the n8n community or support team for further assistance. Provide as much detail as possible about the error, including the exact error message and any relevant logs. This will help the support team to better understand the issue and provide a more accurate solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

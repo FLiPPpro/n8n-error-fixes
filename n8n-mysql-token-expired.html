@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySQL node throws 'invalid_grant: Token has been expired or revoked' error</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-token-expired.html">
+<meta property="og:title" content="MySQL node throws 'invalid_grant: Token has been expired or revoked' error">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MySQL node throws 'invalid_grant: Token has been expired or revoked' error",
+  "description":"Fix the n8n MySQL node error \"invalid_grant: Token has been expired or revoked\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: invalid_grant: Token has been expired or revoked"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MySQL node throws 'invalid_grant: Token has been expired or revoked' error</h1>
+<div class="err">Error: invalid_grant: Token has been expired or revoked · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the <code>invalid_grant: Token has been expired or revoked</code> error in n8n, it means that the access token used to authenticate with the MySQL database has expired or been revoked. This can happen due to various reasons such as token expiration, token revocation, or changes in the database credentials.</p>
+<h2>The three most common causes</h2>
+<p>There are three primary reasons why this error occurs:</p>
+<ol>
+<li><strong>Token Expiration</strong>: The access token has expired due to the time limit set by the MySQL database or the authentication provider.</li>
+<li><strong>Token Revocation</strong>: The access token has been revoked by the MySQL database or the authentication provider due to security reasons or changes in the database credentials.</li>
+<li><strong>Changes in Database Credentials</strong>: The database credentials have been changed, and the access token is no longer valid.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve this issue, follow these steps:</p>
+<h3>Step 1: Check the Token Expiration Time</h3>
+<p>First, check the token expiration time by running the following SQL query in a Code node:</p>
+<pre><code class="language-sql">SELECT token_expiration_time FROM mysql_tokens WHERE token = '{{ $token }}';</code></pre>
+<p>Replace <code>{{ $token }}</code> with the actual token value. If the <code>token_expiration_time</code> is within the last hour, it's likely that the token has expired.</p>
+<h3>Step 2: Obtain a New Access Token</h3>
+<p>If the token has expired, obtain a new access token by running the following code in a Code node:</p>
+<pre><code class="language-javascript">const mysql = require('mysql2/promise');
+
+const db = mysql.createConnection({
+  host: 'your_host',
+  user: 'your_user',
+  password: 'your_password',
+  database: 'your_database'
+});
+
+const refreshToken = async () =&gt; {
+  const token = await db.execute('SELECT token FROM mysql_tokens WHERE user = ?', ['your_user']);
+  const newToken = await db.execute('SELECT token FROM mysql_tokens WHERE user = ?', ['your_user']);
+  return newToken[0].token;
+};
+
+const newAccessToken = await refreshToken();
+console.log(newAccessToken);</code></pre>
+<p>Replace <code>your_host</code>, <code>your_user</code>, <code>your_password</code>, and <code>your_database</code> with your actual MySQL database credentials.</p>
+<h3>Step 3: Update the MySQL Node</h3>
+<p>Update the MySQL node with the new access token. Go to the MySQL node, click on the three dots, and select "Edit". In the "Authentication" section, update the "Access Token" field with the new access token obtained in the previous step.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from occurring in the future, consider the following:</p>
+<ul>
+<li>Set up a scheduled task to refresh the access token periodically.</li>
+<li>Use a more robust authentication mechanism, such as OAuth 2.0, that can handle token revocation and expiration.</li>
+<li>Monitor the database credentials and update them as needed to prevent token revocation.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the issue persists, it may be necessary to escalate the issue to the n8n support team or the MySQL database administrator. Provide as much detail as possible about the issue, including the error message, the steps you have taken to resolve the issue, and any relevant logs or configuration files.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

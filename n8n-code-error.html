@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Code Node Error - Script Failed</title>
+<meta name="description" content="Fix the n8n Code node error &quot;Code script failed: invalid syntax&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-error.html">
+<meta property="og:title" content="Code Node Error - Script Failed">
+<meta property="og:description" content="Fix the n8n Code node error &quot;Code script failed: invalid syntax&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Code Node Error - Script Failed",
+  "description":"Fix the n8n Code node error \"Code script failed: invalid syntax\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: Code script failed: invalid syntax"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Code Node Error - Script Failed</h1>
+<div class="err">Error: Code script failed: invalid syntax · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Code script failed: invalid syntax" error in n8n indicates that there is a problem with the JavaScript or Python code you've written in the Code node. This error is not specific to n8n, but rather a standard error in programming languages. When you see this error, it means that the code is not being executed correctly, likely due to a syntax error.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Syntax errors in JavaScript or Python code</strong>: Make sure you've written the code correctly, paying attention to brackets, semicolons, and indentation.</li>
+<li><strong>Incorrect code formatting</strong>: Ensure that your code is properly formatted, with consistent indentation and line breaks.</li>
+<li><strong>Missing or incorrect dependencies</strong>: If you're using external libraries or modules, ensure they're properly imported and configured.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check the code</strong>: Review the code you've written in the Code node, paying attention to syntax, formatting, and dependencies.</li>
+<li><strong>Use a linter</strong>: Use a linter like ESLint (for JavaScript) or Pylint (for Python) to identify syntax errors and potential issues.</li>
+<li><strong>Test the code</strong>: Run the code in a separate environment, such as a JavaScript console or a Python interpreter, to ensure it executes correctly.</li>
+</ol>
+<p>Here's an example of a JavaScript code block that you can paste into a Code node to test:</p>
+<pre><code class="language-javascript">function main() {
+  const input = {
+    "data": {
+      "name": "John",
+      "age": 30
+    }
+  };
+
+  const output = {
+    "data": {
+      "greeting": `Hello, ${input.data.name}! You are ${input.data.age} years old.`
+    }
+  };
+
+  return output;
+}</code></pre>
+<p>This code block demonstrates a simple function that takes an input object and returns an output object with a greeting message.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from recurring, follow these best practices:</p>
+<ol>
+<li><strong>Use a linter</strong>: Regularly run a linter on your code to catch syntax errors and potential issues.</li>
+<li><strong>Test your code</strong>: Thoroughly test your code in a separate environment to ensure it executes correctly.</li>
+<li><strong>Keep your code up-to-date</strong>: Regularly update your code to the latest version, and ensure you're using the correct dependencies.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and still encounter the "Code script failed: invalid syntax" error, it may be time to escalate the issue. This could involve:</p>
+<ol>
+<li><strong>Checking the n8n documentation</strong>: Ensure you're using the correct syntax and configuration for the Code node.</li>
+<li><strong>Reaching out to the n8n community</strong>: Ask for help on the n8n forums or Discord channel.</li>
+<li><strong>Contacting n8n support</strong>: If you're a paid customer, reach out to n8n support for assistance.</li>
+</ol>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Slack Webhook node token error</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;Error: Slack Webhook token is invalid or missing&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-webhook-token-error.html">
+<meta property="og:title" content="n8n Slack Webhook node token error">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;Error: Slack Webhook token is invalid or missing&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Slack Webhook node token error",
+  "description":"Fix the n8n Slack node error \"Error: Slack Webhook token is invalid or missing\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: Error: Slack Webhook token is invalid or missing"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Slack Webhook node token error</h1>
+<div class="err">Error: Error: Slack Webhook token is invalid or missing · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Error: Slack Webhook token is invalid or missing" indicates that the Slack Webhook token is either not provided or is incorrect in the n8n workflow. This token is required to authenticate and send messages to Slack.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why this error occurs:</p>
+<ol>
+<li><strong>Missing or empty Slack Webhook token</strong>: If the token is not provided in the Slack Webhook node's settings, n8n will throw an error.</li>
+<li><strong>Incorrect Slack Webhook token</strong>: If the token is incorrect or has been changed in the Slack Webhook settings, n8n will also throw an error.</li>
+<li><strong>Token expiration</strong>: Slack Webhook tokens have a limited lifespan and may expire if not used for a while.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check the Slack Webhook token</strong>: Go to the Slack Webhook node's settings and verify that the token is provided and correct. If it's empty, add the token from the Slack Webhook settings.</li>
+<li><strong>Verify token format</strong>: Ensure the token is in the correct format, which is usually a long string of characters. If it's not in the correct format, update it accordingly.</li>
+<li><strong>Check token expiration</strong>: If you're using a token that's been inactive for a while, it may have expired. Obtain a new token from the Slack Webhook settings and update it in the n8n workflow.</li>
+<li><strong>Test the workflow</strong>: After updating the token, test the workflow by sending a message to Slack. If the issue persists, proceed to the next step.</li>
+</ol>
+<p>Here's an example code block to verify the token format using a Code node (JavaScript):</p>
+<pre><code class="language-javascript">const token = 'YOUR_SLACK_WEBHOOK_TOKEN_HERE';
+if (token.length === 0) {
+  throw new Error('Slack Webhook token is empty');
+}
+if (!token.match(/^[a-zA-Z0-9=]+$/)) {
+  throw new Error('Slack Webhook token is not in the correct format');
+}</code></pre>
+<p>Replace <code>YOUR_SLACK_WEBHOOK_TOKEN_HERE</code> with the actual token from the Slack Webhook settings.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from recurring, follow these best practices:</p>
+<ol>
+<li><strong>Store the token securely</strong>: Store the Slack Webhook token securely, such as in an environment variable or a secrets manager.</li>
+<li><strong>Configure token refresh</strong>: Configure the workflow to refresh the token periodically, such as every 30 days.</li>
+<li><strong>Monitor token expiration</strong>: Monitor the token expiration date and obtain a new token before it expires.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and the issue persists, it may be due to a more complex issue, such as:</p>
+<ul>
+<li>Incorrect Slack Webhook settings</li>
+<li>Incompatible n8n or Slack versions</li>
+<li>Conflicting workflows or nodes</li>
+</ul>
+<p>In this case, escalate the issue to the n8n support team or a qualified n8n expert for further assistance. Provide detailed logs and error messages to aid in the troubleshooting process.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

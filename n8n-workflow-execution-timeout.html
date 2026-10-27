@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Workflow Execution Timeout — Fix</title>
+<meta name="description" content="Fix the n8n Workflow Settings node error &quot;Workflow execution timed out&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-workflow-execution-timeout.html">
+<meta property="og:title" content="n8n Workflow Execution Timeout — Fix">
+<meta property="og:description" content="Fix the n8n Workflow Settings node error &quot;Workflow execution timed out&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Workflow Execution Timeout — Fix",
+  "description":"Fix the n8n Workflow Settings node error \"Workflow execution timed out\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Workflow Settings node error: Workflow execution timed out"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Workflow Execution Timeout — Fix</h1>
+<div class="err">Error: Workflow execution timed out · Node: Workflow Settings</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the "Workflow execution timed out" error in n8n, it means that the workflow has been running for longer than the configured timeout period, and n8n has terminated it. This can happen when a workflow is designed to perform a long-running task, such as making multiple API calls or processing large amounts of data.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes of the "Workflow execution timed out" error:</p>
+<ol>
+<li><strong>Long-running workflows</strong>: If your workflow is designed to perform a long-running task, it may exceed the configured timeout period. This can happen if you're making multiple API calls, processing large amounts of data, or performing other computationally intensive tasks.</li>
+<li><strong>Insufficient resources</strong>: If your n8n instance is running on a resource-constrained environment, it may not be able to handle the workload of a long-running workflow. This can cause the workflow to timeout, even if it's not actually finished.</li>
+<li><strong>Incorrect timeout configuration</strong>: If the timeout period is set too low, it may cause the workflow to timeout prematurely, even if it's still performing necessary tasks.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Workflow execution timed out" error, you'll need to identify the root cause and take corrective action. Here's a step-by-step guide:</p>
+<ol>
+<li><strong>Identify the workflow</strong>: Determine which workflow is causing the timeout error. You can do this by checking the n8n logs or by reviewing the workflow's execution history.</li>
+<li><strong>Analyze the workflow</strong>: Review the workflow's design and identify any long-running tasks or computationally intensive operations. You can use the "Wait" node to add delays between tasks, but be careful not to introduce unnecessary delays.</li>
+<li><strong>Configure retries</strong>: Configure retries for any nodes that may be causing the workflow to timeout. You can do this by setting the "Retry On Fail" option to "true" and configuring the "Max Tries" and "Wait Between Tries (ms)" options.</li>
+<li><strong>Chunk large data sets</strong>: If the workflow is processing large amounts of data, consider chunking the data into smaller sets. This can help prevent the workflow from timing out due to excessive data processing.</li>
+<li><strong>Increase timeout period</strong>: If the workflow is genuinely long-running, consider increasing the timeout period. You can do this by setting the <code>EXECUTIONS_TIMEOUT</code> environment variable to a higher value.</li>
+</ol>
+<p>Here's an example code block that demonstrates how to chunk a large data set using the "Split" node:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "Split",
+      "parameters": {
+        "split": {
+          "method": "split",
+          "options": {
+            "size": 100
+          }
+        }
+      },
+      "type": "Split"
+    }
+  ]
+}</code></pre>
+<p>This code block uses the "Split" node to split a large data set into smaller chunks of 100 items each.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Workflow execution timed out" error from coming back, make sure to:</p>
+<ol>
+<li><strong>Monitor your workflows</strong>: Regularly review your workflow's execution history to identify any potential issues.</li>
+<li><strong>Configure retries</strong>: Configure retries for any nodes that may be causing the workflow to timeout.</li>
+<li><strong>Increase timeout period</strong>: If the workflow is genuinely long-running, consider increasing the timeout period.</li>
+<li><strong>Optimize your workflows</strong>: Regularly review and optimize your workflows to ensure they're running efficiently and effectively.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the "Workflow execution timed out" error persists, it may be necessary to escalate the issue to a senior n8n engineer or a support specialist. This could involve:</p>
+<ol>
+<li><strong>Reviewing the n8n logs</strong>: A senior n8n engineer or support specialist can review the n8n logs to identify any potential issues.</li>
+<li><strong>Analyzing the workflow</strong>: A senior n8n engineer or support specialist can analyze the workflow's design and identify any potential issues.</li>
+<li><strong>Configuring advanced settings</strong>: A senior n8n engineer or support specialist can configure advanced settings, such as custom node configurations or environment variables.</li>
+</ol>
+<p>In this case, it's essential to provide detailed information about the issue, including the workflow's design, the error message, and any relevant logs or data.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

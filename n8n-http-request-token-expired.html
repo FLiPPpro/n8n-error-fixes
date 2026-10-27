@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP Request node throws 'invalid_grant: Token has been expired or revoked' error</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste ">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-request-token-expired.html">
+<meta property="og:title" content="HTTP Request node throws 'invalid_grant: Token has been expired or revoked' error">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste ">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"HTTP Request node throws 'invalid_grant: Token has been expired or revoked' error",
+  "description":"Fix the n8n HTTP Request node error \"invalid_grant: Token has been expired or revoked\" — the three most common causes and a step-by-step solution you can paste ",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: invalid_grant: Token has been expired or revoked"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>HTTP Request node throws 'invalid_grant: Token has been expired or revoked' error</h1>
+<div class="err">Error: invalid_grant: Token has been expired or revoked · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "invalid_grant: Token has been expired or revoked" indicates that the access token used for authentication with the HTTP Request node has expired or been revoked. This can happen due to various reasons, such as a short-lived token, a token refresh issue, or an invalid token.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Expired access token</strong>: The access token used for authentication has expired, and the token refresh mechanism is not configured properly.</li>
+<li><strong>Token refresh issue</strong>: The token refresh mechanism is not configured correctly, or the token refresh endpoint is not reachable.</li>
+<li><strong>Invalid token</strong>: The access token used for authentication is invalid or has been revoked.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check the token expiration time</strong>: Verify that the access token used for authentication has not expired. You can do this by checking the token's expiration time in the token response.</li>
+<li><strong>Configure token refresh</strong>: If the token has expired, configure the token refresh mechanism to refresh the token before it expires. You can do this by setting the <code>Refresh Token</code> option to <code>true</code> in the HTTP Request node's Settings tab.</li>
+<li><strong>Use a longer-lived token</strong>: Consider using a longer-lived token to reduce the frequency of token refreshes.</li>
+<li><strong>Implement token refresh retry</strong>: To implement token refresh retry, you can use the <code>Wait</code> node to introduce a delay between token refresh attempts. Here's an example code block that you can use in a Code node:</li>
+</ol>
+<pre><code class="language-javascript">const tokenRefreshInterval = 5000; // 5 seconds
+const maxTokenRefreshAttempts = 3;
+
+// Token refresh retry logic
+function tokenRefreshRetry(attempts) {
+  if (attempts &gt;= maxTokenRefreshAttempts) {
+    // Token refresh failed, throw an error
+    throw new Error('Token refresh failed');
+  }
+  // Wait for the token refresh interval before retrying
+  const delay = tokenRefreshInterval * attempts;
+  return new Promise((resolve, reject) =&gt; {
+    setTimeout(() =&gt; {
+      resolve();
+    }, delay);
+  });
+}
+
+// Call the token refresh retry function
+tokenRefreshRetry(0)
+  .then(() =&gt; {
+    // Refresh the token
+    const tokenRefreshEndpoint = 'https://your-token-refresh-endpoint.com';
+    const token = await fetch(tokenRefreshEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        grant_type: 'refresh_token',
+        refresh_token: 'your-refresh-token',
+      }),
+    });
+    const newToken = await token.json();
+    // Use the new token for authentication
+  })
+  .catch((error) =&gt; {
+    // Handle token refresh error
+  });</code></pre>
+<ol>
+<li><strong>Implement error handling</strong>: To handle the case where the token refresh fails, you can use the <code>Error Trigger</code> to trigger an error in the workflow. Alternatively, you can use the <code>Continue On Fail</code> setting on the HTTP Request node to continue the workflow even if the token refresh fails.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, consider the following:</p>
+<ul>
+<li><strong>Monitor token expiration</strong>: Regularly monitor the token expiration time to ensure that the token does not expire before it is refreshed.</li>
+<li><strong>Implement token refresh monitoring</strong>: Implement monitoring for token refresh attempts to detect any issues with the token refresh mechanism.</li>
+<li><strong>Use a longer-lived token</strong>: Consider using a longer-lived token to reduce the frequency of token refreshes.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>Escalate this issue to your team or support channel if:</p>
+<ul>
+<li>You are unsure about how to configure the token refresh mechanism.</li>
+<li>You are experiencing frequent token refresh failures.</li>
+<li>You are unable to implement token refresh retry logic.</li>
+<li>You are experiencing issues with token expiration or invalid tokens.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

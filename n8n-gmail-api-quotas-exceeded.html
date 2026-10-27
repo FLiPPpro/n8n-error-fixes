@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gmail Node API Quotas Exceeded Error in n8n Workflow</title>
+<meta name="description" content="Fix the n8n Gmail node error &quot;API request had insufficient authentication scopes: the user doesn't have the necessary permission or the app is deleted and doesn">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-gmail-api-quotas-exceeded.html">
+<meta property="og:title" content="Gmail Node API Quotas Exceeded Error in n8n Workflow">
+<meta property="og:description" content="Fix the n8n Gmail node error &quot;API request had insufficient authentication scopes: the user doesn't have the necessary permission or the app is deleted and doesn">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Gmail Node API Quotas Exceeded Error in n8n Workflow",
+  "description":"Fix the n8n Gmail node error \"API request had insufficient authentication scopes: the user doesn't have the necessary permission or the app is deleted and doesn",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Gmail node error: API request had insufficient authentication scopes: the user doesn't have the necessary permission or the app is deleted and doesn't include the permission in its authorization scope"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Gmail Node API Quotas Exceeded Error in n8n Workflow</h1>
+<div class="err">Error: API request had insufficient authentication scopes: the user doesn't have the necessary permission or the app is deleted and doesn't include the permission in its authorization scope · Node: Gmail</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "API request had insufficient authentication scopes: the user doesn't have the necessary permission or the app is deleted and doesn't include the permission in its authorization scope" in n8n's Gmail node indicates that the authentication credentials you're using don't have the necessary permissions to access the Gmail API. This can happen when the app's authorization scope is not properly set up or when the user's account doesn't have the required permissions.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Insufficient authorization scope</strong>: When you set up the Gmail node, you need to specify the authorization scope. If the scope is not set correctly, the API request will fail.</li>
+<li><strong>Deleted or revoked app</strong>: If the app is deleted or revoked, the authorization scope will not be included, causing the API request to fail.</li>
+<li><strong>User account permissions</strong>: If the user account doesn't have the necessary permissions, the API request will fail.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check the authorization scope</strong>:</li>
+</ol>
+<p>* Go to the Gmail node's Settings tab. 	* Scroll down to the "Authorization" section. 	* Check that the authorization scope is set correctly. If not, update it to include the necessary permissions.</p>
+<ol>
+<li><strong>Verify the app's authorization scope</strong>:</li>
+</ol>
+<p>* Go to the Google Cloud Console. 	* Select the project that contains the app. 	* Navigate to the "OAuth 2.0 clients" page. 	* Check that the app's authorization scope is set correctly. If not, update it to include the necessary permissions.</p>
+<ol>
+<li><strong>Check user account permissions</strong>:</li>
+</ol>
+<p>* Go to the Google Admin Console. 	* Select the user account that's being used for authentication. 	* Check that the user has the necessary permissions to access the Gmail API.</p>
+<p>Here's an example of how to update the authorization scope in the Gmail node's Settings tab:</p>
+<pre><code class="language-json">{
+  "name": "Gmail",
+  "settings": {
+    "authorization": {
+      "scope": "https://www.googleapis.com/auth/gmail.readonly"
+    }
+  }
+}</code></pre>
+<p>In this example, the authorization scope is set to <code>https://www.googleapis.com/auth/gmail.readonly</code>, which includes the necessary permissions to access the Gmail API.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, follow these best practices:</p>
+<ul>
+<li>Regularly review and update the authorization scope to ensure it includes the necessary permissions.</li>
+<li>Verify that the user account has the necessary permissions to access the Gmail API.</li>
+<li>Use a separate project for the app to avoid conflicts with other projects.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's likely that there's a more complex issue at play. In this case, consider escalating to the n8n support team for further assistance. Provide as much detail as possible about the issue, including the error message, the node configuration, and any relevant logs. This will help the support team to better understand the issue and provide a more accurate solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTML Extract node parser error in n8n workflow</title>
+<meta name="description" content="Fix the n8n HTML Extract node error &quot;Error: Parser error occurred in HTML Extract node: Unexpected character&quot; — the three most common causes and a step-by-step ">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-html-extract-node-parser-error.html">
+<meta property="og:title" content="HTML Extract node parser error in n8n workflow">
+<meta property="og:description" content="Fix the n8n HTML Extract node error &quot;Error: Parser error occurred in HTML Extract node: Unexpected character&quot; — the three most common causes and a step-by-step ">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"HTML Extract node parser error in n8n workflow",
+  "description":"Fix the n8n HTML Extract node error \"Error: Parser error occurred in HTML Extract node: Unexpected character\" — the three most common causes and a step-by-step ",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTML Extract node error: Error: Parser error occurred in HTML Extract node: Unexpected character"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>HTML Extract node parser error in n8n workflow</h1>
+<div class="err">Error: Error: Parser error occurred in HTML Extract node: Unexpected character · Node: HTML Extract</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Unexpected character" error in the HTML Extract node is a generic error message that can occur due to various reasons. It's not a specific error that points to a particular cause, but rather a symptom of a problem that needs to be investigated further.</p>
+<p>When the HTML Extract node encounters an unexpected character, it throws this error, and the workflow stops. This error can be caused by malformed HTML, incorrect encoding, or even a bug in the node itself.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Malformed HTML</strong>: If the HTML input is not well-formed, the HTML Extract node may throw an error. This can happen when the HTML is generated dynamically or comes from an external source.</li>
+<li><strong>Incorrect encoding</strong>: If the HTML is encoded in a different format than what the node expects, it may cause the error. For example, if the HTML is encoded in UTF-8 but the node is set to use ISO-8859-1, it may throw an error.</li>
+<li><strong>Node configuration issues</strong>: In some cases, the error can be caused by incorrect node configuration, such as setting the wrong parser or encoding.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Unexpected character" error, follow these steps:</p>
+<ol>
+<li><strong>Check the HTML input</strong>: Verify that the HTML input is well-formed and correctly encoded. You can use an external tool like the W3C Markup Validation Service to check the HTML.</li>
+<li><strong>Configure the node correctly</strong>: Ensure that the node is configured to use the correct parser and encoding. You can do this by checking the node's settings tab and adjusting the configuration as needed.</li>
+<li><strong>Add a "Wait" node</strong>: To add a delay and retry the HTML Extract node, add a "Wait" node before the HTML Extract node. Set the wait time to a reasonable value, such as 10 seconds.</li>
+<li><strong>Use a "Code" node to log the error</strong>: To log the error and get more information about what's going on, add a "Code" node after the HTML Extract node. Use the following code to log the error:</li>
+</ol>
+<pre><code class="language-javascript">console.error('Error parsing HTML:', error);</code></pre>
+<p>This will log the error message and any additional information that might be useful for debugging.</p>
+<ol>
+<li><strong>Retry the HTML Extract node</strong>: To retry the HTML Extract node, add a "Continue On Fail" setting to the node. This will allow the node to retry the operation if it fails.</li>
+</ol>
+<p>Here's an example of how the workflow might look:</p>
+<pre><code class="language-markdown">- Start
+- Wait (10 seconds)
+- HTML Extract
+- Code (log error)
+- Continue On Fail (HTML Extract)
+- End</code></pre>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the HTML input for any issues</li>
+<li>Keep the node configuration up-to-date and correct</li>
+<li>Monitor the workflow for any errors and adjust the configuration as needed</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely that the issue is more complex and requires further investigation. In this case, it's best to escalate the issue to the n8n support team or a senior engineer for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

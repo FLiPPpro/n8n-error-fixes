@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Postgres node connection error</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;Error: Connection to Postgres database failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-connection-error.html">
+<meta property="og:title" content="n8n Postgres node connection error">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;Error: Connection to Postgres database failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Postgres node connection error",
+  "description":"Fix the n8n Postgres node error \"Error: Connection to Postgres database failed\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: Error: Connection to Postgres database failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Postgres node connection error</h1>
+<div class="err">Error: Error: Connection to Postgres database failed · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the error "Error: Connection to Postgres database failed" in n8n, it means that n8n is unable to establish a connection to your Postgres database. This can be due to various reasons such as incorrect database credentials, network issues, or database down.</p>
+<h2>The three most common causes</h2>
+<p>Here are the three most common causes of this error:</p>
+<ol>
+<li><strong>Incorrect database credentials</strong>: Make sure that the username, password, and host are correct in the Postgres node settings. Double-check that the database name and port are also correct.</li>
+<li><strong>Postgres database down</strong>: Ensure that the Postgres database is up and running. You can check the Postgres status by running a command like <code>psql -U <username> -d <database_name></code>. If the database is down, you'll need to resolve the issue with your Postgres administrator.</li>
+<li><strong>Network issues</strong>: Verify that the network connection between n8n and the Postgres database is stable. Check your firewall settings and ensure that the Postgres port (usually 5432) is open.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check Postgres database credentials</strong>:</li>
+</ol>
+<pre><code class="language-json">{
+  "name": "Postgres",
+  "type": "n8n",
+  "database": "your_database_name",
+  "username": "your_username",
+  "password": "your_password",
+  "host": "your_host",
+  "port": 5432
+}</code></pre>
+<p>Make sure that the credentials are correct and the database name, port, and host are also correct.</p>
+<ol>
+<li><strong>Verify Postgres database status</strong>:</li>
+</ol>
+<pre><code class="language-bash">psql -U your_username -d your_database_name</code></pre>
+<p>If the database is down, you'll need to resolve the issue with your Postgres administrator.</p>
+<ol>
+<li><strong>Check network connection</strong>:</li>
+</ol>
+<p>Verify that the network connection between n8n and the Postgres database is stable. Check your firewall settings and ensure that the Postgres port (usually 5432) is open.</p>
+<ol>
+<li><strong>Configure retry options</strong>:</li>
+</ol>
+<p>Go to the Postgres node settings and configure the retry options:</p>
+<ul>
+<li><strong>Retry On Fail</strong>: Enable this option to retry the connection if it fails.</li>
+<li><strong>Max Tries</strong>: Set the maximum number of retries.</li>
+<li><strong>Wait Between Tries (ms)</strong>: Set the delay between retries.</li>
+</ul>
+<p>You can also use the "Wait" node to add a delay between retries:</p>
+<pre><code class="language-json">{
+  "name": "Wait",
+  "type": "n8n",
+  "delay": 10000 // 10 seconds
+}</code></pre>
+<p>This will add a 10-second delay between retries.</p>
+<ol>
+<li><strong>Use Error Trigger</strong>:</li>
+</ol>
+<p>If the connection fails, you can use the Error Trigger to branch the workflow:</p>
+<pre><code class="language-json">{
+  "name": "Error Trigger",
+  "type": "n8n",
+  "conditions": {
+    "error": {
+      "type": "n8n",
+      "status": 500
+    }
+  }
+}</code></pre>
+<p>This will trigger the workflow to branch if the connection fails.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the Postgres database credentials and update them if necessary.</li>
+<li>Verify the Postgres database status regularly.</li>
+<li>Ensure that the network connection between n8n and the Postgres database is stable.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's time to escalate the issue. Reach out to your Postgres administrator to verify the database credentials and status. If the issue is with the network connection, contact your network administrator to resolve the issue. If none of the above steps resolve the issue, it's time to seek further assistance from the n8n community or support team.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

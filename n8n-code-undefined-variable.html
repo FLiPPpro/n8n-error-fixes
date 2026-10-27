@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Code node throws 'undefined is not an object'</title>
+<meta name="description" content="Fix the n8n Code node error &quot;ReferenceError: Variable is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-undefined-variable.html">
+<meta property="og:title" content="n8n Code node throws 'undefined is not an object'">
+<meta property="og:description" content="Fix the n8n Code node error &quot;ReferenceError: Variable is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Code node throws 'undefined is not an object'",
+  "description":"Fix the n8n Code node error \"ReferenceError: Variable is not defined\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: ReferenceError: Variable is not defined"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Code node throws 'undefined is not an object'</h1>
+<div class="err">Error: ReferenceError: Variable is not defined · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "ReferenceError: Variable is not defined" error in n8n's Code node is a common issue that occurs when you try to use a variable that has not been declared or initialized. This error is thrown by the JavaScript engine when it encounters a variable that is not defined in the current scope.</p>
+<p>In the context of the Code node, this error typically means that you are trying to access a variable that is not defined within the code block itself. This can happen when you are trying to use a variable that is defined in an external scope, such as a workflow parameter or a previous node's output.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes of this error:</p>
+<ol>
+<li><strong>Variable not defined in the code block</strong>: Make sure that the variable you are trying to use is defined within the code block. Check that the variable is declared and initialized before it is used.</li>
+<li><strong>Scope issues</strong>: Ensure that the variable is in scope within the code block. If the variable is defined in an external scope, you may need to use a different approach to access it.</li>
+<li><strong>Typo or naming conflict</strong>: Check that the variable name is correct and not conflicting with any other variable or function name.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the variable declaration</strong>: Make sure that the variable is declared and initialized before it is used. Check the code block for any typos or naming conflicts.</li>
+<li><strong>Use the <code>{{ }}</code> syntax</strong>: If the variable is defined in an external scope, you can use the <code>{{ }}</code> syntax to access it. For example:</li>
+</ol>
+<pre><code class="language-javascript">{{#each items}}
+  {{#if item.status === 'active'}}
+    // do something
+  {{/if}}
+{{/each}}</code></pre>
+<p>In this example, <code>items</code> is an array of objects that is defined in an external scope. The <code>{{#each }}</code> syntax is used to iterate over the array, and the <code>{{#if }}</code> syntax is used to check the status of each item.</p>
+<ol>
+<li><strong>Use a Code node to declare the variable</strong>: If the variable is not defined in an external scope, you can declare it in a Code node. For example:</li>
+</ol>
+<pre><code class="language-javascript">// declare a variable
+var myVariable = 'hello';
+
+// use the variable
+console.log(myVariable);</code></pre>
+<p>In this example, the variable <code>myVariable</code> is declared in the Code node, and then used in the same node.</p>
+<ol>
+<li><strong>Check the node's settings</strong>: Make sure that the node's settings are correct. Check the "Retry On Fail", "Max Tries", and "Wait Between Tries (ms)" settings to ensure that they are not causing the error.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, follow these best practices:</p>
+<ol>
+<li><strong>Declare variables carefully</strong>: Make sure that variables are declared and initialized before they are used.</li>
+<li><strong>Use the <code>{{ }}</code> syntax carefully</strong>: Use the <code>{{ }}</code> syntax to access variables defined in external scopes, but be careful not to introduce naming conflicts.</li>
+<li><strong>Test your code</strong>: Test your code thoroughly to ensure that it works as expected.</li>
+<li><strong>Use a Code node to declare variables</strong>: Consider declaring variables in a Code node to avoid scope issues.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the error still persists, it may be time to escalate the issue to the n8n community or support team. Provide as much detail as possible about the error, including the error message, the code block, and any relevant settings. This will help the community or support team to provide a more accurate and timely solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

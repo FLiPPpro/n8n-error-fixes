@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Code Node Execution Failed Error in n8n Workflow</title>
+<meta name="description" content="Fix the n8n Code node error &quot;Execution of the code failed: invalid syntax&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-node-execution-failed.html">
+<meta property="og:title" content="Code Node Execution Failed Error in n8n Workflow">
+<meta property="og:description" content="Fix the n8n Code node error &quot;Execution of the code failed: invalid syntax&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Code Node Execution Failed Error in n8n Workflow",
+  "description":"Fix the n8n Code node error \"Execution of the code failed: invalid syntax\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: Execution of the code failed: invalid syntax"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Code Node Execution Failed Error in n8n Workflow</h1>
+<div class="err">Error: Execution of the code failed: invalid syntax · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error message "Execution of the code failed: invalid syntax" in n8n, it means that the code you've written in the Code node is not being executed correctly due to a syntax error. This error is not specific to n8n and is a common issue in programming languages.</p>
+<h2>The three most common causes</h2>
+<p>There are several reasons why you might encounter this error. Here are the most common causes:</p>
+<ul>
+<li><strong>Typo or syntax error</strong>: A simple typo or syntax error in your code can cause the execution to fail. Make sure to check your code for any errors.</li>
+<li><strong>Unsupported syntax</strong>: n8n's Code node supports JavaScript and Python syntax. If you're using a different syntax, it will not work.</li>
+<li><strong>Incorrect code formatting</strong>: Make sure your code is properly formatted and indented. n8n's Code node uses a specific formatting style to execute the code.</li>
+</ul>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check your code</strong>: Go through your code and check for any typos or syntax errors. Make sure you're using the correct syntax (JavaScript or Python).</li>
+<li><strong>Use the correct syntax</strong>: If you're using JavaScript, make sure to use the <code>console.log()</code> function to output any results. If you're using Python, make sure to use the <code>print()</code> function.</li>
+<li><strong>Format your code</strong>: Make sure your code is properly formatted and indented. You can use an IDE or a code editor to format your code.</li>
+<li><strong>Test your code</strong>: Test your code by running it in a Code node. If it still fails, try to isolate the issue by breaking down your code into smaller chunks.</li>
+</ol>
+<p>Here's an example of a JavaScript code block that you can use to test the Code node:</p>
+<pre><code class="language-javascript">console.log("Hello, World!");</code></pre>
+<p>Paste this code into a Code node and run it. If it executes successfully, you can try adding more complex code.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li><strong>Test your code</strong>: Before deploying your workflow, test your code by running it in a Code node.</li>
+<li><strong>Use version control</strong>: Use version control to track changes to your code and prevent typos or syntax errors.</li>
+<li><strong>Keep your code up-to-date</strong>: Make sure your code is up-to-date and uses the latest syntax.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and still encounter the error, it's time to escalate the issue. Reach out to the n8n community or the support team for further assistance. Provide as much detail as possible about the error, including the code you're using and the exact error message. This will help the support team to diagnose and fix the issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

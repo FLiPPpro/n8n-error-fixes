@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Error Database Not Found in n8n Postgres Node</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;Database not found: invalid_database_name&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-node-database-not-found.html">
+<meta property="og:title" content="Error Database Not Found in n8n Postgres Node">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;Database not found: invalid_database_name&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Error Database Not Found in n8n Postgres Node",
+  "description":"Fix the n8n Postgres node error \"Database not found: invalid_database_name\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: Database not found: invalid_database_name"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Error Database Not Found in n8n Postgres Node</h1>
+<div class="err">Error: Database not found: invalid_database_name · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The <code>Database not found: invalid_database_name</code> error in n8n's Postgres node indicates that the node is unable to connect to the specified database. This error is not related to the Postgres node's connection settings, but rather to the database itself not existing or being inaccessible.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Database name typo or misspelling</strong>: Double-check that the database name is spelled correctly and matches the one in your Postgres database.</li>
+<li><strong>Database not created or not accessible</strong>: Verify that the database has been created and is accessible by the Postgres user account used in the n8n workflow.</li>
+<li><strong>Postgres user account issues</strong>: Ensure that the Postgres user account used in the n8n workflow has the necessary permissions to connect to the database.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the <code>Database not found: invalid_database_name</code> error, follow these steps:</p>
+<ol>
+<li><strong>Verify database name</strong>: Check the database name in the Postgres node's settings and ensure it matches the one in your Postgres database. If you're unsure, you can use the <code>psql</code> command-line tool to list all databases:</li>
+</ol>
+<pre><code class="language-bash">psql -U postgres -c "SELECT datname FROM pg_database;"</code></pre>
+<p>This will list all databases in your Postgres instance. Verify that the database you're trying to connect to is in the list.</p>
+<ol>
+<li><strong>Create the database (if necessary)</strong>: If the database doesn't exist, create it using the <code>psql</code> command-line tool:</li>
+</ol>
+<pre><code class="language-bash">psql -U postgres -c "CREATE DATABASE mydatabase;"</code></pre>
+<p>Replace <code>mydatabase</code> with the name of the database you want to create.</p>
+<ol>
+<li><strong>Grant permissions to the Postgres user account</strong>: Ensure that the Postgres user account used in the n8n workflow has the necessary permissions to connect to the database. You can grant permissions using the <code>psql</code> command-line tool:</li>
+</ol>
+<pre><code class="language-sql">psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;"</code></pre>
+<p>Replace <code>myuser</code> with the name of the Postgres user account used in the n8n workflow.</p>
+<ol>
+<li><strong>Update the Postgres node's settings</strong>: Update the Postgres node's settings to use the correct database name and user account.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, follow these best practices:</p>
+<ul>
+<li>Double-check the database name and user account in the Postgres node's settings.</li>
+<li>Verify that the database has been created and is accessible by the Postgres user account.</li>
+<li>Grant necessary permissions to the Postgres user account.</li>
+<li>Consider using a <code>Wait</code> node to introduce a delay between connection attempts, in case the database is temporarily unavailable.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely due to a more complex issue, such as:</p>
+<ul>
+<li>A Postgres configuration issue</li>
+<li>A database schema issue</li>
+<li>A Postgres user account issue</li>
+</ul>
+<p>In this case, it's recommended to escalate the issue to a Postgres administrator or a senior developer with experience in Postgres and n8n. They can help investigate and resolve the underlying issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Telegram node returns SSL disabled error</title>
+<meta name="description" content="Fix the n8n Telegram node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-telegram-ssl-disabled.html">
+<meta property="og:title" content="n8n Telegram node returns SSL disabled error">
+<meta property="og:description" content="Fix the n8n Telegram node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Telegram node returns SSL disabled error",
+  "description":"Fix the n8n Telegram node error \"SSL connection is required\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Telegram node error: SSL connection is required"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Telegram node returns SSL disabled error</h1>
+<div class="err">Error: SSL connection is required · Node: Telegram</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "SSL connection is required" error in n8n while trying to connect to Telegram, it means that the Telegram node is unable to establish a secure connection with the Telegram API. This is because the Telegram API requires all connections to be made over a secure SSL/TLS connection.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why this error occurs:</p>
+<ol>
+<li><strong>SSL/TLS not enabled on the Telegram node</strong>: By default, the Telegram node in n8n is not configured to use SSL/TLS. This means that when you try to connect to the Telegram API, it will throw an error because it expects a secure connection.</li>
+<li><strong>Incorrect Telegram API URL</strong>: If you've entered the wrong URL for the Telegram API, it may not be able to establish a secure connection. Make sure you've entered the correct URL, which should start with <code>https://</code>.</li>
+<li><strong>n8n configuration issue</strong>: There may be a configuration issue in n8n that's preventing the Telegram node from using SSL/TLS.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Enable SSL/TLS on the Telegram node</strong>:</li>
+</ol>
+<p>* Open the Telegram node in your workflow. 	* Click on the "Settings" tab. 	* Scroll down to the "SSL/TLS" section. 	* Select the "Enable SSL/TLS" checkbox.</p>
+<ol>
+<li><strong>Verify the Telegram API URL</strong>:</li>
+</ol>
+<p>* Double-check that you've entered the correct URL for the Telegram API. 	* Make sure it starts with <code>https://</code>.</p>
+<ol>
+<li><strong>Configure the Telegram node to use the correct SSL/TLS settings</strong>:</li>
+</ol>
+<p>* In the "Settings" tab of the Telegram node, scroll down to the "SSL/TLS" section. 	* Select the "Use custom SSL/TLS settings" checkbox. 	* Enter the following JSON configuration:</p>
+<pre><code class="language-json">{
+  "ssl": {
+    "verify": true,
+    "rejectUnauthorized": true
+  }
+}</code></pre>
+<p>This configuration tells the Telegram node to verify the SSL/TLS certificate of the Telegram API and reject any unauthorized connections.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, make sure to:</p>
+<ul>
+<li>Regularly review your n8n configuration to ensure that all nodes are properly configured.</li>
+<li>Verify that the Telegram API URL is correct and starts with <code>https://</code>.</li>
+<li>Keep your n8n installation up-to-date to ensure that you have the latest security patches.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and are still experiencing issues, it may be time to escalate the problem. This could involve:</p>
+<ul>
+<li>Checking the n8n logs for any errors or warnings related to the Telegram node.</li>
+<li>Consulting the n8n documentation or community forums for more information on configuring the Telegram node.</li>
+<li>Reaching out to the n8n support team for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

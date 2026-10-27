@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MongoDB node in n8n connection lost error on restart</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;Connection lost: Unable to reconnect&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongodb-node-connection-lost-error.html">
+<meta property="og:title" content="MongoDB node in n8n connection lost error on restart">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;Connection lost: Unable to reconnect&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MongoDB node in n8n connection lost error on restart",
+  "description":"Fix the n8n MongoDB node error \"Connection lost: Unable to reconnect\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: Connection lost: Unable to reconnect"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MongoDB node in n8n connection lost error on restart</h1>
+<div class="err">Error: Connection lost: Unable to reconnect · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the "Connection lost: Unable to reconnect" error in n8n, it means that the integration with your MongoDB database has lost its connection. This can happen due to various reasons such as network issues, database downtime, or incorrect configuration. The error message is clear, but the underlying cause might not be immediately apparent. In this article, we'll explore the common causes of this error and provide a step-by-step guide to fix it.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Network issues</strong>: This is the most common cause of connection loss. If your MongoDB instance is not reachable from the n8n server, you'll see this error.</li>
+<li><strong>Database downtime</strong>: If your MongoDB database is down for maintenance or has encountered an issue, n8n will not be able to connect.</li>
+<li><strong>Incorrect configuration</strong>: Misconfigured MongoDB credentials or connection settings can cause the connection to fail.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Connection lost: Unable to reconnect" error, follow these steps:</p>
+<ol>
+<li><strong>Check the MongoDB credentials</strong>: Ensure that the MongoDB credentials (username, password, and host) are correct and up-to-date. You can do this by checking the <code>Settings</code> tab of the MongoDB node.</li>
+<li><strong>Verify the connection settings</strong>: Double-check the connection settings, such as the database name, collection name, and port number. Make sure they match the actual MongoDB configuration.</li>
+<li><strong>Check the MongoDB instance</strong>: Verify that the MongoDB instance is running and accessible from the n8n server. You can use a tool like <code>mongo</code> or a MongoDB client to check the instance's status.</li>
+<li><strong>Add retries to the MongoDB node</strong>: Configure the MongoDB node to retry the connection. You can do this by setting the <code>Retry On Fail</code> option to <code>true</code> and adjusting the <code>Max Tries</code> and <code>Wait Between Tries (ms)</code> settings to your desired values.</li>
+</ol>
+<p>Here's an example code block that you can paste into a <code>Code</code> node to add retries to the MongoDB node:</p>
+<pre><code class="language-json">{
+  "name": "MongoDB",
+  "settings": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTries": 5000
+  }
+}</code></pre>
+<p>This code sets the <code>retryOnFail</code> option to <code>true</code>, allowing the node to retry the connection. It also sets the <code>maxTries</code> option to 3, which means the node will retry the connection up to 3 times. The <code>waitBetweenTries</code> option is set to 5000ms, which means the node will wait 5 seconds between retries.</p>
+<ol>
+<li><strong>Test the connection</strong>: After making these changes, test the connection by running a workflow or a single operation. If the connection is successful, you should see the data being processed or inserted into the MongoDB database.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Connection lost: Unable to reconnect" error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the MongoDB credentials and connection settings for any changes or updates.</li>
+<li>Monitor the MongoDB instance for any issues or downtime.</li>
+<li>Adjust the retry settings on the MongoDB node to suit your specific needs.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely that there's a more complex issue at play. In this case, you may need to:</p>
+<ul>
+<li>Consult the n8n documentation and community forums for more advanced troubleshooting guides.</li>
+<li>Reach out to the MongoDB support team for assistance with database configuration or troubleshooting.</li>
+<li>Escalate the issue to your organization's IT department or a professional services team for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

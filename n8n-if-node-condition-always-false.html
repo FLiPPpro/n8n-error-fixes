@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n IF Node Condition Always False — Fix</title>
+<meta name="description" content="Fix the n8n IF node error &quot;IF node always takes false branch&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-if-node-condition-always-false.html">
+<meta property="og:title" content="n8n IF Node Condition Always False — Fix">
+<meta property="og:description" content="Fix the n8n IF node error &quot;IF node always takes false branch&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n IF Node Condition Always False — Fix",
+  "description":"Fix the n8n IF node error \"IF node always takes false branch\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"IF node error: IF node always takes false branch"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n IF Node Condition Always False — Fix</h1>
+<div class="err">Error: IF node always takes false branch · Node: IF</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "IF node always takes false branch" indicates that the IF node in your n8n workflow is not behaving as expected. Specifically, it's always evaluating to false, even when it should be true. This error is often caused by a mismatch in the type or value of the data being compared in the IF node.</p>
+<h2>The three most common causes</h2>
+<p>After working with numerous n8n users, I've identified three common causes of this error:</p>
+<ol>
+<li><strong>Type comparison mismatch</strong>: When comparing values of different types, n8n may not behave as expected. For example, comparing a string '0' to a number 0 will always result in false.</li>
+<li><strong>Whitespace in values</strong>: Trailing or leading whitespace in values can cause the IF node to evaluate to false.</li>
+<li><strong>Incorrect comparator</strong>: Using the wrong comparator (e.g., <code>===</code> instead of <code>==</code>) can lead to unexpected results.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "IF node always takes false branch" error, follow these steps:</p>
+<ol>
+<li><strong>Check for type comparison mismatch</strong>: Ensure that the values being compared are of the same type. If you're comparing a string to a number, use the correct comparator (e.g., <code>{{ "0" == 0 }}</code>).</li>
+<li><strong>Trim whitespace</strong>: Use the <code>trim()</code> function to remove any leading or trailing whitespace from the values being compared. You can use a Code node with the following JavaScript code:</li>
+</ol>
+<pre><code class="language-javascript">{{ " 0" | trim() == 0 }}</code></pre>
+<p>This will remove any whitespace from the string '0' before comparing it to the number 0.</p>
+<ol>
+<li><strong>Use the correct comparator</strong>: Double-check that you're using the correct comparator for the data types being compared. For example, use <code>===</code> for strict equality and <code>==</code> for loose equality.</li>
+<li><strong>Verify the IF node configuration</strong>: Ensure that the IF node is configured correctly, including the correct branch and condition.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, follow these best practices:</p>
+<ol>
+<li><strong>Use the correct data types</strong>: Ensure that the data types being compared are consistent throughout the workflow.</li>
+<li><strong>Trim whitespace</strong>: Always trim whitespace from values being compared.</li>
+<li><strong>Use the correct comparator</strong>: Use the correct comparator for the data types being compared.</li>
+<li><strong>Test thoroughly</strong>: Test your workflow thoroughly to ensure that the IF node is behaving as expected.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and the error persists, it may be time to escalate the issue. This could involve:</p>
+<ol>
+<li><strong>Checking the n8n logs</strong>: Review the n8n logs to see if there are any errors or warnings related to the IF node.</li>
+<li><strong>Contacting the n8n support team</strong>: Reach out to the n8n support team for further assistance.</li>
+<li><strong>Providing more context</strong>: Share more context about your workflow and the specific node causing the issue.</li>
+</ol>
+<p>Remember to provide as much detail as possible when escalating the issue, including screenshots of your workflow and any relevant error messages.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

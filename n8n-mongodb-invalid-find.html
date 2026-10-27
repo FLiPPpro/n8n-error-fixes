@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Invalid Find Query in MongoDB Node n8n Error</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;Error: Invalid find query&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongodb-invalid-find.html">
+<meta property="og:title" content="Invalid Find Query in MongoDB Node n8n Error">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;Error: Invalid find query&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Invalid Find Query in MongoDB Node n8n Error",
+  "description":"Fix the n8n MongoDB node error \"Error: Invalid find query\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: Error: Invalid find query"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Invalid Find Query in MongoDB Node n8n Error</h1>
+<div class="err">Error: Error: Invalid find query · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Invalid find query" error in n8n's MongoDB node occurs when the node attempts to execute a query on the MongoDB database but encounters a problem with the query itself. This can happen for a variety of reasons, including incorrect syntax, missing or extra fields, or invalid query operators. When the node encounters this error, it will stop processing and display the error message.</p>
+<h2>The three most common causes</h2>
+<p>The most common causes of the "Invalid find query" error are:</p>
+<ol>
+<li><strong>Incorrect query syntax</strong>: This can occur when you're using a query operator or function that's not supported by MongoDB or is not used correctly.</li>
+<li><strong>Missing or extra fields</strong>: If you're trying to query a field that doesn't exist in the collection or include a field that's not relevant to the query, you'll get this error.</li>
+<li><strong>Invalid query operator</strong>: Using a query operator that's not supported by MongoDB or is not used correctly can also cause this error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Invalid find query" error, follow these steps:</p>
+<ol>
+<li><strong>Check the query syntax</strong>: Double-check the query syntax to ensure you're using the correct operators and functions.</li>
+<li><strong>Verify the fields</strong>: Make sure you're querying the correct fields and that they exist in the collection.</li>
+<li><strong>Use a Code node to validate the query</strong>: If you're still unsure about the query, use a Code node to validate it. You can use the following JavaScript code to validate the query:</li>
+</ol>
+<pre><code class="language-javascript">const query = {
+  "filter": {
+    "name": {
+      "$eq": "John"
+    }
+  }
+};
+
+const queryJson = JSON.stringify(query);
+console.log(queryJson);</code></pre>
+<p>This code will output the query in JSON format, which you can then use to validate it.</p>
+<ol>
+<li><strong>Update the query</strong>: Once you've validated the query, update it to fix any issues.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Invalid find query" error from coming back, follow these best practices:</p>
+<ol>
+<li><strong>Test your queries</strong>: Always test your queries before running them in production.</li>
+<li><strong>Use a Code node to validate queries</strong>: Use a Code node to validate your queries before running them in n8n.</li>
+<li><strong>Keep your queries up-to-date</strong>: Regularly review and update your queries to ensure they're correct and up-to-date.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and are still experiencing issues with the "Invalid find query" error, it may be time to escalate the issue. This could involve:</p>
+<ol>
+<li><strong>Checking the MongoDB logs</strong>: Check the MongoDB logs to see if there are any errors or warnings related to the query.</li>
+<li><strong>Contacting MongoDB support</strong>: If you're still unsure about the issue, contact MongoDB support for further assistance.</li>
+<li><strong>Seeking help from the n8n community</strong>: Reach out to the n8n community for help and guidance on resolving the issue.</li>
+</ol>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

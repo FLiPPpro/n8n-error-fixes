@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Postgres webhook not registered in n8n error</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;The requested webhook is not registered&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-webhook-not-registered.html">
+<meta property="og:title" content="Postgres webhook not registered in n8n error">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;The requested webhook is not registered&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Postgres webhook not registered in n8n error",
+  "description":"Fix the n8n Postgres node error \"The requested webhook is not registered\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: The requested webhook is not registered"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Postgres webhook not registered in n8n error</h1>
+<div class="err">Error: The requested webhook is not registered · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "The requested webhook is not registered" error in n8n occurs when the workflow is trying to send a request to a webhook that has not been registered in the Postgres database. This can happen when you're testing a Postgres webhook after the workflow has stopped listening.</p>
+<p>When a workflow is stopped, it will not be able to send any new requests to webhooks. If you try to test a Postgres webhook in this state, you'll get this error. This is because the webhook is not registered in the database, and the workflow is unable to register it.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Workflow stopped listening</strong>: As mentioned earlier, if the workflow is stopped, it will not be able to send any new requests to webhooks. This is the most common cause of this error.</li>
+<li><strong>Webhook not registered</strong>: If the webhook is not registered in the Postgres database, the workflow will not be able to send requests to it.</li>
+<li><strong>Incorrect webhook URL</strong>: If the webhook URL is incorrect, the workflow will not be able to send requests to it, resulting in this error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Start the workflow</strong>: Make sure the workflow is started and listening for new requests.</li>
+<li><strong>Register the webhook</strong>: In the Postgres database, register the webhook by running the following SQL query:</li>
+</ol>
+<pre><code class="language-sql">INSERT INTO webhooks (id, name, url, enabled) VALUES ('your-webhook-id', 'Your Webhook Name', 'your-webhook-url', true);</code></pre>
+<p>Replace <code>'your-webhook-id'</code>, <code>'Your Webhook Name'</code>, and <code>'your-webhook-url'</code> with your actual webhook ID, name, and URL.</p>
+<ol>
+<li><strong>Configure the HTTP Request node</strong>: In the HTTP Request node, make sure the <code>Webhook URL</code> field is set to the correct URL of the registered webhook.</li>
+<li><strong>Test the workflow</strong>: Once the workflow is started and the webhook is registered, test the workflow by sending a new request to the webhook.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Always start the workflow before testing webhooks.</li>
+<li>Register webhooks in the Postgres database before sending requests to them.</li>
+<li>Double-check the webhook URL in the HTTP Request node.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you're still experiencing issues with the "The requested webhook is not registered" error, it's possible that there's an issue with the Postgres database or the workflow configuration. In this case, it's best to:</p>
+<ul>
+<li>Check the Postgres database logs for any errors related to webhook registration.</li>
+<li>Verify that the workflow is configured correctly and that the HTTP Request node is set up to send requests to the correct webhook URL.</li>
+<li>Reach out to the n8n community or the n8n support team for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

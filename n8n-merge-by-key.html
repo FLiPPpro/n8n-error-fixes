@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Merge Node Error - Missing Key</title>
+<meta name="description" content="Fix the n8n Merge node error &quot;Merge node outputs fewer items than inputs (missing key)&quot; — the three most common causes and a step-by-step solution you can paste">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-merge-by-key.html">
+<meta property="og:title" content="Merge Node Error - Missing Key">
+<meta property="og:description" content="Fix the n8n Merge node error &quot;Merge node outputs fewer items than inputs (missing key)&quot; — the three most common causes and a step-by-step solution you can paste">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Merge Node Error - Missing Key",
+  "description":"Fix the n8n Merge node error \"Merge node outputs fewer items than inputs (missing key)\" — the three most common causes and a step-by-step solution you can paste",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Merge node error: Merge node outputs fewer items than inputs (missing key)"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Merge Node Error - Missing Key</h1>
+<div class="err">Error: Merge node outputs fewer items than inputs (missing key) · Node: Merge</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error "Merge node outputs fewer items than inputs (missing key)" is a common issue in n8n workflows. It occurs when the Merge node is unable to combine data from multiple inputs due to a missing key. This key is used to identify and merge matching records from different inputs.</p>
+<p>In essence, the error is telling you that the Merge node is not able to find a common key to merge the data on. This can happen when the data from different inputs does not have a matching key, or when the key is not properly configured in the Merge node.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Missing key configuration</strong>: The key used to merge data is not properly configured in the Merge node. This can happen when the key is not selected, or when the key is not correctly formatted.</li>
+<li><strong>Data inconsistency</strong>: The data from different inputs does not have a matching key. This can happen when the data is not properly formatted, or when the key is not consistently used across different inputs.</li>
+<li><strong>Incorrect data type</strong>: The data type of the key is not consistent across different inputs. This can happen when the key is a string in one input, but an integer in another input.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the key configuration</strong>: Go to the Merge node and check if the key is properly configured. Make sure the key is selected and correctly formatted.</li>
+<li><strong>Check data consistency</strong>: Check the data from different inputs to ensure that the key is consistently used. If the data is not consistent, you may need to modify the data before it reaches the Merge node.</li>
+<li><strong>Check data type</strong>: Check the data type of the key in different inputs. If the data type is not consistent, you may need to convert the data type before it reaches the Merge node.</li>
+</ol>
+<p>Here is an example of how you can check the key configuration and data consistency using JavaScript in a Code node:</p>
+<pre><code class="language-javascript">const data = [
+  { id: 1, name: 'John' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Bob' }
+];
+
+const key = 'id';
+
+const mergedData = data.reduce((acc, curr) =&gt; {
+  if (!acc.find(item =&gt; item[key] === curr[key])) {
+    acc.push(curr);
+  }
+  return acc;
+}, []);
+
+console.log(mergedData);</code></pre>
+<p>This code checks if the key is consistently used across different inputs. If the key is not consistently used, the code will not merge the data.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li><strong>Regularly check data consistency</strong>: Regularly check the data from different inputs to ensure that the key is consistently used.</li>
+<li><strong>Use a consistent data type</strong>: Use a consistent data type for the key across different inputs.</li>
+<li><strong>Use a backup key</strong>: Use a backup key in case the primary key is missing.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the error still persists, it may be time to escalate the issue. This can happen when:</p>
+<ul>
+<li><strong>Data is complex</strong>: The data is complex and requires a custom solution.</li>
+<li><strong>Data is inconsistent</strong>: The data is inconsistent and requires manual intervention.</li>
+<li><strong>Key is missing</strong>: The key is missing and cannot be recovered.</li>
+</ul>
+<p>In this case, it is recommended to reach out to the n8n community or support team for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

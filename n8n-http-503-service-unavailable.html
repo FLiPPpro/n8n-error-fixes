@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP Request node 503 Service Unavailable error</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;503 Service Unavailable&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-503-service-unavailable.html">
+<meta property="og:title" content="HTTP Request node 503 Service Unavailable error">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;503 Service Unavailable&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"HTTP Request node 503 Service Unavailable error",
+  "description":"Fix the n8n HTTP Request node error \"503 Service Unavailable\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: 503 Service Unavailable"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>HTTP Request node 503 Service Unavailable error</h1>
+<div class="err">Error: 503 Service Unavailable · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "503 Service Unavailable" error in n8n's HTTP Request node means that the server you're trying to send a request to is temporarily unavailable. This can be due to various reasons such as server overload, maintenance, or network issues.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Server Overload</strong>: The server you're trying to reach is currently overwhelmed with requests and cannot handle your request.</li>
+<li><strong>Network Issues</strong>: There's a problem with the network connection between your n8n instance and the server you're trying to reach.</li>
+<li><strong>Server Maintenance</strong>: The server is undergoing maintenance or is being updated, making it temporarily unavailable.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "503 Service Unavailable" error, follow these steps:</p>
+<ol>
+<li><strong>Check the server status</strong>: Before proceeding, check the status of the server you're trying to reach. You can do this by visiting the server's website or checking its status page.</li>
+<li><strong>Configure retries</strong>: Go to the HTTP Request node's Settings tab and configure retries:</li>
+</ol>
+<p>* Enable "Retry On Fail" 	* Set "Max Tries" to a reasonable number (e.g., 3-5) 	* Set "Wait Between Tries (ms)" to a suitable delay (e.g., 5000-10000)</p>
+<ol>
+<li><strong>Add a delay</strong>: If the server is experiencing high traffic, adding a delay between retries can help. Use the "Wait" node (real) to add a delay:</li>
+</ol>
+<pre><code class="language-javascript">// Add a 5-second delay between retries
+node.delay = 5000;</code></pre>
+<ol>
+<li><strong>Branch on error</strong>: Use the "Error Trigger" (real workflow trigger) or the "Continue On Fail" setting on the HTTP Request node to branch on error. This will allow you to handle the error and continue with the workflow:</li>
+</ol>
+<pre><code class="language-javascript">// Use the Error Trigger to branch on error
+node.on('error', () =&gt; {
+  // Handle the error here
+  // ...
+});</code></pre>
+<ol>
+<li><strong>Verify the request</strong>: Double-check the request you're sending to ensure it's correct. Verify the URL, headers, and body of the request.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "503 Service Unavailable" error from coming back, consider the following:</p>
+<ul>
+<li><strong>Monitor server status</strong>: Regularly check the status of the server you're trying to reach. If it's experiencing high traffic or maintenance, consider using a different server or service.</li>
+<li><strong>Configure retries</strong>: Make sure retries are configured correctly. If the server is experiencing high traffic, increasing the delay between retries can help.</li>
+<li><strong>Use a load balancer</strong>: If you're experiencing high traffic, consider using a load balancer to distribute the traffic across multiple servers.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the "503 Service Unavailable" error persists, it's time to escalate the issue. Reach out to the server administrator or the team responsible for the server you're trying to reach. Provide them with the error details and any relevant logs or information. They may be able to help you resolve the issue or provide additional guidance on how to handle the error.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

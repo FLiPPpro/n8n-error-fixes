@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Webhook node explicit cast failure error</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;needs explicit cast.&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-cast-failure.html">
+<meta property="og:title" content="n8n Webhook node explicit cast failure error">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;needs explicit cast.&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Webhook node explicit cast failure error",
+  "description":"Fix the n8n Webhook node error \"needs explicit cast.\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: needs explicit cast."
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Webhook node explicit cast failure error</h1>
+<div class="err">Error: needs explicit cast. · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "needs explicit cast" error in n8n, it means that the Webhook node is unable to automatically convert a string value to a number or boolean value. This can happen when the data received from the webhook is not in the expected format, or when the node is configured to expect a specific data type that is not being provided.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Incorrect data format</strong>: If the webhook is sending data in a format that is not recognized by the Webhook node, you may see this error. This can happen if the webhook is sending data as a string, but the node is expecting it to be a number or boolean.</li>
+<li><strong>Missing or incorrect field configuration</strong>: If the field in the Webhook node is not configured correctly, or if the field is missing altogether, you may see this error.</li>
+<li><strong>Data type mismatch</strong>: If the data being sent by the webhook is of a different type than what is expected by the node, you may see this error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, you need to ensure that the data being sent by the webhook is in the correct format and that the field configuration in the Webhook node is correct. Here are the steps to follow:</p>
+<ol>
+<li><strong>Check the webhook data format</strong>: Verify that the data being sent by the webhook is in the correct format. If the data is being sent as a string, but the node is expecting it to be a number or boolean, you may need to add an explicit cast to the field.</li>
+<li><strong>Configure the field correctly</strong>: Ensure that the field in the Webhook node is configured correctly. If the field is missing, add it to the node. If the field is not configured correctly, update the configuration to match the expected data type.</li>
+<li><strong>Add an explicit cast</strong>: If the data being sent by the webhook is a string, but the node is expecting it to be a number or boolean, you can add an explicit cast to the field using the <code>{{ }}</code> syntax. For example, if the field is called <code>age</code> and the data being sent is a string, you can add the following code to the field:</li>
+</ol>
+<pre><code class="language-json">{{ $node["age"].data = parseInt($node["age"].data) }}</code></pre>
+<p>This code uses the <code>parseInt()</code> function to convert the string value to an integer.</p>
+<ol>
+<li><strong>Test the workflow</strong>: Once you have made the necessary changes, test the workflow to ensure that the issue is resolved.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, make sure to:</p>
+<ul>
+<li>Verify the data format being sent by the webhook</li>
+<li>Configure the field correctly in the Webhook node</li>
+<li>Add an explicit cast to the field if necessary</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the issue persists, it may be necessary to escalate the issue to a senior engineer or the n8n support team. Provide as much detail as possible about the issue, including any error messages, workflow configurations, and data formats. This will help the support team to troubleshoot the issue more efficiently.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

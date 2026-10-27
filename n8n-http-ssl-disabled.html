@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n HTTP Request node returns SSL disabled error</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-ssl-disabled.html">
+<meta property="og:title" content="n8n HTTP Request node returns SSL disabled error">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n HTTP Request node returns SSL disabled error",
+  "description":"Fix the n8n HTTP Request node error \"SSL connection is required\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: SSL connection is required"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n HTTP Request node returns SSL disabled error</h1>
+<div class="err">Error: SSL connection is required · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "SSL connection is required" error in n8n, it means that the HTTP Request node is unable to establish a secure connection with the server you're trying to fetch data from. This is because the server requires a secure connection (HTTPS) to protect the data being transmitted. n8n's HTTP Request node will only attempt to connect using HTTPS if you've specified the correct protocol in the node's settings.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why you might encounter this error:</p>
+<ol>
+<li><strong>Incorrect protocol specified</strong>: Make sure you've specified the correct protocol (HTTPS) in the node's settings. If you've specified HTTP instead, n8n will try to connect using an insecure connection.</li>
+<li><strong>Server requires a specific SSL/TLS version</strong>: Some servers may require a specific SSL/TLS version to be used for the connection. If n8n's default SSL/TLS version is not compatible with the server, you may need to specify a different version.</li>
+<li><strong>Certificate issues</strong>: There may be issues with the SSL/TLS certificate used by the server, such as an expired or invalid certificate.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the protocol</strong>: Ensure that the protocol specified in the node's settings is HTTPS. If it's not, change it to HTTPS.</li>
+<li><strong>Check the SSL/TLS version</strong>: If you're using a specific SSL/TLS version, ensure that it's compatible with the server. You can specify the SSL/TLS version in the node's settings.</li>
+<li><strong>Verify the certificate</strong>: Check the SSL/TLS certificate used by the server to ensure it's valid and not expired.</li>
+</ol>
+<p>Here's an example of how to specify the correct protocol and SSL/TLS version in the node's settings:</p>
+<pre><code class="language-json">{
+  "name": "HTTP Request",
+  "settings": {
+    "method": "GET",
+    "url": "https://example.com/api/data",
+    "options": {
+      "rejectUnauthorized": true,
+      "secureOptions": 2 // Specify the correct SSL/TLS version
+    }
+  }
+}</code></pre>
+<p>In this example, we're specifying the correct protocol (HTTPS) and setting the <code>rejectUnauthorized</code> option to <code>true</code> to ensure that the connection is secure. We're also specifying the correct SSL/TLS version using the <code>secureOptions</code> option.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the SSL/TLS certificate used by the server to ensure it's valid and not expired.</li>
+<li>Update the SSL/TLS version used by n8n to ensure it's compatible with the server.</li>
+<li>Monitor the connection logs to detect any issues with the SSL/TLS connection.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it may be worth escalating the issue to the server administrators to ensure that the server is configured correctly and that there are no issues with the SSL/TLS certificate. Additionally, if you're using a custom SSL/TLS version, it may be worth consulting the documentation for that version to ensure that it's compatible with the server.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

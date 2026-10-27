@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Gmail node returns 'connection to Gmail failed'</title>
+<meta name="description" content="Fix the n8n Gmail node error &quot;Error connecting to Gmail: connection to Gmail failed&quot; — the three most common causes and a step-by-step solution you can paste in">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-gmail-connection-issue.html">
+<meta property="og:title" content="n8n Gmail node returns 'connection to Gmail failed'">
+<meta property="og:description" content="Fix the n8n Gmail node error &quot;Error connecting to Gmail: connection to Gmail failed&quot; — the three most common causes and a step-by-step solution you can paste in">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Gmail node returns 'connection to Gmail failed'",
+  "description":"Fix the n8n Gmail node error \"Error connecting to Gmail: connection to Gmail failed\" — the three most common causes and a step-by-step solution you can paste in",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Gmail node error: Error connecting to Gmail: connection to Gmail failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Gmail node returns 'connection to Gmail failed'</h1>
+<div class="err">Error: Error connecting to Gmail: connection to Gmail failed · Node: Gmail</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Error connecting to Gmail: connection to Gmail failed" is quite self-explanatory. It means that n8n is unable to establish a connection to the Gmail API using the credentials you've provided. This can be due to various reasons such as incorrect credentials, network issues, or Gmail API restrictions.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect credentials</strong>: Double-check that you've entered the correct Gmail account credentials in the Gmail node's settings. Make sure the account has the necessary permissions to access the Gmail API.</li>
+<li><strong>Network issues</strong>: Ensure that your n8n instance has a stable internet connection and can reach the Gmail API servers.</li>
+<li><strong>Gmail API restrictions</strong>: Check the Gmail API documentation to see if there are any restrictions on the number of requests you can make per day or per hour. You might need to adjust your workflow to comply with these restrictions.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Verify credentials</strong>: Go to the Gmail node's settings and ensure that the account credentials are correct. You can also try using the "Test Connection" button to see if n8n can establish a connection.</li>
+<li><strong>Check network</strong>: Verify that your n8n instance has a stable internet connection. You can try pinging the Gmail API servers to see if you can reach them.</li>
+<li><strong>Adjust retry settings</strong>: Go to the Gmail node's settings and adjust the retry settings to try connecting to the Gmail API again. You can set the "Retry On Fail" option to "true", set the "Max Tries" to a higher number, and adjust the "Wait Between Tries (ms)" to a longer interval.</li>
+<li><strong>Add a delay</strong>: If you're still experiencing issues, try adding a delay between retries using the "Wait" node. This can help prevent n8n from overwhelming the Gmail API with requests.</li>
+</ol>
+<p>Here's an example code block that you can use in a Code node to add a delay between retries:</p>
+<pre><code class="language-json">{
+  "name": "Wait for 10 seconds",
+  "type": "Wait",
+  "options": {
+    "waitTime": 10000
+  }
+}</code></pre>
+<p>This code will wait for 10 seconds between retries.</p>
+<ol>
+<li><strong>Check Gmail API restrictions</strong>: If you're still experiencing issues, check the Gmail API documentation to see if there are any restrictions on the number of requests you can make per day or per hour. You might need to adjust your workflow to comply with these restrictions.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly review and update your Gmail node's credentials to ensure they're correct.</li>
+<li>Monitor your n8n instance's network connection to ensure it's stable.</li>
+<li>Adjust your retry settings to a reasonable interval to prevent overwhelming the Gmail API with requests.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and are still experiencing issues, it's time to escalate the problem. Reach out to your n8n support team or the Google Cloud Support team for further assistance. Provide them with as much information as possible, including the error message, your n8n instance's configuration, and any relevant logs.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

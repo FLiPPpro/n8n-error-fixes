@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySQL Node Connection Failed with Authentication Error</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;Error: Authentication failed: Connection terminated due to connection timeout&quot; — the three most common causes and a step-by-step s">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-connection-error.html">
+<meta property="og:title" content="MySQL Node Connection Failed with Authentication Error">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;Error: Authentication failed: Connection terminated due to connection timeout&quot; — the three most common causes and a step-by-step s">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MySQL Node Connection Failed with Authentication Error",
+  "description":"Fix the n8n MySQL node error \"Error: Authentication failed: Connection terminated due to connection timeout\" — the three most common causes and a step-by-step s",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: Error: Authentication failed: Connection terminated due to connection timeout"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MySQL Node Connection Failed with Authentication Error</h1>
+<div class="err">Error: Error: Authentication failed: Connection terminated due to connection timeout · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Error: Authentication failed: Connection terminated due to connection timeout" indicates that the MySQL node in n8n is unable to establish a connection to the MySQL database due to authentication issues. This can be caused by incorrect database credentials, a misconfigured MySQL node, or a database connection timeout.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Incorrect database credentials</strong>: Double-check that the username, password, and hostname/IP address are correct in the MySQL node's Settings tab.</li>
+<li><strong>Database connection timeout</strong>: Ensure that the database connection timeout is set correctly in the MySQL node's Settings tab. A timeout of 0 means the connection will never timeout.</li>
+<li><strong>MySQL node configuration</strong>: Verify that the MySQL node is properly configured to connect to the database. Check that the port number, database name, and other settings are correct.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the authentication issue, follow these steps:</p>
+<ol>
+<li><strong>Check database credentials</strong>: Verify that the username, password, and hostname/IP address are correct in the MySQL node's Settings tab.</li>
+</ol>
+<pre><code class="language-json">{
+  "username": "your_username",
+  "password": "your_password",
+  "host": "your_host",
+  "port": "3306"
+}</code></pre>
+<ol>
+<li><strong>Configure database connection timeout</strong>: Set the database connection timeout to a reasonable value (e.g., 30 seconds) in the MySQL node's Settings tab.</li>
+<li><strong>Verify MySQL node configuration</strong>: Ensure that the MySQL node is properly configured to connect to the database. Check that the port number, database name, and other settings are correct.</li>
+<li><strong>Use a "Wait" node to add a delay</strong>: If the connection timeout is caused by a temporary issue, you can add a delay using a "Wait" node to retry the connection.</li>
+</ol>
+<pre><code class="language-javascript">const wait = new n8n.nodes.Wait({
+  delay: 30000, // 30 seconds
+});</code></pre>
+<ol>
+<li><strong>Use a "Code" node to execute a SQL query</strong>: If the issue is caused by a specific SQL query, you can execute it using a "Code" node to troubleshoot the issue.</li>
+</ol>
+<pre><code class="language-javascript">const query = "SELECT * FROM your_table";
+const db = new n8n.nodes.MySQL({
+  username: "your_username",
+  password: "your_password",
+  host: "your_host",
+  port: "3306",
+  database: "your_database"
+});
+db.query(query, (err, results) =&gt; {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(results);
+  }
+});</code></pre>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from recurring, consider the following:</p>
+<ul>
+<li><strong>Regularly update the MySQL node configuration</strong>: Ensure that the username, password, and hostname/IP address are up-to-date and correct.</li>
+<li><strong>Monitor database connection timeouts</strong>: Keep an eye on database connection timeouts and adjust the timeout value as needed.</li>
+<li><strong>Use a "Continue On Fail" setting</strong>: Configure the MySQL node to continue executing the workflow even if the connection fails.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's likely a more complex problem that requires further investigation. Consider escalating the issue to the n8n community or support team for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

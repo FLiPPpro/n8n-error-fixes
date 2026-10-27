@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Code Node &quot;Cannot read property of undefined&quot; — Fix</title>
+<meta name="description" content="Fix the n8n Code node error &quot;TypeError: Cannot read properties of undefined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-node-cannot-read-property-of-undefined.html">
+<meta property="og:title" content="n8n Code Node &quot;Cannot read property of undefined&quot; — Fix">
+<meta property="og:description" content="Fix the n8n Code node error &quot;TypeError: Cannot read properties of undefined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Code Node \"Cannot read property of undefined\" — Fix",
+  "description":"Fix the n8n Code node error \"TypeError: Cannot read properties of undefined\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: TypeError: Cannot read properties of undefined"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Code Node &quot;Cannot read property of undefined&quot; — Fix</h1>
+<div class="err">Error: TypeError: Cannot read properties of undefined · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error <code>TypeError: Cannot read properties of undefined</code> is a common issue in n8n workflows, especially when working with JSON data. This error occurs when you're trying to access a property of an object that doesn't exist. In this case, the property is <code>$json.X</code>, where <code>X</code> is a placeholder for the actual property name.</p>
+<p>When you try to access a non-existent property, n8n throws this error, indicating that the object is undefined. This can happen when you're trying to access a property that doesn't exist in the JSON data or when the data is missing altogether.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Missing or incorrect property name</strong>: You've entered the wrong property name or the property doesn't exist in the JSON data.</li>
+<li><strong>Data is missing or empty</strong>: The JSON data is missing or empty, causing the object to be undefined.</li>
+<li><strong>Incorrect data type</strong>: You're trying to access a property on an object that's not an object, such as a string or a number.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, you need to add some defensive coding to ensure that you're not trying to access a non-existent property. Here's a step-by-step guide:</p>
+<ol>
+<li><strong>Use optional chaining</strong>: You can use optional chaining (<code>?.</code>) to access properties in a safe way. This will prevent the error from occurring if the property doesn't exist.</li>
+<li><strong>Check if the property exists</strong>: Before accessing the property, check if it exists using the <code>in</code> operator. If it doesn't exist, you can either skip the property or throw a custom error.</li>
+<li><strong>Use the <code>hasOwnProperty()</code> method</strong>: If you're working with objects, you can use the <code>hasOwnProperty()</code> method to check if the property exists.</li>
+</ol>
+<p>Here's an example code block that demonstrates how to use optional chaining and defensive access:</p>
+<pre><code class="language-javascript">const json = {
+  "name": "John",
+  "age": 30,
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "CA"
+  }
+};
+
+// Using optional chaining
+const name = json?.name; // "John"
+const address = json?.address?.street; // "123 Main St"
+
+// Using hasOwnProperty()
+const hasAge = Object.prototype.hasOwnProperty.call(json, "age"); // true
+const hasNonExistentProperty = Object.prototype.hasOwnProperty.call(json, "nonExistentProperty"); // false</code></pre>
+<p>In your n8n workflow, you can use the <code>Code</code> node to write the above code. Make sure to replace the <code>json</code> object with your actual JSON data.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, make sure to:</p>
+<ul>
+<li>Double-check the property names and ensure they exist in the JSON data.</li>
+<li>Use optional chaining and defensive access to prevent errors.</li>
+<li>Verify that the JSON data is not missing or empty.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely that there's a more complex issue at play. In this case, it's best to escalate the issue to the n8n community or support team for further assistance. Provide as much detail as possible, including the error message, your workflow configuration, and any relevant code.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

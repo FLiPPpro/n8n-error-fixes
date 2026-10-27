@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n workflow Google Drive node upload timeout error</title>
+<meta name="description" content="Fix the n8n Google Drive node error &quot;Upload timeout&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-drive-upload-timeout.html">
+<meta property="og:title" content="n8n workflow Google Drive node upload timeout error">
+<meta property="og:description" content="Fix the n8n Google Drive node error &quot;Upload timeout&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n workflow Google Drive node upload timeout error",
+  "description":"Fix the n8n Google Drive node error \"Upload timeout\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Drive node error: Upload timeout"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n workflow Google Drive node upload timeout error</h1>
+<div class="err">Error: Upload timeout · Node: Google Drive</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Upload timeout" error in n8n's Google Drive node means that the node has been unable to complete the file upload within the specified time limit. This can happen due to various reasons such as network connectivity issues, server overload, or even incorrect configuration.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of the "Upload timeout" error are:</p>
+<ol>
+<li><strong>Network connectivity issues</strong>: If your workflow is running on a server with limited bandwidth or network connectivity issues, it may cause the upload to timeout.</li>
+<li><strong>Incorrect configuration</strong>: If the Google Drive node is not properly configured, it may lead to upload timeouts. This can include incorrect credentials, permissions, or file path issues.</li>
+<li><strong>Server overload</strong>: If the Google Drive server is experiencing high traffic or overload, it may cause the upload to timeout.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Upload timeout" error, follow these steps:</p>
+<ol>
+<li><strong>Check your network connectivity</strong>: Ensure that your workflow is running on a server with stable network connectivity. You can check your network settings and ensure that the server has a stable internet connection.</li>
+<li><strong>Verify your Google Drive configuration</strong>: Double-check that your Google Drive node is properly configured. Ensure that you have the correct credentials, permissions, and file path.</li>
+<li><strong>Increase the retry count</strong>: Configure the Google Drive node to retry the upload a certain number of times. You can do this by setting the "Retry On Fail" option to "true" and specifying the "Max Tries" value.</li>
+<li><strong>Add a delay</strong>: To add a delay between retries, use the "Wait" node. This will give the upload process more time to complete.</li>
+<li><strong>Code block: Increase retry count and add delay</strong></li>
+</ol>
+<pre><code class="language-json">{
+  "name": "Google Drive",
+  "type": "google-drive",
+  "retryOnFail": true,
+  "maxTries": 3,
+  "waitBetweenTries": 30000
+}</code></pre>
+<p>In the above code block, we're increasing the retry count to 3 and adding a 30-second delay between retries. You can adjust these values based on your specific requirements.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Upload timeout" error from coming back, follow these best practices:</p>
+<ul>
+<li><strong>Monitor your workflow</strong>: Regularly monitor your workflow to catch any issues before they cause a timeout.</li>
+<li><strong>Test your workflow</strong>: Test your workflow thoroughly to ensure that it's working as expected.</li>
+<li><strong>Use a stable server</strong>: Ensure that your workflow is running on a stable server with reliable network connectivity.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the "Upload timeout" error persists, it's time to escalate the issue. Reach out to your IT team or the n8n support team for further assistance. Provide them with the error logs and any relevant configuration files. They will be able to help you troubleshoot the issue and provide a more permanent solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

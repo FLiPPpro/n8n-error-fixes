@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Webhook connection timed out waiting for response</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;Connection timed out&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-connection-timeout.html">
+<meta property="og:title" content="n8n Webhook connection timed out waiting for response">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;Connection timed out&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Webhook connection timed out waiting for response",
+  "description":"Fix the n8n Webhook node error \"Connection timed out\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: Connection timed out"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Webhook connection timed out waiting for response</h1>
+<div class="err">Error: Connection timed out · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "Connection timed out" error in n8n, it means that the Webhook node was unable to establish a connection to the target endpoint within the specified time limit. This can happen due to various reasons such as network issues, server overload, or incorrect endpoint configuration.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect endpoint URL</strong>: Double-check that the endpoint URL is correct and properly formatted. Make sure to include the protocol (HTTP or HTTPS), domain, and any required path or query parameters.</li>
+<li><strong>Network issues</strong>: Ensure that your network connection is stable and not experiencing any outages or congestion. You can try running the Webhook node in a different environment or network to isolate the issue.</li>
+<li><strong>Server overload or unresponsive</strong>: If the target endpoint is experiencing high traffic or is unresponsive, it may cause the connection to timeout. You can try contacting the endpoint owner to see if they're experiencing any issues.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Connection timed out" error, follow these steps:</p>
+<ol>
+<li><strong>Check the endpoint URL</strong>: Verify that the endpoint URL is correct and properly formatted. You can use a tool like Postman or cURL to test the URL and ensure it's working as expected.</li>
+<li><strong>Configure retries</strong>: Go to the Webhook node's Settings tab and configure retries by setting "Retry On Fail" to <code>true</code>, "Max Tries" to a reasonable value (e.g., 3), and "Wait Between Tries (ms)" to a suitable delay (e.g., 5000). This will allow the Webhook node to retry the connection a specified number of times with a delay between attempts.</li>
+<li><strong>Add a delay</strong>: If you suspect that the endpoint is unresponsive or experiencing high traffic, you can add a delay between attempts using the "Wait" node. Create a new "Wait" node and set the duration to a suitable value (e.g., 10 seconds). Then, connect the "Wait" node to the Webhook node.</li>
+<li><strong>Use a Code node to implement exponential backoff</strong>: If you want to implement exponential backoff, you can use a Code node to calculate the delay between attempts. Create a new Code node and use the following JavaScript code:</li>
+</ol>
+<pre><code class="language-javascript">const delay = Math.pow(2, attempts) * 1000;
+return { delay };</code></pre>
+<p>This code calculates the delay based on the number of attempts, with each attempt having a longer delay. You can then use this delay value to set the "Wait Between Tries (ms)" setting in the Webhook node.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Connection timed out" error from coming back, make sure to:</p>
+<ul>
+<li>Regularly test and monitor the Webhook node to catch any issues early on.</li>
+<li>Keep the endpoint URL and configuration up-to-date and accurate.</li>
+<li>Consider implementing a more robust retry strategy, such as exponential backoff or circuit breaking.</li>
+<li>Monitor the endpoint's performance and adjust the retry settings accordingly.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the "Connection timed out" error persists, it's time to escalate the issue. Reach out to your team or the endpoint owner to investigate further and identify the root cause. If the issue is related to the endpoint or network, you may need to involve your network administrator or the endpoint owner's support team to resolve the issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

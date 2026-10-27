@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySQL Select Node Error: TypeError: Cannot read properties of undefined</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;TypeError: Cannot read properties of undefined (reading 'X')&quot; — the three most common causes and a step-by-step solution you can p">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-select-error-undefined-table.html">
+<meta property="og:title" content="MySQL Select Node Error: TypeError: Cannot read properties of undefined">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;TypeError: Cannot read properties of undefined (reading 'X')&quot; — the three most common causes and a step-by-step solution you can p">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MySQL Select Node Error: TypeError: Cannot read properties of undefined",
+  "description":"Fix the n8n MySQL node error \"TypeError: Cannot read properties of undefined (reading 'X')\" — the three most common causes and a step-by-step solution you can p",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: TypeError: Cannot read properties of undefined (reading 'X')"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MySQL Select Node Error: TypeError: Cannot read properties of undefined</h1>
+<div class="err">Error: TypeError: Cannot read properties of undefined (reading 'X') · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the error <code>TypeError: Cannot read properties of undefined (reading 'X')</code> in n8n, it means that the node you're using (in this case, the MySQL node) is trying to access a property or attribute of an object that doesn't exist. This is a common error when working with databases, especially when trying to select from a table that doesn't exist.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Non-existent table</strong>: This is the most likely cause of this error. If you're trying to select from a table that doesn't exist in your MySQL database, the node will throw this error.</li>
+<li><strong>Incorrect table or column name</strong>: If you've misspelled the table or column name in your SQL query, the node will throw this error.</li>
+<li><strong>Missing database connection</strong>: If the MySQL node can't connect to the database, it will throw this error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Verify the table exists</strong>: Make sure the table you're trying to select from actually exists in your MySQL database. You can do this by running a <code>SHOW TABLES</code> query in the MySQL node's SQL field.</li>
+<li><strong>Check the table and column names</strong>: Double-check that the table and column names in your SQL query are correct. Use the <code>SHOW TABLES</code> query to get a list of tables and their columns.</li>
+<li><strong>Use a <code>Try</code>-<code>Catch</code> block</strong>: If you're using a Code node to execute the SQL query, wrap the query in a <code>Try</code>-<code>Catch</code> block to catch any errors that might occur. Here's an example in JavaScript:</li>
+</ol>
+<pre><code class="language-javascript">try {
+  const query = "SELECT * FROM non_existent_table";
+  const result = await db.query(query);
+  // do something with the result
+} catch (error) {
+  // handle the error
+  console.error(error);
+}</code></pre>
+<ol>
+<li><strong>Configure the MySQL node</strong>: Make sure the MySQL node is configured correctly. Check the database connection settings, table name, and column names.</li>
+<li><strong>Use a <code>SELECT</code> statement</strong>: If you're trying to select data from a table, use a <code>SELECT</code> statement instead of trying to access a property of an object.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Verify the table exists before trying to select from it.</li>
+<li>Double-check the table and column names in your SQL query.</li>
+<li>Use a <code>Try</code>-<code>Catch</code> block to catch any errors that might occur.</li>
+<li>Configure the MySQL node correctly.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and still can't resolve the issue, it's time to escalate. Reach out to the n8n community or the n8n support team for further assistance. Provide as much detail as possible about the error, including the error message, the SQL query, and the node configuration.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

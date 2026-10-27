@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MongoDB Node Connection Failed with Authentication Error</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;Error: Authentication failed: Connection terminated due to connection timeout&quot; — the three most common causes and a step-by-step">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongodb-connection-error.html">
+<meta property="og:title" content="MongoDB Node Connection Failed with Authentication Error">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;Error: Authentication failed: Connection terminated due to connection timeout&quot; — the three most common causes and a step-by-step">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MongoDB Node Connection Failed with Authentication Error",
+  "description":"Fix the n8n MongoDB node error \"Error: Authentication failed: Connection terminated due to connection timeout\" — the three most common causes and a step-by-step",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: Error: Authentication failed: Connection terminated due to connection timeout"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MongoDB Node Connection Failed with Authentication Error</h1>
+<div class="err">Error: Error: Authentication failed: Connection terminated due to connection timeout · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error "Error: Authentication failed: Connection terminated due to connection timeout" in n8n, it means that the MongoDB node is unable to connect to your MongoDB instance due to authentication issues. This error is not related to the actual connection timeout, but rather to the authentication process failing.</p>
+<h2>The three most common causes</h2>
+<p>After analyzing various scenarios, we've identified the three most common causes of this error:</p>
+<ol>
+<li><strong>Incorrect MongoDB credentials</strong>: Double-check that the username, password, and database name are correct in the MongoDB node's settings. Ensure that the credentials are up-to-date and match the ones used to connect to your MongoDB instance.</li>
+<li><strong>Authentication method mismatch</strong>: Verify that the authentication method used in the MongoDB node (e.g., username/password, API key, or Kerberos) matches the one configured in your MongoDB instance.</li>
+<li><strong>Network connectivity issues</strong>: Check that the n8n instance has a stable connection to the MongoDB instance. Ensure that the MongoDB instance is running and accessible from the n8n instance.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the authentication failed error, follow these steps:</p>
+<ol>
+<li><strong>Verify MongoDB credentials</strong>: Open the MongoDB node's settings and ensure that the username, password, and database name are correct. You can also try to connect to your MongoDB instance using the same credentials from a different tool (e.g., MongoDB Compass) to verify that the issue is specific to n8n.</li>
+<li><strong>Configure authentication method</strong>: Verify that the authentication method used in the MongoDB node matches the one configured in your MongoDB instance. If you're using a different authentication method (e.g., API key), ensure that it's correctly set up in the MongoDB node.</li>
+<li><strong>Add retry mechanism</strong>: To handle temporary connection issues, you can add a retry mechanism to the MongoDB node. You can do this by setting the "Retry On Fail" option to <code>true</code> and configuring the "Max Tries" and "Wait Between Tries (ms)" options according to your needs.</li>
+</ol>
+<p>Here's an example of how to configure the retry mechanism using the MongoDB node's settings:</p>
+<pre><code class="language-json">{
+  "name": "MongoDB",
+  "settings": {
+    "username": "your_username",
+    "password": "your_password",
+    "database": "your_database",
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTries": 5000
+  }
+}</code></pre>
+<p>This configuration will retry the connection up to 3 times with a 5-second delay between retries.</p>
+<ol>
+<li><strong>Verify network connectivity</strong>: Ensure that the n8n instance has a stable connection to the MongoDB instance. You can try to connect to your MongoDB instance from a different tool or service to verify that the issue is specific to n8n.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from recurring, consider the following:</p>
+<ul>
+<li>Regularly review and update your MongoDB credentials to ensure they're up-to-date.</li>
+<li>Verify that the authentication method used in the MongoDB node matches the one configured in your MongoDB instance.</li>
+<li>Implement a monitoring system to detect and alert you to any connection issues or authentication failures.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely that the issue is more complex and requires further investigation. In this case, consider escalating the issue to:</p>
+<ul>
+<li>Your MongoDB administrator to verify that the MongoDB instance is correctly configured and running.</li>
+<li>Your n8n administrator to review the n8n instance's configuration and ensure that it's correctly set up to connect to your MongoDB instance.</li>
+<li>The n8n support team for further assistance and guidance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gmail webhook invalid authentication in n8n error</title>
+<meta name="description" content="Fix the n8n Gmail node error &quot;The webhook authentication failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-gmail-webhook-invalid-auth.html">
+<meta property="og:title" content="Gmail webhook invalid authentication in n8n error">
+<meta property="og:description" content="Fix the n8n Gmail node error &quot;The webhook authentication failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Gmail webhook invalid authentication in n8n error",
+  "description":"Fix the n8n Gmail node error \"The webhook authentication failed\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Gmail node error: The webhook authentication failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Gmail webhook invalid authentication in n8n error</h1>
+<div class="err">Error: The webhook authentication failed · Node: Gmail</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error message "The webhook authentication failed" in n8n, it means that the authentication credentials you provided for the Gmail node are incorrect. This can happen if you've entered the wrong email address, password, or client ID and secret.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why this error occurs:</p>
+<ol>
+<li><strong>Incorrect email address</strong>: Double-check that the email address you've entered is correct. Make sure it's the same email address that you use to log in to your Gmail account.</li>
+<li><strong>Incorrect password</strong>: If you're using a password to authenticate with Gmail, ensure that you've entered the correct password. If you're using two-factor authentication (2FA), make sure you've entered the verification code correctly.</li>
+<li><strong>Missing or incorrect client ID and secret</strong>: If you're using OAuth to authenticate with Gmail, ensure that you've entered the client ID and secret correctly. You can obtain these credentials from the Google Cloud Console.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li>Go to the Gmail node in your n8n workflow and click on the <strong>Settings</strong> tab.</li>
+<li>Check the <strong>Authentication</strong> section and ensure that you've entered the correct email address, password, or client ID and secret.</li>
+<li>If you're using OAuth, ensure that you've entered the client ID and secret correctly. You can obtain these credentials from the Google Cloud Console.</li>
+<li>If you're still having trouble, try resetting your password or client ID and secret.</li>
+</ol>
+<p>Here's a concrete example of how to configure the Gmail node with OAuth credentials:</p>
+<pre><code class="language-json">{
+  "name": "Gmail Node",
+  "credentials": {
+    "clientId": "YOUR_CLIENT_ID",
+    "clientSecret": "YOUR_CLIENT_SECRET",
+    "redirectUri": "YOUR_REDIRECT_URI"
+  }
+}</code></pre>
+<p>Replace <code>YOUR_CLIENT_ID</code>, <code>YOUR_CLIENT_SECRET</code>, and <code>YOUR_REDIRECT_URI</code> with your actual OAuth credentials.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, make sure to:</p>
+<ul>
+<li>Store your Gmail credentials securely using a secrets manager like Hashicorp's Vault or AWS Secrets Manager.</li>
+<li>Use environment variables to store your client ID and secret.</li>
+<li>Regularly review and update your credentials to ensure they are still valid.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried all the steps above and are still experiencing issues, it's time to escalate the problem. Reach out to the n8n community for help, or contact the n8n support team directly. Provide as much detail as possible about your workflow, node configuration, and error messages. This will help the support team to better understand the issue and provide a more accurate solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

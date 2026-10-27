@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n workflow Code node execution timeout error</title>
+<meta name="description" content="Fix the n8n Code node error &quot;Execution timed out&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-execution-timeout.html">
+<meta property="og:title" content="n8n workflow Code node execution timeout error">
+<meta property="og:description" content="Fix the n8n Code node error &quot;Execution timed out&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n workflow Code node execution timeout error",
+  "description":"Fix the n8n Code node error \"Execution timed out\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: Execution timed out"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n workflow Code node execution timeout error</h1>
+<div class="err">Error: Execution timed out · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Execution timed out" error in n8n indicates that a workflow has stalled due to a node taking too long to execute. This can happen when a node is performing a resource-intensive operation, such as making a slow API call or executing a complex JavaScript function. When a node times out, the workflow will stop running and display the "Execution timed out" error message.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of the "Execution timed out" error are:</p>
+<ol>
+<li><strong>Slow API calls</strong>: If a node is making a slow API call, it can cause the workflow to timeout. This can happen if the API server is unresponsive or if the API call is taking too long to complete.</li>
+<li><strong>Resource-intensive operations</strong>: If a node is performing a resource-intensive operation, such as executing a complex JavaScript function or making a large number of API calls, it can cause the workflow to timeout.</li>
+<li><strong>Incorrect node settings</strong>: If the node settings are not configured correctly, it can cause the workflow to timeout. For example, if the "Retry On Fail" setting is not enabled, the node will not retry the operation if it fails.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Execution timed out" error, follow these steps:</p>
+<ol>
+<li><strong>Check the node settings</strong>: Check the node settings to see if the "Retry On Fail" setting is enabled. If not, enable it and set the "Max Tries" and "Wait Between Tries (ms)" settings to a reasonable value.</li>
+<li><strong>Add a delay</strong>: If the node is making a slow API call, add a delay using the "Wait" node to give the API server time to respond.</li>
+<li><strong>Optimize the node code</strong>: If the node is performing a resource-intensive operation, optimize the code to reduce the execution time. This can be done by using more efficient algorithms or by breaking down the operation into smaller tasks.</li>
+<li><strong>Use a more efficient node</strong>: If the node is using a slow API library, consider switching to a more efficient library.</li>
+<li><strong>Use a retry mechanism</strong>: If the node is making a slow API call, consider using a retry mechanism to retry the operation if it fails.</li>
+</ol>
+<p>Here is an example of how to add a delay using the "Wait" node:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "HTTP Request",
+      "type": "http-request",
+      "settings": {
+        "url": "https://api.example.com",
+        "method": "GET"
+      },
+      "parameters": {
+        "options": {
+          "retryOnFail": true,
+          "maxTries": 3,
+          "waitBetweenTries": 5000
+        }
+      }
+    },
+    {
+      "name": "Wait",
+      "type": "wait",
+      "settings": {
+        "duration": 10000
+      }
+    }
+  ]
+}</code></pre>
+<p>This code adds a 10-second delay after the HTTP request node has completed.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Execution timed out" error from coming back, follow these best practices:</p>
+<ul>
+<li><strong>Monitor your workflows</strong>: Monitor your workflows regularly to catch any issues before they cause a timeout.</li>
+<li><strong>Optimize your node code</strong>: Optimize your node code to reduce the execution time.</li>
+<li><strong>Use a retry mechanism</strong>: Use a retry mechanism to retry the operation if it fails.</li>
+<li><strong>Configure node settings correctly</strong>: Configure node settings correctly to avoid timeouts.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the "Execution timed out" error continues to occur, it may be necessary to escalate the issue to a n8n support specialist. Provide as much information as possible about the error, including:</p>
+<ul>
+<li><strong>Error message</strong>: Provide the exact error message.</li>
+<li><strong>Node settings</strong>: Provide the node settings, including any retry settings.</li>
+<li><strong>Node code</strong>: Provide the node code, including any custom code.</li>
+<li><strong>Workflow configuration</strong>: Provide the workflow configuration, including any custom settings.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

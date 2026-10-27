@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Postgres Webhook Node Connection Failed with Error</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;Connection to Postgres webhook failed: Connection timed out&quot; — the three most common causes and a step-by-step solution you can ">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-postgres-connection.html">
+<meta property="og:title" content="Postgres Webhook Node Connection Failed with Error">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;Connection to Postgres webhook failed: Connection timed out&quot; — the three most common causes and a step-by-step solution you can ">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Postgres Webhook Node Connection Failed with Error",
+  "description":"Fix the n8n Webhook node error \"Connection to Postgres webhook failed: Connection timed out\" — the three most common causes and a step-by-step solution you can ",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: Connection to Postgres webhook failed: Connection timed out"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Postgres Webhook Node Connection Failed with Error</h1>
+<div class="err">Error: Connection to Postgres webhook failed: Connection timed out · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Connection to Postgres webhook failed: Connection timed out" indicates that the Postgres webhook node in n8n is unable to establish a connection to the Postgres database. This can be due to various reasons such as a network issue, database downtime, or incorrect configuration.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect database connection settings</strong>: Double-check that the database connection settings in the Postgres webhook node are correct, including the host, port, username, password, and database name.</li>
+<li><strong>Network issues</strong>: Verify that the network connection between the n8n instance and the Postgres database is stable and not experiencing any outages.</li>
+<li><strong>Database downtime</strong>: Check if the Postgres database is currently down or experiencing high load, causing the connection to timeout.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the issue, follow these steps:</p>
+<ol>
+<li><strong>Verify database connection settings</strong>:</li>
+</ol>
+<p>* Go to the Postgres webhook node's Settings tab and check the database connection settings. 	* Ensure that the host, port, username, password, and database name are correct. 	* If you're using a self-signed certificate, ensure that the <code>sslmode</code> is set to <code>require</code> or <code>verify-ca</code>.</p>
+<ol>
+<li><strong>Check network connectivity</strong>:</li>
+</ol>
+<p>* Use a tool like <code>telnet</code> or <code>nc</code> to test the network connection to the Postgres database. 	* Ensure that the network connection is stable and not experiencing any outages.</p>
+<ol>
+<li><strong>Check database status</strong>:</li>
+</ol>
+<p>* Use a tool like <code>pg_isready</code> or <code>psql</code> to check the status of the Postgres database. 	* Ensure that the database is up and running, and not experiencing high load.</p>
+<p>If you're still experiencing issues, you can try adding a delay before retrying the connection using the <code>Wait</code> node. Here's an example code block that you can use:</p>
+<pre><code class="language-json">{
+  "name": "Wait for 10 seconds before retrying",
+  "type": "Wait",
+  "seconds": 10
+}</code></pre>
+<p>This will add a 10-second delay before retrying the connection. You can adjust the delay time as needed.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, ensure that:</p>
+<ul>
+<li>The database connection settings are correct and up-to-date.</li>
+<li>The network connection between the n8n instance and the Postgres database is stable.</li>
+<li>The Postgres database is properly configured and maintained.</li>
+</ul>
+<p>You can also consider implementing a retry mechanism using the <code>Retry On Fail</code> setting on the Postgres webhook node. This will allow n8n to automatically retry the connection after a specified number of attempts.</p>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's likely that the problem is more complex and requires further investigation. In this case, you should escalate the issue to your IT team or database administrator to investigate and resolve the underlying issue.</p>
+<p>Before escalating, ensure that you have:</p>
+<ul>
+<li>Verified the database connection settings and network connectivity.</li>
+<li>Checked the database status and ensured that it's up and running.</li>
+<li>Tried adding a delay before retrying the connection using the <code>Wait</code> node.</li>
+</ul>
+<p>If you're still unsure about how to resolve the issue, don't hesitate to seek help from your IT team or database administrator.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

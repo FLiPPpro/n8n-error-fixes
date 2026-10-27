@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Postgres Select Node Error: TypeError: Cannot read properties of null</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;TypeError: Cannot read properties of null (reading 'X')&quot; — the three most common causes and a step-by-step solution you can pas">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-select-error-null-pointer.html">
+<meta property="og:title" content="Postgres Select Node Error: TypeError: Cannot read properties of null">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;TypeError: Cannot read properties of null (reading 'X')&quot; — the three most common causes and a step-by-step solution you can pas">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Postgres Select Node Error: TypeError: Cannot read properties of null",
+  "description":"Fix the n8n Postgres node error \"TypeError: Cannot read properties of null (reading 'X')\" — the three most common causes and a step-by-step solution you can pas",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: TypeError: Cannot read properties of null (reading 'X')"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Postgres Select Node Error: TypeError: Cannot read properties of null</h1>
+<div class="err">Error: TypeError: Cannot read properties of null (reading 'X') · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The <code>TypeError: Cannot read properties of null (reading 'X')</code> error in n8n is caused by attempting to access a property of a null object. In the context of the Postgres node, this error occurs when the node tries to select data from a Postgres table, but the column specified in the query is null.</p>
+<p>When a column is null, the Postgres node attempts to access its properties, resulting in the error. This error is not specific to n8n or Postgres, but rather a common issue that can occur when working with databases.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes of this error:</p>
+<ol>
+<li><strong>Incorrect column selection</strong>: Make sure you are selecting the correct column from the Postgres table. Double-check the column name and its data type.</li>
+<li><strong>Null column</strong>: If the column is intentionally null, you may need to adjust your query to handle this case. For example, you can use the <code>COALESCE</code> function to return a default value if the column is null.</li>
+<li><strong>Postgres node configuration</strong>: Ensure that the Postgres node is configured correctly. Check the node's settings, such as the database connection, table name, and column selection.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Check the column selection</strong>: Verify that you are selecting the correct column from the Postgres table. If the column is intentionally null, you may need to adjust your query to handle this case.</li>
+<li><strong>Use COALESCE function</strong>: If the column is null, you can use the <code>COALESCE</code> function to return a default value. For example, if you want to return an empty string if the column is null, use the following SQL query:</li>
+</ol>
+<pre><code class="language-sql">SELECT COALESCE(column_name, '') AS column_name
+FROM table_name;</code></pre>
+<ol>
+<li><strong>Configure Postgres node</strong>: Ensure that the Postgres node is configured correctly. Check the node's settings, such as the database connection, table name, and column selection.</li>
+<li><strong>Use a Code node</strong>: If you need to perform complex logic to handle null columns, consider using a Code node. You can write JavaScript or Python code to handle the null columns and return a default value.</li>
+</ol>
+<p>Here is an example of how you can use a Code node to handle null columns:</p>
+<pre><code class="language-javascript">const result = [];
+const query = "SELECT column_name FROM table_name";
+const rows = await db.query(query);
+rows.forEach((row) =&gt; {
+  const columnName = row.column_name;
+  if (columnName === null) {
+    result.push({ column_name: '' });
+  } else {
+    result.push({ column_name: columnName });
+  }
+});
+return result;</code></pre>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, follow these best practices:</p>
+<ol>
+<li><strong>Test your queries</strong>: Before running your queries in n8n, test them in a SQL client or IDE to ensure they are correct.</li>
+<li><strong>Use COALESCE function</strong>: When selecting columns that may be null, use the <code>COALESCE</code> function to return a default value.</li>
+<li><strong>Configure Postgres node correctly</strong>: Ensure that the Postgres node is configured correctly, including the database connection, table name, and column selection.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the error persists, it may be necessary to escalate the issue to the n8n support team. Provide them with the following information:</p>
+<ul>
+<li>The error message and stack trace</li>
+<li>The n8n workflow and node configuration</li>
+<li>The Postgres database schema and table structure</li>
+<li>Any relevant code or queries used in the workflow</li>
+</ul>
+<p>This will help the support team to better understand the issue and provide a timely solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

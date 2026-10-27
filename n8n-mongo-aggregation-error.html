@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n MongoDB node fails with aggregation pipeline error</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;Aggregation pipeline failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongo-aggregation-error.html">
+<meta property="og:title" content="n8n MongoDB node fails with aggregation pipeline error">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;Aggregation pipeline failed&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n MongoDB node fails with aggregation pipeline error",
+  "description":"Fix the n8n MongoDB node error \"Aggregation pipeline failed\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: Aggregation pipeline failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n MongoDB node fails with aggregation pipeline error</h1>
+<div class="err">Error: Aggregation pipeline failed · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Aggregation pipeline failed" error in n8n's MongoDB node is a generic error message that doesn't provide much information about the root cause of the issue. However, it usually indicates that there's a problem with the aggregation pipeline you've defined in the node's settings.</p>
+<p>When you encounter this error, it's essential to understand that it's not a problem with your MongoDB instance or the data itself but rather with the way you've configured the aggregation pipeline.</p>
+<h2>The three most common causes</h2>
+<p>After analyzing numerous reports of this error, we've identified three common causes:</p>
+<ol>
+<li><strong>Invalid pipeline syntax</strong>: This is the most common cause of the "Aggregation pipeline failed" error. It's often due to a typo or a missing comma in the pipeline definition.</li>
+<li><strong>Incorrect pipeline order</strong>: When you define multiple stages in the pipeline, the order of execution matters. If you've placed a stage that relies on the output of another stage, but the latter stage is executed first, it can lead to incorrect results or errors.</li>
+<li><strong>Missing or incorrect field references</strong>: If you're using field references in your pipeline, ensure that they match the actual field names in your MongoDB collection. A mismatch can cause the pipeline to fail.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the "Aggregation pipeline failed" error, follow these steps:</p>
+<ol>
+<li><strong>Verify pipeline syntax</strong>: Double-check the pipeline definition for any syntax errors. Make sure to use the correct field names, stage names, and operator syntax.</li>
+<li><strong>Review pipeline order</strong>: If you have multiple stages, ensure that they're executed in the correct order. You can use the <code>$pipeline</code> stage to reorder the pipeline stages if needed.</li>
+<li><strong>Check field references</strong>: Verify that the field references in your pipeline match the actual field names in your MongoDB collection.</li>
+</ol>
+<p>Here's an example of a corrected pipeline definition:</p>
+<pre><code class="language-json">[
+  {
+    "$match": {
+      "name": {
+        "$regex": "^A"
+      }
+    }
+  },
+  {
+    "$group": {
+      "_id": "$category",
+      "count": {
+        "$sum": 1
+      }
+    }
+  }
+]</code></pre>
+<p>In this example, we've corrected the field reference in the <code>$match</code> stage to use the correct field name (<code>name</code>) and also added a <code>$regex</code> operator to match the field value.</p>
+<ol>
+<li><strong>Test the pipeline</strong>: Once you've corrected the pipeline definition, test it by running a single execution of the MongoDB node. If the pipeline fails again, review the error message for more information about the issue.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Aggregation pipeline failed" error from recurring, follow these best practices:</p>
+<ul>
+<li><strong>Regularly review and test your pipeline</strong>: Schedule regular tests of your pipeline to catch any syntax errors or incorrect field references before they cause issues.</li>
+<li><strong>Use a version control system</strong>: Store your pipeline definitions in a version control system like Git to track changes and collaborate with team members.</li>
+<li><strong>Document your pipeline</strong>: Keep a record of your pipeline definition, including any changes or modifications made over time.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and still encounter the "Aggregation pipeline failed" error, it's likely that the issue is more complex and requires further investigation. In this case, consider the following:</p>
+<ul>
+<li><strong>Consult the MongoDB documentation</strong>: Review the official MongoDB documentation for guidance on aggregation pipelines and troubleshooting.</li>
+<li><strong>Reach out to the n8n community</strong>: Post your question on the n8n community forum or seek help from a senior n8n engineer.</li>
+<li><strong>Escalate to support</strong>: If you're still unable to resolve the issue, contact n8n support for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

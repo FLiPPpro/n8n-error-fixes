@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Telegram node throws 'OAuth2 refresh token revoked' error</title>
+<meta name="description" content="Fix the n8n Telegram node error &quot;OAuth2 refresh token revoked&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-telegram-token-revoked.html">
+<meta property="og:title" content="Telegram node throws 'OAuth2 refresh token revoked' error">
+<meta property="og:description" content="Fix the n8n Telegram node error &quot;OAuth2 refresh token revoked&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Telegram node throws 'OAuth2 refresh token revoked' error",
+  "description":"Fix the n8n Telegram node error \"OAuth2 refresh token revoked\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Telegram node error: OAuth2 refresh token revoked"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Telegram node throws 'OAuth2 refresh token revoked' error</h1>
+<div class="err">Error: OAuth2 refresh token revoked · Node: Telegram</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error "OAuth2 refresh token revoked" in n8n, it means that the refresh token used to authenticate your Telegram node has been revoked by the Telegram API. This can happen for a variety of reasons, such as:</p>
+<ul>
+<li>The user who authorized your app has revoked access</li>
+<li>The refresh token has expired</li>
+<li>The Telegram API has rate-limited your app</li>
+</ul>
+<p>Whatever the reason, the result is the same: your Telegram node can no longer authenticate with the Telegram API, and you'll see this error message.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>User revocation</strong>: A user who authorized your app has revoked access, causing the refresh token to be revoked.</li>
+<li><strong>Token expiration</strong>: The refresh token has expired, which can happen if it's not regularly refreshed.</li>
+<li><strong>Telegram API rate limiting</strong>: Your app has exceeded the rate limits set by the Telegram API, causing the refresh token to be revoked.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the Telegram node settings</strong>: Go to the Telegram node settings and check if the OAuth2 refresh token is still valid. If it's not, you'll need to obtain a new one.</li>
+<li><strong>Check the user's authorization</strong>: Verify that the user who authorized your app still has access to the Telegram API. If they've revoked access, you'll need to re-authorize the app.</li>
+<li><strong>Configure retries</strong>: Configure the Telegram node to retry the authentication process. You can do this by setting the "Retry On Fail" setting to "true" and adjusting the "Max Tries" and "Wait Between Tries (ms)" settings to suit your needs.</li>
+</ol>
+<p>Here's an example of how you can configure retries for the Telegram node:</p>
+<pre><code class="language-json">{
+  "name": "Telegram",
+  "settings": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTries": 5000
+  }
+}</code></pre>
+<p>This will configure the Telegram node to retry the authentication process up to 3 times, with a 5-second delay between retries.</p>
+<ol>
+<li><strong>Use a "Wait" node to add a delay</strong>: If you want to add a delay between retries, you can use a "Wait" node to add a delay. For example:</li>
+</ol>
+<pre><code class="language-json">{
+  "name": "Wait",
+  "settings": {
+    "duration": 5000
+  }
+}</code></pre>
+<p>This will add a 5-second delay between retries.</p>
+<ol>
+<li><strong>Use an "Error Trigger" to branch on error</strong>: If you want to branch on error, you can use an "Error Trigger" to trigger a separate workflow when the Telegram node fails. For example:</li>
+</ol>
+<pre><code class="language-json">{
+  "name": "Error Trigger",
+  "settings": {
+    "error": "OAuth2 refresh token revoked"
+  }
+}</code></pre>
+<p>This will trigger a separate workflow when the Telegram node fails.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly refresh the OAuth2 refresh token to prevent it from expiring</li>
+<li>Monitor the Telegram API rate limits to prevent your app from exceeding them</li>
+<li>Verify that the user who authorized your app still has access to the Telegram API</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it may be time to escalate the issue. This could involve:</p>
+<ul>
+<li>Reaching out to the Telegram API support team for assistance</li>
+<li>Reaching out to the n8n community for assistance</li>
+<li>Reaching out to a senior n8n engineer for assistance</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

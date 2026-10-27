@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySQL webhook not active in n8n workflow error</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;The requested webhook is not registered&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-webhook-not-active.html">
+<meta property="og:title" content="MySQL webhook not active in n8n workflow error">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;The requested webhook is not registered&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MySQL webhook not active in n8n workflow error",
+  "description":"Fix the n8n MySQL node error \"The requested webhook is not registered\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: The requested webhook is not registered"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MySQL webhook not active in n8n workflow error</h1>
+<div class="err">Error: The requested webhook is not registered · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error "The requested webhook is not registered" in n8n, it means that the workflow is trying to send a request to a MySQL database using the "MySQL" node, but the database is not configured to receive requests from n8n. This error is not related to the MySQL node itself, but rather to the fact that the workflow is not active or the database is not configured correctly.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, there are three common causes for this error:</p>
+<ol>
+<li><strong>MySQL database not configured</strong>: Make sure that the MySQL database is configured to receive requests from n8n. Check the database settings and ensure that the <code>host</code>, <code>port</code>, <code>username</code>, and <code>password</code> are correct.</li>
+<li><strong>Workflow not active</strong>: Ensure that the workflow is active and running. If the workflow is not active, the MySQL node will not be able to send requests to the database.</li>
+<li><strong>Webhook not registered</strong>: Verify that the webhook is registered in the n8n settings. If the webhook is not registered, the MySQL node will not be able to send requests to the database.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the MySQL database settings</strong>: Go to the n8n settings and check the MySQL database settings. Ensure that the <code>host</code>, <code>port</code>, <code>username</code>, and <code>password</code> are correct.</li>
+<li><strong>Activate the workflow</strong>: Ensure that the workflow is active and running. If the workflow is not active, activate it and try again.</li>
+<li><strong>Register the webhook</strong>: Verify that the webhook is registered in the n8n settings. If the webhook is not registered, register it and try again.</li>
+</ol>
+<p>To add a retry mechanism to the HTTP Request node, you can configure the node's Settings tab:</p>
+<ul>
+<li>Set "Retry On Fail" to <code>true</code></li>
+<li>Set "Max Tries" to the desired number of retries</li>
+<li>Set "Wait Between Tries (ms)" to the desired delay between retries</li>
+</ul>
+<p>Here's an example code block that you can use in a Code node to add a retry mechanism:</p>
+<pre><code class="language-json">{
+  "retry": {
+    "enabled": true,
+    "maxTries": 3,
+    "waitBetweenTries": 5000 // 5 seconds
+  }
+}</code></pre>
+<p>You can also use the "Wait" node to add a delay between retries:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "HTTP Request",
+      "parameters": {
+        "retry": {
+          "enabled": true,
+          "maxTries": 3,
+          "waitBetweenTries": 5000 // 5 seconds
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest"
+    },
+    {
+      "name": "Wait",
+      "parameters": {
+        "milliseconds": 5000 // 5 seconds
+      },
+      "type": "n8n-nodes-base.wait"
+    }
+  ]
+}</code></pre>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the MySQL database settings and ensure that they are correct.</li>
+<li>Ensure that the workflow is active and running.</li>
+<li>Verify that the webhook is registered in the n8n settings.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the error persists, it may be necessary to escalate the issue to the n8n support team. Provide as much detail as possible about the error, including the error message, the n8n version, and any relevant configuration settings.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

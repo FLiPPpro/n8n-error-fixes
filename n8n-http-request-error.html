@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP Request Node Returns 401 Unauthorized Error</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;401 Unauthorized&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-request-error.html">
+<meta property="og:title" content="HTTP Request Node Returns 401 Unauthorized Error">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;401 Unauthorized&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"HTTP Request Node Returns 401 Unauthorized Error",
+  "description":"Fix the n8n HTTP Request node error \"401 Unauthorized\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: 401 Unauthorized"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>HTTP Request Node Returns 401 Unauthorized Error</h1>
+<div class="err">Error: 401 Unauthorized · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter a 401 Unauthorized error in n8n, it means that the HTTP Request node is unable to authenticate with the API you're trying to call. This can happen for a variety of reasons, including:</p>
+<ul>
+<li>Incorrect API credentials</li>
+<li>Missing or invalid API keys</li>
+<li>Insufficient permissions or scopes</li>
+</ul>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of 401 Unauthorized errors in n8n are:</p>
+<ol>
+<li><strong>Incorrect API credentials</strong>: Double-check that you've entered the correct API key, username, and password in the HTTP Request node's Settings tab.</li>
+<li><strong>Missing or invalid API keys</strong>: Ensure that you've obtained the correct API key from the API provider and entered it in the correct field in the HTTP Request node.</li>
+<li><strong>Insufficient permissions or scopes</strong>: Verify that the API credentials you're using have the necessary permissions and scopes to access the API endpoint you're trying to call.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the 401 Unauthorized error, follow these steps:</p>
+<ol>
+<li><strong>Check the API credentials</strong>: Go to the HTTP Request node's Settings tab and verify that the API key, username, and password are correct.</li>
+<li><strong>Add retry options</strong>: In the HTTP Request node's Settings tab, enable the "Retry On Fail" option and set the "Max Tries" to a higher value (e.g. 5). This will allow the node to retry the API call up to 5 times if it fails initially.</li>
+<li><strong>Add a delay</strong>: If you suspect that the API is rate-limiting your requests, add a delay between retries using the "Wait" node. For example:</li>
+</ol>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "HTTP Request",
+      "settings": {
+        "retryOnFail": true,
+        "maxTries": 5,
+        "waitBetweenTries": 5000 // 5-second delay
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        300,
+        300
+      ]
+    },
+    {
+      "name": "Wait",
+      "settings": {
+        "milliseconds": 5000 // 5-second delay
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ]
+    }
+  ]
+}</code></pre>
+<ol>
+<li><strong>Verify the API response</strong>: Use the "Code" node to log the API response and verify that it's not being rate-limited or blocked.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the 401 Unauthorized error from coming back, make sure to:</p>
+<ul>
+<li>Regularly review and update your API credentials to ensure they're valid and up-to-date.</li>
+<li>Monitor your API usage and adjust your retry options accordingly.</li>
+<li>Consider implementing rate limiting or throttling on your API calls to prevent excessive requests.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the 401 Unauthorized error persists, it may be time to escalate the issue to the API provider or your organization's IT department. Be sure to provide detailed information about the error, including any relevant logs or debug output.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

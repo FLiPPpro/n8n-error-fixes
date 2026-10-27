@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uncaught Exception in n8n Code Node due to require is not defined</title>
+<meta name="description" content="Fix the n8n Code node error &quot;Uncaught Exception: require is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-node-uncaught-exception.html">
+<meta property="og:title" content="Uncaught Exception in n8n Code Node due to require is not defined">
+<meta property="og:description" content="Fix the n8n Code node error &quot;Uncaught Exception: require is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Uncaught Exception in n8n Code Node due to require is not defined",
+  "description":"Fix the n8n Code node error \"Uncaught Exception: require is not defined\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: Uncaught Exception: require is not defined"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Uncaught Exception in n8n Code Node due to require is not defined</h1>
+<div class="err">Error: Uncaught Exception: require is not defined · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Uncaught Exception: require is not defined" indicates that the n8n Code node is attempting to use the <code>require</code> function, which is a part of the Node.js API, but this function is not available in the current context. This is likely because the Code node is not configured to use a Node.js environment.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Missing Node.js environment</strong>: The Code node is not configured to use a Node.js environment, which is required for the <code>require</code> function to work.</li>
+<li><strong>Incorrect Node.js version</strong>: The Code node is configured to use a Node.js version that does not support the <code>require</code> function.</li>
+<li><strong>Missing or incorrect <code>node</code> field</strong>: The <code>node</code> field in the Code node is not set to a valid Node.js module, or it is set to a module that does not exist.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li>Open the Code node and navigate to the <strong>Settings</strong> tab.</li>
+<li>In the <strong>Settings</strong> tab, make sure that <strong>Node.js</strong> is selected as the <strong>Environment</strong>.</li>
+<li>If you are using a custom Node.js version, make sure it is a version that supports the <code>require</code> function. You can check the Node.js version by running <code>node -v</code> in the Code node's <strong>Console</strong> tab.</li>
+<li>In the <strong>Code</strong> field, make sure that the <code>node</code> field is set to a valid Node.js module. If you are using a custom module, make sure it is installed and available in the Node.js environment.</li>
+</ol>
+<p>Here is an example of how to set the <code>node</code> field to a valid Node.js module:</p>
+<pre><code class="language-json">{
+  "node": "path/to/module.js"
+}</code></pre>
+<p>Replace <code>path/to/module.js</code> with the actual path to the Node.js module you want to use.</p>
+<p>If you are using a custom module, you can also use the <code>require</code> function to load the module:</p>
+<pre><code class="language-javascript">const myModule = require('path/to/module.js');</code></pre>
+<p>Make sure to replace <code>path/to/module.js</code> with the actual path to the Node.js module you want to use.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Always select <strong>Node.js</strong> as the <strong>Environment</strong> in the Code node's <strong>Settings</strong> tab.</li>
+<li>Use a valid Node.js version that supports the <code>require</code> function.</li>
+<li>Set the <code>node</code> field to a valid Node.js module.</li>
+<li>Use the <code>require</code> function to load custom modules.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the error persists, it may be worth escalating the issue to the n8n support team. Provide them with the following information:</p>
+<ul>
+<li>The exact error message.</li>
+<li>The n8n version you are using.</li>
+<li>The Code node's configuration, including the <strong>Settings</strong> tab and the <strong>Code</strong> field.</li>
+<li>Any custom modules you are using.</li>
+</ul>
+<p>This will help the support team to better understand the issue and provide a more accurate solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

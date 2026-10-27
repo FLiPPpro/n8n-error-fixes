@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n &quot;Webhook not registered&quot; Error — Fix</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;The requested webhook is not registered&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-not-registered.html">
+<meta property="og:title" content="n8n &quot;Webhook not registered&quot; Error — Fix">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;The requested webhook is not registered&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n \"Webhook not registered\" Error — Fix",
+  "description":"Fix the n8n Webhook node error \"The requested webhook is not registered\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: The requested webhook is not registered"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n &quot;Webhook not registered&quot; Error — Fix</h1>
+<div class="err">Error: The requested webhook is not registered · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "The requested webhook is not registered" error in n8n is a common issue that occurs when you try to test a webhook URL after the workflow has stopped listening or when using the production URL for an inactive workflow. This error is not a bug, but rather a security measure to prevent unauthorized access to your webhooks.</p>
+<h2>The three most common causes</h2>
+<p>There are three primary reasons why you might encounter this error:</p>
+<ol>
+<li><strong>Workflow not active</strong>: If your workflow is not active, it will not be listening for incoming webhooks, and attempting to test the URL will result in this error.</li>
+<li><strong>Using production URL for testing</strong>: If you're using the production URL for testing, it will not be recognized by the workflow, leading to this error.</li>
+<li><strong>Workflow stopped listening</strong>: If your workflow has stopped listening for incoming webhooks, attempting to test the URL will result in this error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve this issue, follow these steps:</p>
+<h3>Step 1: Check workflow status</h3>
+<p>Ensure your workflow is active and listening for incoming webhooks. You can do this by checking the workflow's status in the n8n interface.</p>
+<h3>Step 2: Use the correct URL</h3>
+<p>If you're testing the webhook URL, use the correct URL for your environment (e.g., development, testing, or production). Make sure you're not using the production URL for testing.</p>
+<h3>Step 3: Add retry mechanism</h3>
+<p>To handle cases where the workflow is not active or the URL is incorrect, you can add a retry mechanism to your workflow. You can do this by adding a <code>Wait</code> node with a short delay (e.g., 1-2 seconds) and then a <code>HTTP Request</code> node with the retry options configured:</p>
+<pre><code class="language-json">{
+  "name": "Retry Webhook",
+  "parameters": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTries": 1000
+  },
+  "type": "n8n-nodes-base.httpRequest"
+}</code></pre>
+<p>This will retry the webhook request up to 3 times with a 1-second delay between attempts.</p>
+<h3>Step 4: Handle errors</h3>
+<p>To handle errors and prevent the workflow from stopping, you can add an <code>Error Trigger</code> to your workflow. This will trigger the workflow to continue running even if an error occurs:</p>
+<pre><code class="language-json">{
+  "name": "Error Trigger",
+  "parameters": {
+    "continueOnFail": true
+  },
+  "type": "n8n-nodes-base.errorTrigger"
+}</code></pre>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, make sure to:</p>
+<ul>
+<li>Always test webhooks with the correct URL and environment.</li>
+<li>Ensure your workflow is active and listening for incoming webhooks.</li>
+<li>Use a retry mechanism to handle cases where the workflow is not active or the URL is incorrect.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's likely a configuration or setup issue. In this case, it's recommended to:</p>
+<ul>
+<li>Review your workflow configuration and settings.</li>
+<li>Check the n8n logs for any errors or warnings related to the webhook.</li>
+<li>Reach out to the n8n community or support team for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

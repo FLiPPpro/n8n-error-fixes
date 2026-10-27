@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Webhook Test URL vs Production URL — Why Only One Works</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;webhook works in editor but not in production&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-test-vs-production-url.html">
+<meta property="og:title" content="n8n Webhook Test URL vs Production URL — Why Only One Works">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;webhook works in editor but not in production&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Webhook Test URL vs Production URL — Why Only One Works",
+  "description":"Fix the n8n Webhook node error \"webhook works in editor but not in production\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: webhook works in editor but not in production"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Webhook Test URL vs Production URL — Why Only One Works</h1>
+<div class="err">Error: webhook works in editor but not in production · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error "webhook works in editor but not in production" can be misleading. It's not a straightforward issue with the webhook itself, but rather a configuration or setup problem that prevents the webhook from triggering correctly in production. This error typically occurs when the user is expecting the webhook to trigger automatically when a new workflow is created or updated, but it only works when the "Execute Workflow" button is clicked in the editor.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this issue:</p>
+<ol>
+<li><strong>Incorrect workflow status</strong>: In production, the workflow is not active, so the webhook is not triggered. This is because the webhook only works when the workflow is active.</li>
+<li><strong>Missing or incorrect webhook URL</strong>: The webhook URL is not set up correctly in the production environment, or it's not properly configured in the workflow.</li>
+<li><strong>Insufficient permissions</strong>: The user running the workflow does not have the necessary permissions to trigger the webhook.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check workflow status</strong>: Make sure the workflow is active in production. If it's not, activate it and try triggering the webhook again.</li>
+<li><strong>Verify webhook URL</strong>: Check that the webhook URL is correctly set up in the production environment. You can do this by looking at the workflow's settings and ensuring that the webhook URL is properly configured.</li>
+<li><strong>Configure webhook retry options</strong>: Go to the HTTP Request node's Settings tab and configure the retry options. Set "Retry On Fail" to <code>true</code>, "Max Tries" to a reasonable number (e.g., 3), and "Wait Between Tries (ms)" to a suitable delay (e.g., 5000).</li>
+<li><strong>Use a "Wait" node</strong>: Add a "Wait" node to the workflow to introduce a delay between retries. This will give the webhook time to trigger successfully.</li>
+<li><strong>Use an "Error Trigger"</strong>: Configure an "Error Trigger" to branch on an error. This will allow the workflow to continue running even if the webhook fails to trigger.</li>
+</ol>
+<p>Here's an example code block you can use in a "Code" node to implement the retry logic:</p>
+<pre><code class="language-json">{
+  "name": "Retry Webhook",
+  "parameters": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTries": 5000
+  }
+}</code></pre>
+<p>This code sets up the retry options for the HTTP Request node. You can adjust the values as needed.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, make sure to:</p>
+<ul>
+<li>Regularly review and update the workflow's settings, including the webhook URL and retry options.</li>
+<li>Monitor the workflow's logs for any errors or issues that may indicate a problem with the webhook.</li>
+<li>Test the webhook regularly to ensure it's working correctly.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it may be time to escalate the problem to a senior engineer or the n8n support team. Be prepared to provide detailed information about the issue, including:</p>
+<ul>
+<li>The exact error message and any relevant logs.</li>
+<li>The workflow's settings and configuration.</li>
+<li>Any changes made to the workflow or environment recently.</li>
+<li>Any relevant code or configuration files.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

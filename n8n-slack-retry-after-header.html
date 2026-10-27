@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slack Web API Retry-After header not respected</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;retry_after: 120&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-retry-after-header.html">
+<meta property="og:title" content="Slack Web API Retry-After header not respected">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;retry_after: 120&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Slack Web API Retry-After header not respected",
+  "description":"Fix the n8n Slack node error \"retry_after: 120\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: retry_after: 120"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Slack Web API Retry-After header not respected</h1>
+<div class="err">Error: retry_after: 120 · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the <code>retry_after: 120</code> error in n8n, it means that the Slack API is rejecting your request due to rate limiting. The <code>retry_after</code> value indicates the number of seconds you must wait before making another request. This error is not a n8n-specific issue, but rather a response from the Slack API.</p>
+<h2>The three most common causes</h2>
+<p>Before diving into the fix, let's cover the three most common causes of this error:</p>
+<ol>
+<li><strong>Excessive requests</strong>: If you're making too many requests to the Slack API in a short period, you'll hit the rate limit, causing this error.</li>
+<li><strong>Incorrect API token</strong>: Using an invalid or expired API token can lead to rate limiting issues.</li>
+<li><strong>Insufficient wait time</strong>: Not waiting long enough between requests can cause the API to reject your request.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check your API token</strong>: Ensure you're using a valid and up-to-date API token. If you're using an expired token, update it to resolve the issue.</li>
+<li><strong>Adjust your workflow</strong>: If you're making excessive requests, consider adding a delay between requests using the <code>Wait</code> node. This will give the API time to process your requests and prevent rate limiting.</li>
+<li><strong>Configure retry settings</strong>: Go to the <code>HTTP Request</code> node's Settings tab and configure the retry settings:</li>
+</ol>
+<p>* Set <code>Retry On Fail</code> to <code>true</code>. 	* Set <code>Max Tries</code> to a value higher than the current retry limit (e.g., 3). 	* Set <code>Wait Between Tries (ms)</code> to a value that allows for sufficient delay between retries (e.g., 10,000 ms).</p>
+<ol>
+<li><strong>Add a delay</strong>: If you're not using the <code>HTTP Request</code> node, you can add a <code>Wait</code> node to introduce a delay between requests. For example:</li>
+</ol>
+<pre><code class="language-json">{
+  "name": "Wait 10 seconds",
+  "type": "wait",
+  "seconds": 10
+}</code></pre>
+<ol>
+<li><strong>Configure error handling</strong>: To handle errors and prevent the workflow from failing, configure the <code>HTTP Request</code> node's <code>Continue On Fail</code> setting to <code>true</code>. This will allow the workflow to continue executing even if the request fails.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from recurring, consider the following:</p>
+<ul>
+<li><strong>Monitor your API usage</strong>: Keep an eye on your API usage to ensure you're not exceeding the rate limit.</li>
+<li><strong>Implement rate limiting</strong>: If you're making excessive requests, consider implementing rate limiting in your workflow to prevent overloading the API.</li>
+<li><strong>Update your API token</strong>: Regularly update your API token to prevent expired tokens from causing issues.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's likely a problem with your API token or a configuration issue. In this case, contact the Slack API support team to investigate further. Provide them with the <code>retry_after</code> value and any relevant logs or error messages. If you're still unsure about how to resolve the issue, consider reaching out to the n8n community or seeking assistance from a n8n expert.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n workflow Google Sheets node query timeout error</title>
+<meta name="description" content="Fix the n8n Google Sheets node error &quot;Query timeout&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-sheets-query-timeout.html">
+<meta property="og:title" content="n8n workflow Google Sheets node query timeout error">
+<meta property="og:description" content="Fix the n8n Google Sheets node error &quot;Query timeout&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n workflow Google Sheets node query timeout error",
+  "description":"Fix the n8n Google Sheets node error \"Query timeout\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Sheets node error: Query timeout"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n workflow Google Sheets node query timeout error</h1>
+<div class="err">Error: Query timeout · Node: Google Sheets</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the "Query timeout" error in n8n's Google Sheets node, it means that the node has exceeded the maximum time allowed to execute a query against your Google Sheets data. This can happen for various reasons, including slow network connections, large datasets, or complex queries.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of the "Query timeout" error in the Google Sheets node are:</p>
+<ol>
+<li><strong>Insufficient credentials</strong>: Make sure you have the correct credentials set up in the Google Sheets node. Ensure that the credentials are up-to-date and that the permissions are correct.</li>
+<li><strong>Complex queries</strong>: If your query is complex or involves multiple joins, it may take longer to execute, leading to a timeout. Try to simplify your query or break it down into smaller, more manageable parts.</li>
+<li><strong>Large datasets</strong>: If your Google Sheets data is very large, it may take a long time to query, leading to a timeout. Consider using pagination or filtering to reduce the amount of data being queried.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Query timeout" error, follow these steps:</p>
+<ol>
+<li><strong>Check your query</strong>: Review your query to ensure it's not too complex or resource-intensive. Try to simplify it or break it down into smaller parts.</li>
+<li><strong>Increase the timeout</strong>: You can increase the timeout value in the Google Sheets node's Settings tab. However, be aware that this may not be a sustainable solution, as it may indicate a deeper issue with your query.</li>
+<li><strong>Use pagination</strong>: If you're dealing with a large dataset, consider using pagination to limit the amount of data being queried. You can use the <code>LIMIT</code> clause in your query to specify the number of rows to return.</li>
+<li><strong>Add a delay</strong>: If you're experiencing timeouts due to slow network connections, consider adding a delay between queries using the <code>Wait</code> node. This can help prevent the node from overwhelming the Google Sheets API with too many requests in a short period.</li>
+<li><strong>Retry on fail</strong>: Configure the Google Sheets node to retry on fail. You can do this by setting the <code>Retry On Fail</code> option to <code>true</code> in the node's Settings tab. This will cause the node to retry the query a specified number of times before failing.</li>
+</ol>
+<p>Here's an example of how you can add a delay between queries using the <code>Wait</code> node:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "Google Sheets",
+      "parameters": {
+        "query": "SELECT * FROM sheet1"
+      },
+      "type": "Google Sheets",
+      "typeVersion": 1,
+      "credentials": {
+        "googleSpreadsheet": "your-sheet-id"
+      }
+    },
+    {
+      "name": "Wait",
+      "parameters": {
+        "milliseconds": 5000
+      },
+      "type": "Wait",
+      "typeVersion": 1
+    }
+  ]
+}</code></pre>
+<p>In this example, the <code>Wait</code> node is used to add a 5-second delay between queries. You can adjust the delay time to suit your needs.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Query timeout" error from coming back, consider the following:</p>
+<ul>
+<li>Regularly review and optimize your queries to ensure they're not too complex or resource-intensive.</li>
+<li>Monitor your Google Sheets data for any changes that may impact query performance.</li>
+<li>Consider using a caching layer or a data warehousing solution to reduce the load on your Google Sheets data.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and are still experiencing the "Query timeout" error, it may be time to escalate the issue. Consider the following:</p>
+<ul>
+<li>If you're experiencing frequent timeouts, it may indicate a deeper issue with your query or your Google Sheets data.</li>
+<li>If you're unable to resolve the issue through troubleshooting, it may be time to seek assistance from a qualified n8n engineer or a Google Sheets expert.</li>
+<li>If you're experiencing a critical issue that's impacting your business operations, it may be time to escalate the issue to your IT department or a higher-level support team.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

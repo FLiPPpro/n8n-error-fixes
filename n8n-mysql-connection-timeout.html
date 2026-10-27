@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n MySQL connection timed out waiting for query result</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;Timeout error&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-connection-timeout.html">
+<meta property="og:title" content="n8n MySQL connection timed out waiting for query result">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;Timeout error&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n MySQL connection timed out waiting for query result",
+  "description":"Fix the n8n MySQL node error \"Timeout error\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: Timeout error"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n MySQL connection timed out waiting for query result</h1>
+<div class="err">Error: Timeout error · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>A "Timeout error" in n8n indicates that the node you're using to interact with your MySQL database has taken too long to complete its task. This can happen for a variety of reasons, including:</p>
+<ul>
+<li>The database is slow to respond to queries</li>
+<li>The query itself is taking a long time to execute</li>
+<li>The network connection between n8n and the database is slow or unreliable</li>
+</ul>
+<p>Regardless of the specific cause, the result is the same: your workflow is being halted because the node has timed out.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of timeout errors when querying a MySQL database in n8n are:</p>
+<ol>
+<li><strong>Slow database queries</strong>: If your queries are taking a long time to execute, it can cause the node to timeout. This can be due to a variety of factors, including poorly written queries, inadequate indexing, or insufficient database resources.</li>
+<li><strong>Network issues</strong>: If the network connection between n8n and the database is slow or unreliable, it can cause the node to timeout. This can be due to a variety of factors, including network congestion, firewall issues, or database server overload.</li>
+<li><strong>Insufficient retry settings</strong>: If you're not configuring the node to retry failed queries, it can cause the node to timeout. This can be due to a variety of factors, including network issues, database errors, or poorly written queries.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix a timeout error when querying a MySQL database in n8n, follow these steps:</p>
+<ol>
+<li><strong>Check your database queries</strong>: Review your database queries to ensure they are well-written and optimized. Consider using EXPLAIN to analyze query performance.</li>
+<li><strong>Configure retry settings</strong>: Configure the node to retry failed queries by setting "Retry On Fail" to <code>true</code>, "Max Tries" to a suitable value (e.g. 5), and "Wait Between Tries (ms)" to a suitable value (e.g. 5000).</li>
+<li><strong>Add a delay</strong>: Consider adding a delay between retries using the "Wait" node. This can help prevent overwhelming the database with repeated queries.</li>
+<li><strong>Use a Code node to retry queries</strong>: If you need more control over the retry process, consider using a Code node to write a JavaScript or Python script that retries queries.</li>
+</ol>
+<p>Here's an example of how you can use a Code node to retry queries:</p>
+<pre><code class="language-javascript">// Configure the retry settings
+const retryCount = 5;
+const retryDelay = 5000;
+
+// Define the query to retry
+const query = "SELECT * FROM mytable";
+
+// Use a loop to retry the query
+for (let i = 0; i &lt; retryCount; i++) {
+  try {
+    // Execute the query
+    const result = await db.query(query);
+    // If the query succeeds, break out of the loop
+    break;
+  } catch (error) {
+    // If the query fails, wait for the retry delay before trying again
+    await new Promise(resolve =&gt; setTimeout(resolve, retryDelay));
+  }
+}</code></pre>
+<ol>
+<li><strong>Monitor your workflow</strong>: Monitor your workflow to ensure that the timeout error is resolved. You can do this by checking the workflow logs or using the "Error Trigger" to trigger an alert when a timeout error occurs.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent a timeout error from recurring, consider the following:</p>
+<ul>
+<li><strong>Regularly review and optimize your database queries</strong>: Regularly review your database queries to ensure they are well-written and optimized. Consider using EXPLAIN to analyze query performance.</li>
+<li><strong>Monitor your database performance</strong>: Monitor your database performance to ensure it is not becoming overloaded or slow.</li>
+<li><strong>Configure your node settings</strong>: Configure your node settings to retry failed queries and add a delay between retries.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the timeout error persists, it may be necessary to escalate the issue to your database administrator or IT team. They may be able to provide additional guidance or assistance to resolve the issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

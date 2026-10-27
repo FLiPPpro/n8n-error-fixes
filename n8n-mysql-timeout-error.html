@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n MySQL node timeout error</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;Timeout: Query took too long to execute&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-timeout-error.html">
+<meta property="og:title" content="n8n MySQL node timeout error">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;Timeout: Query took too long to execute&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n MySQL node timeout error",
+  "description":"Fix the n8n MySQL node error \"Timeout: Query took too long to execute\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: Timeout: Query took too long to execute"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n MySQL node timeout error</h1>
+<div class="err">Error: Timeout: Query took too long to execute · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Timeout: Query took too long to execute" error in n8n indicates that a MySQL query is taking longer than expected to complete, causing the node to timeout. This error can occur due to various reasons such as slow query performance, high database load, or network latency.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Slow query performance</strong>: If the MySQL query is complex or poorly optimized, it may take a long time to execute, causing the node to timeout.</li>
+<li><strong>High database load</strong>: If the database is experiencing high load, it may take longer for queries to execute, leading to timeouts.</li>
+<li><strong>Network latency</strong>: If there is high network latency between the n8n workflow and the MySQL database, it may cause queries to take longer to execute, resulting in timeouts.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Timeout: Query took too long to execute" error, follow these steps:</p>
+<ol>
+<li><strong>Optimize the MySQL query</strong>: Review the MySQL query and optimize it for better performance. You can use tools like EXPLAIN to analyze the query plan and identify areas for improvement.</li>
+<li><strong>Increase the timeout</strong>: Configure the MySQL node to increase the timeout value. You can do this by going to the node's Settings tab and adjusting the "Timeout (ms)" value.</li>
+<li><strong>Add a delay</strong>: Use the "Wait" node to add a delay between the MySQL query and the next step in the workflow. This can help prevent the node from timing out.</li>
+<li><strong>Implement retry logic</strong>: Configure the MySQL node to retry the query a certain number of times before failing. You can do this by going to the node's Settings tab and adjusting the "Retry On Fail", "Max Tries", and "Wait Between Tries (ms)" values.</li>
+<li><strong>Use a more efficient database connection</strong>: Consider using a more efficient database connection, such as a connection pool, to reduce the load on the database and improve query performance.</li>
+</ol>
+<p>Here's an example code block that demonstrates how to add a delay and implement retry logic using the "Wait" and "MySQL" nodes:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "MySQL",
+      "type": "n8n/node/MySQL",
+      "typeVersion": 1,
+      "credentials": {
+        "mysql": {
+          "id": "mysql-credentials"
+        }
+      },
+      "parameters": {
+        "query": "SELECT * FROM table",
+        "database": "database",
+        "timeout": 30000,
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 1000
+      },
+      "settings": {}
+    },
+    {
+      "name": "Wait",
+      "type": "n8n/node/Wait",
+      "typeVersion": 1,
+      "parameters": {
+        "ms": 10000
+      },
+      "settings": {}
+    }
+  ]
+}</code></pre>
+<p>This code block demonstrates how to add a delay of 10 seconds using the "Wait" node and implement retry logic with a maximum of 3 attempts and a wait time of 1 second between attempts.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Timeout: Query took too long to execute" error from coming back, make sure to:</p>
+<ul>
+<li>Regularly review and optimize MySQL queries for better performance.</li>
+<li>Monitor database load and adjust the timeout value accordingly.</li>
+<li>Use a more efficient database connection, such as a connection pool.</li>
+<li>Implement retry logic to handle temporary errors.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the error persists, it may be necessary to escalate the issue to a database administrator or a developer with expertise in MySQL performance optimization. Provide as much detail as possible about the error, including the error message, the MySQL query, and any relevant configuration settings.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

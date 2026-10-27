@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gmail Send Email Node Error: TypeError: Cannot read properties of null</title>
+<meta name="description" content="Fix the n8n Gmail node error &quot;TypeError: Cannot read properties of null (reading 'X')&quot; — the three most common causes and a step-by-step solution you can paste ">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-gmail-send-error-null-pointer.html">
+<meta property="og:title" content="Gmail Send Email Node Error: TypeError: Cannot read properties of null">
+<meta property="og:description" content="Fix the n8n Gmail node error &quot;TypeError: Cannot read properties of null (reading 'X')&quot; — the three most common causes and a step-by-step solution you can paste ">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Gmail Send Email Node Error: TypeError: Cannot read properties of null",
+  "description":"Fix the n8n Gmail node error \"TypeError: Cannot read properties of null (reading 'X')\" — the three most common causes and a step-by-step solution you can paste ",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Gmail node error: TypeError: Cannot read properties of null (reading 'X')"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Gmail Send Email Node Error: TypeError: Cannot read properties of null</h1>
+<div class="err">Error: TypeError: Cannot read properties of null (reading 'X') · Node: Gmail</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message <code>TypeError: Cannot read properties of null (reading 'X')</code> indicates that the n8n workflow is trying to access a property of an object that is null. In this case, the property in question is <code>X</code>, which is likely a recipient's email address. This error occurs when the recipient field is empty or null, causing the workflow to fail.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Missing or empty recipient field</strong>: The recipient field is not populated, or it is empty, causing the workflow to fail.</li>
+<li><strong>Recipient field is null</strong>: The recipient field is explicitly set to null, causing the workflow to fail.</li>
+<li><strong>Incorrect data type</strong>: The recipient field is not set to the correct data type (e.g., string, email), causing the workflow to fail.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the recipient field</strong>: Verify that the recipient field is populated and not empty. If it is empty, update the field with the correct recipient email address.</li>
+<li><strong>Configure the Gmail node</strong>: Open the Gmail node's Settings tab and ensure that the "Retry On Fail" option is enabled. Set the "Max Tries" to a reasonable value (e.g., 3) and the "Wait Between Tries (ms)" to a suitable delay (e.g., 5000).</li>
+<li><strong>Add a conditional statement</strong>: Create a new Code node and add the following JavaScript code:</li>
+</ol>
+<pre><code class="language-javascript">if (item.recipient === null || item.recipient === "") {
+  return [{ error: "Recipient field is empty" }];
+}</code></pre>
+<p>This code checks if the recipient field is null or empty. If it is, the workflow will fail and display an error message.</p>
+<ol>
+<li><strong>Add a Wait node</strong>: After the Code node, add a Wait node to introduce a delay between retries. Set the delay to a suitable value (e.g., 5000 ms).</li>
+<li><strong>Configure the HTTP Request node</strong>: Open the HTTP Request node's Settings tab and ensure that the "Retry On Fail" option is enabled. Set the "Max Tries" to a reasonable value (e.g., 3) and the "Wait Between Tries (ms)" to a suitable delay (e.g., 5000).</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, follow these best practices:</p>
+<ol>
+<li><strong>Validate recipient field</strong>: Ensure that the recipient field is validated and sanitized before sending the email.</li>
+<li><strong>Use a default recipient</strong>: Set a default recipient email address to prevent the workflow from failing if the recipient field is empty.</li>
+<li><strong>Monitor workflow logs</strong>: Regularly monitor the workflow logs to catch any errors or issues before they become critical.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the error persists, it may be necessary to escalate the issue to the n8n support team. Before doing so, ensure that you have:</p>
+<ol>
+<li><strong>Verified the recipient field</strong>: Double-check that the recipient field is populated and not empty.</li>
+<li><strong>Configured the nodes correctly</strong>: Ensure that the Gmail node and HTTP Request node are configured correctly, including the retry options.</li>
+<li><strong>Checked the workflow logs</strong>: Review the workflow logs to identify any errors or issues that may be causing the problem.</li>
+</ol>
+<p>If you are still experiencing issues, please provide the workflow logs and any relevant configuration details to the n8n support team for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

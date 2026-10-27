@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MySQL Node Returns Error 1045 Access Denied for User</title>
+<meta name="description" content="Fix the n8n MySQL node error &quot;1045 Access denied for user&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mysql-error-1045.html">
+<meta property="og:title" content="MySQL Node Returns Error 1045 Access Denied for User">
+<meta property="og:description" content="Fix the n8n MySQL node error &quot;1045 Access denied for user&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MySQL Node Returns Error 1045 Access Denied for User",
+  "description":"Fix the n8n MySQL node error \"1045 Access denied for user\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MySQL node error: 1045 Access denied for user"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MySQL Node Returns Error 1045 Access Denied for User</h1>
+<div class="err">Error: 1045 Access denied for user · Node: MySQL</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "1045 Access denied for user" is a MySQL error code that indicates the username or password provided to connect to the MySQL database is incorrect or does not have the necessary permissions to perform the requested action.</p>
+<p>In the context of n8n, this error occurs when the MySQL node attempts to connect to the database using the credentials provided in the node's settings. If the credentials are incorrect or do not have the necessary permissions, the node will return this error.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience with n8n and MySQL, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect username or password</strong>: Double-check that the username and password provided in the MySQL node's settings are correct. Make sure to use the correct case (e.g., "myuser" vs. "MyUser").</li>
+<li><strong>Insufficient database permissions</strong>: Ensure that the username has the necessary permissions to perform the requested action on the database. You can check the database user's permissions by running a SQL query like <code>SHOW GRANTS FOR 'myuser'@'%'</code>.</li>
+<li><strong>Incorrect database host or port</strong>: Verify that the database host and port are correct. If you're using a remote database, ensure that the host and port are correctly specified in the node's settings.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<ol>
+<li><strong>Verify the username and password</strong>: Double-check that the username and password provided in the MySQL node's settings are correct. Make sure to use the correct case (e.g., "myuser" vs. "MyUser").</li>
+<li><strong>Check database permissions</strong>: Run a SQL query like <code>SHOW GRANTS FOR 'myuser'@'%'</code> to check the database user's permissions. If the user does not have the necessary permissions, update the user's permissions using a query like <code>GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'%'</code>.</li>
+<li><strong>Update the node's settings</strong>: Once you've verified the username, password, and database permissions, update the MySQL node's settings with the correct values.</li>
+</ol>
+<p>Here's an example of how to update the node's settings using a Code node:</p>
+<pre><code class="language-json">{
+  "credentials": {
+    "username": "myuser",
+    "password": "mypassword",
+    "host": "localhost",
+    "port": 3306
+  }
+}</code></pre>
+<p>You can paste this code into a Code node and update the <code>credentials</code> object with the correct values.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, follow these best practices:</p>
+<ul>
+<li><strong>Use a secure password</strong>: Use a secure password for your database user, and consider using a password manager to store the password securely.</li>
+<li><strong>Limit database permissions</strong>: Only grant the necessary permissions to the database user, and consider using role-based access control to manage database permissions.</li>
+<li><strong>Monitor database connections</strong>: Monitor database connections to detect potential security issues, such as brute-force attacks or unauthorized access.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and the error persists, it may be necessary to escalate the issue to your database administrator or IT team. They can help you investigate the issue further and provide additional support to resolve the problem.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

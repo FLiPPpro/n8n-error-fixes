@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Telegram Node API Connection Failed Error in n8n Workflow</title>
+<meta name="description" content="Fix the n8n Telegram node error &quot;Failed to connect to Telegram: unknown error&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-telegram-api-connection-failed.html">
+<meta property="og:title" content="Telegram Node API Connection Failed Error in n8n Workflow">
+<meta property="og:description" content="Fix the n8n Telegram node error &quot;Failed to connect to Telegram: unknown error&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Telegram Node API Connection Failed Error in n8n Workflow",
+  "description":"Fix the n8n Telegram node error \"Failed to connect to Telegram: unknown error\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Telegram node error: Failed to connect to Telegram: unknown error"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Telegram Node API Connection Failed Error in n8n Workflow</h1>
+<div class="err">Error: Failed to connect to Telegram: unknown error · Node: Telegram</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Failed to connect to Telegram: unknown error" is quite generic and doesn't provide much insight into what's actually going wrong. However, it's likely related to the Telegram node's inability to connect to the Telegram API. This could be due to various reasons such as incorrect API credentials, network issues, or a problem with the Telegram node's configuration.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect API credentials</strong>: Make sure you've entered the correct Telegram API token and chat ID in the node's Settings tab.</li>
+<li><strong>Network issues</strong>: Check your network connection and ensure that you're able to access the Telegram API from your n8n instance.</li>
+<li><strong>Telegram node configuration</strong>: Double-check that the Telegram node is properly configured, including the API endpoint, method, and parameters.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the issue, follow these steps:</p>
+<ol>
+<li><strong>Check API credentials</strong>: Go to the Telegram node's Settings tab and verify that the API token and chat ID are correct. If you're using a bot token, ensure it's enabled for the bot.</li>
+<li><strong>Verify network connection</strong>: Check your network connection and ensure that you're able to access the Telegram API from your n8n instance.</li>
+<li><strong>Configure Telegram node</strong>: Double-check that the Telegram node is properly configured, including the API endpoint, method, and parameters.</li>
+</ol>
+<p>If you're still experiencing issues, you can try adding a delay to the workflow using the "Wait" node to see if the issue is related to a temporary network glitch.</p>
+<pre><code class="language-json">{
+  "name": "Wait 10 seconds",
+  "type": "Wait",
+  "options": {
+    "milliseconds": 10000
+  }
+}</code></pre>
+<p>You can add this node before the Telegram node to introduce a 10-second delay. If the issue persists after the delay, it's likely related to the Telegram node's configuration or API credentials.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, make sure to:</p>
+<ul>
+<li>Regularly review and update your API credentials and Telegram node configuration.</li>
+<li>Monitor your network connection and ensure it's stable.</li>
+<li>Test your workflow regularly to catch any issues before they cause problems.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's likely that the problem is more complex and requires further investigation. In this case, you should:</p>
+<ul>
+<li>Reach out to the n8n community for support and guidance.</li>
+<li>Check the Telegram API documentation to ensure you're using the correct API endpoint and method.</li>
+<li>Consider reaching out to a Telegram API expert for further assistance.</li>
+</ul>
+<p>Remember to provide as much detail as possible about your setup and the error you're experiencing, as this will help others provide more accurate and helpful advice.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Sheets node in n8n API usage limit exceeded error</title>
+<meta name="description" content="Fix the n8n Google Sheets node error &quot;Error: API usage limit exceeded&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-sheets-node-api-limit-error.html">
+<meta property="og:title" content="Google Sheets node in n8n API usage limit exceeded error">
+<meta property="og:description" content="Fix the n8n Google Sheets node error &quot;Error: API usage limit exceeded&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Google Sheets node in n8n API usage limit exceeded error",
+  "description":"Fix the n8n Google Sheets node error \"Error: API usage limit exceeded\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Sheets node error: Error: API usage limit exceeded"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Google Sheets node in n8n API usage limit exceeded error</h1>
+<div class="err">Error: Error: API usage limit exceeded · Node: Google Sheets</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Error: API usage limit exceeded" error in n8n's Google Sheets node occurs when the API usage limit for your Google Sheets API project has been reached. This limit is imposed by Google to prevent abuse and ensure fair usage of their services. When you exceed this limit, you'll see this error in n8n, and your workflow will fail.</p>
+<h2>The three most common causes</h2>
+<p>There are three common reasons why you might hit the API usage limit:</p>
+<ol>
+<li><strong>Insufficient quota configuration</strong>: If you haven't set up a quota for your Google Sheets API project, or if the quota is too low, you'll quickly hit the limit.</li>
+<li><strong>Incorrect API key</strong>: Using an API key that doesn't have the necessary permissions or is not properly configured can lead to excessive API calls.</li>
+<li><strong>Unintended workflow behavior</strong>: If your workflow is designed to run repeatedly or indefinitely, it can consume more API quota than intended.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Error: API usage limit exceeded" error, follow these steps:</p>
+<ol>
+<li><strong>Check your quota configuration</strong>:</li>
+</ol>
+<p>* Go to the Google Cloud Console and navigate to the API Library page. 	* Search for the Google Sheets API and click on it. 	* Click on the "Quotas" tab and check the current usage and quota limits. 	* If the quota is too low, increase it to a suitable value.</p>
+<ol>
+<li><strong>Verify your API key</strong>:</li>
+</ol>
+<p>* Make sure you're using the correct API key for your project. 	* Check that the API key has the necessary permissions to access the Google Sheets API.</p>
+<ol>
+<li><strong>Optimize your workflow</strong>:</li>
+</ol>
+<p>* Review your workflow and identify any unnecessary API calls. 	* Use the "Wait" node to introduce a delay between API calls, reducing the overall API usage. 	* Consider using a more efficient API call, such as using the <code>GET</code> method instead of <code>POST</code>.</p>
+<ol>
+<li><strong>Implement retry logic</strong>:</li>
+</ol>
+<p>* Configure the Google Sheets node to retry failed API calls using the "Retry On Fail" setting in the node's Settings tab. 	* Set the "Max Tries" value to a suitable number, and the "Wait Between Tries (ms)" value to a reasonable delay.</p>
+<p>Here's an example of how you can implement retry logic using the "Wait" node and the "Continue On Fail" setting:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "Google Sheets",
+      "parameters": {
+        "credentials": "your-credentials",
+        "spreadsheetId": "your-spreadsheet-id",
+        "range": "your-range"
+      },
+      "settings": {
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTriesMs": 5000
+      }
+    },
+    {
+      "name": "Wait",
+      "parameters": {
+        "duration": 5000
+      }
+    }
+  ]
+}</code></pre>
+<p>This code snippet shows a Google Sheets node with retry logic enabled, along with a "Wait" node to introduce a 5-second delay between retries.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Error: API usage limit exceeded" error from occurring in the future, follow these best practices:</p>
+<ul>
+<li>Regularly review your quota configuration and adjust it as needed.</li>
+<li>Monitor your API usage and adjust your workflow to reduce excessive API calls.</li>
+<li>Use the "Wait" node to introduce delays between API calls and reduce overall API usage.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and still encounter the "Error: API usage limit exceeded" error, it may be due to a more complex issue, such as:</p>
+<ul>
+<li>Insufficient quota configuration for your project.</li>
+<li>Incorrect API key or permissions.</li>
+<li>Unintended workflow behavior.</li>
+</ul>
+<p>In this case, escalate the issue to your team or contact Google support for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

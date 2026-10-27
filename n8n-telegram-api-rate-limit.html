@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Telegram Bot API rate limit exceeded in n8n workflow</title>
+<meta name="description" content="Fix the n8n Telegram node error &quot;rateLimiter: Rate limit exceeded&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-telegram-api-rate-limit.html">
+<meta property="og:title" content="Telegram Bot API rate limit exceeded in n8n workflow">
+<meta property="og:description" content="Fix the n8n Telegram node error &quot;rateLimiter: Rate limit exceeded&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Telegram Bot API rate limit exceeded in n8n workflow",
+  "description":"Fix the n8n Telegram node error \"rateLimiter: Rate limit exceeded\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Telegram node error: rateLimiter: Rate limit exceeded"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Telegram Bot API rate limit exceeded in n8n workflow</h1>
+<div class="err">Error: rateLimiter: Rate limit exceeded · Node: Telegram</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the <code>rateLimiter: Rate limit exceeded</code> error message in n8n, it means that the Telegram API has blocked your requests due to excessive usage. This is a common issue when working with APIs that have rate limits, and it's essential to address it to avoid further errors and ensure your workflow's reliability.</p>
+<h2>The three most common causes</h2>
+<p>There are three primary reasons why this error occurs:</p>
+<ol>
+<li><strong>Insufficient delay between requests</strong>: When sending multiple requests to the Telegram API in quick succession, you might exceed the rate limit. This is particularly common when using a loop or a scheduling node to send messages at regular intervals.</li>
+<li><strong>Inadequate retry configuration</strong>: If you're not configuring the retry options correctly on the node, you might not be giving the API enough time to recover between requests.</li>
+<li><strong>Incorrect Telegram API configuration</strong>: If your Telegram API credentials are not set up correctly, you might be sending requests with an incorrect rate limit, leading to this error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the <code>rateLimiter: Rate limit exceeded</code> error, follow these steps:</p>
+<ol>
+<li><strong>Configure the retry options</strong>:</li>
+</ol>
+<p>* Open the Telegram node's Settings tab. 	* Set "Retry On Fail" to <code>true</code>. 	* Configure the "Max Tries" and "Wait Between Tries (ms)" options according to your needs. 	* You can also configure the retry options directly on the HTTP Request node.</p>
+<ol>
+<li><strong>Add a delay between requests</strong>:</li>
+</ol>
+<p>* Insert a "Wait" node (real) between the Telegram node and the next node in your workflow. 	* Set the "Wait" node's duration to a value that's significantly longer than the Telegram API's rate limit (e.g., 60 seconds).</p>
+<ol>
+<li><strong>Use a loop with a delay</strong>:</li>
+</ol>
+<p>* If you're using a loop to send messages, add a "Wait" node (real) inside the loop to introduce a delay between each iteration. 	* This will help prevent excessive requests to the Telegram API.</p>
+<p>Here's an example code block that demonstrates how to add a delay between requests using a "Wait" node (real):</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "Telegram",
+      "parameters": {
+        "options": {
+          "retryOnFail": true,
+          "maxTries": 3,
+          "waitBetweenTriesMs": 60000
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        100,
+        300
+      ]
+    },
+    {
+      "name": "Wait",
+      "parameters": {
+        "duration": 60000
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        300,
+        300
+      ]
+    }
+  ]
+}</code></pre>
+<p>This code block adds a "Wait" node (real) with a duration of 60 seconds (60000 milliseconds) between the Telegram node and the next node in your workflow.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, make sure to:</p>
+<ul>
+<li>Monitor your workflow's performance and adjust the retry options and delay between requests accordingly.</li>
+<li>Regularly review your Telegram API credentials and configuration to ensure they're set up correctly.</li>
+<li>Consider implementing a more robust retry mechanism, such as using a separate node to handle retries or implementing a custom retry logic using a "Code" node (JavaScript or Python).</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely that the issue is more complex and requires further investigation. In this case, consider escalating the issue to the n8n support team or seeking help from a qualified developer who's familiar with n8n and the Telegram API. Provide as much detail as possible about your workflow, including the node configurations, error messages, and any relevant logs.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

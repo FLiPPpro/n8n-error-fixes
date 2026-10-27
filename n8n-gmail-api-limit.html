@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Gmail API limit error</title>
+<meta name="description" content="Fix the n8n Gmail node error &quot;Rate Limit: Gmail API has exceeded the maximum allowed requests&quot; — the three most common causes and a step-by-step solution you ca">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-gmail-api-limit.html">
+<meta property="og:title" content="n8n Gmail API limit error">
+<meta property="og:description" content="Fix the n8n Gmail node error &quot;Rate Limit: Gmail API has exceeded the maximum allowed requests&quot; — the three most common causes and a step-by-step solution you ca">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Gmail API limit error",
+  "description":"Fix the n8n Gmail node error \"Rate Limit: Gmail API has exceeded the maximum allowed requests\" — the three most common causes and a step-by-step solution you ca",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Gmail node error: Rate Limit: Gmail API has exceeded the maximum allowed requests"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Gmail API limit error</h1>
+<div class="err">Error: Rate Limit: Gmail API has exceeded the maximum allowed requests · Node: Gmail</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "Rate Limit: Gmail API has exceeded the maximum allowed requests" indicates that the Gmail API has reached its rate limit, preventing further requests from being processed. This can occur when your workflow is making too many requests to the Gmail API within a short period of time, causing the API to block your account.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Insufficient retry configuration</strong>: If your workflow is not configured to retry failed requests, it will continue to attempt to make the same request, exceeding the rate limit.</li>
+<li><strong>Inadequate wait times</strong>: If your workflow is not waiting long enough between requests, it can cause the rate limit to be exceeded.</li>
+<li><strong>Unintended loops</strong>: If your workflow is not properly designed, it can create unintended loops, causing the same request to be made repeatedly and exceeding the rate limit.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Configure the HTTP Request node to retry on fail</strong>: In the Settings tab of the HTTP Request node, enable "Retry On Fail" and set the "Max Tries" to a value higher than 1. This will allow the node to retry the request up to the specified number of times if it fails.</li>
+<li><strong>Add a wait node to introduce a delay</strong>: Add a Wait node to introduce a delay between requests. You can set the "Wait Between Tries (ms)" value to a higher value to increase the delay.</li>
+<li><strong>Use a Code node to implement exponential backoff</strong>: To implement exponential backoff, you can use a Code node with the following JavaScript code:</li>
+</ol>
+<pre><code class="language-javascript">const retryDelay = (attempt) =&gt; {
+  const delay = Math.pow(2, attempt) * 1000;
+  return delay;
+};
+
+const delay = retryDelay(getNodeParameter('attempt'));
+return delay;</code></pre>
+<p>This code will calculate the delay based on the current attempt number, using an exponential backoff strategy. You can set the "attempt" parameter in the Code node to a variable that increments each time the node is executed.</p>
+<ol>
+<li><strong>Configure the HTTP Request node to use the calculated delay</strong>: In the Settings tab of the HTTP Request node, set the "Wait Between Tries (ms)" value to the expression <code>{{delay}}</code>. This will use the calculated delay value from the Code node.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Monitor your workflow's performance and adjust the retry configuration and wait times as needed.</li>
+<li>Regularly review your workflow's design to ensure it is not creating unintended loops.</li>
+<li>Consider implementing a more sophisticated retry strategy, such as using a circuit breaker pattern.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the error persists, it may be necessary to escalate the issue to the n8n support team or the Gmail API support team. Be prepared to provide detailed information about your workflow, including the node configurations and any relevant logs or error messages.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

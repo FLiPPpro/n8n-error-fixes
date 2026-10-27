@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Webhook Node Returns Invalid Response</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;Webhook response is invalid&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-response.html">
+<meta property="og:title" content="Webhook Node Returns Invalid Response">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;Webhook response is invalid&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Webhook Node Returns Invalid Response",
+  "description":"Fix the n8n Webhook node error \"Webhook response is invalid\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: Webhook response is invalid"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Webhook Node Returns Invalid Response</h1>
+<div class="err">Error: Webhook response is invalid · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Webhook response is invalid" error in n8n is a generic error message that can have various causes. It's essential to understand that this error doesn't provide specific details about the problem, so you'll need to dig deeper to identify the root cause.</p>
+<p>In this article, we'll explore the possible reasons behind this error and provide a step-by-step guide to fix it.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of the "Webhook response is invalid" error are:</p>
+<ol>
+<li><strong>Incorrect response format</strong>: The webhook server is sending a response in a format that n8n doesn't expect. This can happen if the response is not in JSON format or if it's missing required fields.</li>
+<li><strong>Server-side error</strong>: The webhook server is experiencing an internal error, and the response is not valid. This can be due to a server-side issue, such as a database error or a misconfigured API.</li>
+<li><strong>n8n configuration issue</strong>: The webhook node is configured incorrectly, leading to an invalid response.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Webhook response is invalid" error, follow these steps:</p>
+<ol>
+<li><strong>Check the response format</strong>: Verify that the webhook server is sending a response in JSON format. You can do this by inspecting the response in the n8n logs or by adding a "Debug" node to your workflow to log the response.</li>
+<li><strong>Configure the webhook node</strong>: Ensure that the webhook node is configured correctly. Check that the URL, method, and headers are set up correctly. You can also try setting the "Request Body" field to a simple JSON object, such as <code>{"test": "value"}</code>.</li>
+<li><strong>Add error handling</strong>: Configure the webhook node to retry the request if it fails. You can do this by setting the "Retry On Fail" option to "Yes" and configuring the "Max Tries" and "Wait Between Tries (ms)" options. This will allow n8n to retry the request if it fails initially.</li>
+</ol>
+<p>Here's an example code block that you can use in a "Code" node to add error handling to your webhook node:</p>
+<pre><code class="language-javascript">const webhookNode = nodes.get('Webhook');
+const retryOptions = {
+  maxTries: 3,
+  waitBetweenTries: 5000 // 5 seconds
+};
+webhookNode.settings.retryOnFail = true;
+webhookNode.settings.retryOptions = retryOptions;</code></pre>
+<p>This code block sets the "Retry On Fail" option to "Yes" and configures the "Max Tries" and "Wait Between Tries (ms)" options.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Webhook response is invalid" error from coming back, make sure to:</p>
+<ul>
+<li>Regularly inspect the n8n logs to identify any issues with the webhook node.</li>
+<li>Verify that the webhook server is sending a valid response in JSON format.</li>
+<li>Configure the webhook node to retry the request if it fails.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the steps above and the error persists, it's time to escalate the issue. This may involve:</p>
+<ul>
+<li>Contacting the webhook server administrator to investigate the issue.</li>
+<li>Reviewing the n8n documentation and community forums to see if others have experienced similar issues.</li>
+<li>Reaching out to the n8n support team for further assistance.</li>
+</ul>
+<p>Remember to provide as much detail as possible about the error, including the n8n version, workflow configuration, and any relevant logs or error messages.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

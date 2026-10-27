@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Function/Code Node JSON Parse Error — Fix</title>
+<meta name="description" content="Fix the n8n Code node error &quot;SyntaxError: Unexpected token in JSON&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-function-node-json-parse-error.html">
+<meta property="og:title" content="n8n Function/Code Node JSON Parse Error — Fix">
+<meta property="og:description" content="Fix the n8n Code node error &quot;SyntaxError: Unexpected token in JSON&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Function/Code Node JSON Parse Error — Fix",
+  "description":"Fix the n8n Code node error \"SyntaxError: Unexpected token in JSON\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: SyntaxError: Unexpected token in JSON"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Function/Code Node JSON Parse Error — Fix</h1>
+<div class="err">Error: SyntaxError: Unexpected token in JSON · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the <code>SyntaxError: Unexpected token in JSON</code> error in n8n, it means that the upstream response is not valid JSON. This can happen for several reasons, including:</p>
+<ul>
+<li>The upstream server is returning an HTML error page instead of JSON data.</li>
+<li>The upstream response contains a trailing comma, which is not valid JSON.</li>
+<li>The upstream server is using chunked encoding, which can cause issues with JSON parsing.</li>
+</ul>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ul>
+<li><strong>Upstream server returning HTML error page</strong>: This can happen when the upstream server is configured to return an HTML error page instead of JSON data. This can be due to a misconfiguration or a bug in the upstream server.</li>
+<li><strong>Trailing comma in upstream response</strong>: This can happen when the upstream server is returning a JSON object with a trailing comma. This is not valid JSON and can cause parsing errors.</li>
+<li><strong>Chunked encoding in upstream response</strong>: This can happen when the upstream server is using chunked encoding to send the response. This can cause issues with JSON parsing, especially if the chunks are not properly formatted.</li>
+</ul>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, you need to add a try-catch block in your Code node to catch the <code>SyntaxError</code> exception. You also need to check the <code>Content-Type</code> header of the upstream response to ensure it's set to <code>application/json</code>. Here's an example code block that you can use:</p>
+<pre><code class="language-javascript">const response = await fetch('https://example.com/api/data');
+if (response.ok) {
+  const contentType = response.headers.get('Content-Type');
+  if (contentType === 'application/json') {
+    try {
+      const data = await response.json();
+      // Process the data here
+    } catch (error) {
+      if (error instanceof SyntaxError) {
+        // Handle the error here
+      } else {
+        // Handle other errors here
+      }
+    }
+  } else {
+    // Handle non-JSON response here
+  }
+} else {
+  // Handle non-200 response here
+}</code></pre>
+<p>In this code block, we first check if the upstream response is OK (200-299). We then check the <code>Content-Type</code> header to ensure it's set to <code>application/json</code>. If it is, we try to parse the response as JSON using the <code>response.json()</code> method. If the parsing fails, we catch the <code>SyntaxError</code> exception and handle it accordingly.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, you need to ensure that the upstream server is configured to return valid JSON data. This may involve:</p>
+<ul>
+<li>Configuring the upstream server to return JSON data instead of HTML error pages.</li>
+<li>Fixing any issues with the upstream server that may be causing trailing commas in the response.</li>
+<li>Configuring the upstream server to use a different encoding scheme, such as chunked encoding.</li>
+</ul>
+<p>You should also consider adding retries to your workflow to handle cases where the upstream server is down or responding slowly. You can configure retries on the HTTP Request node by setting the <code>Retry On Fail</code> option to <code>true</code> and specifying the <code>Max Tries</code> and <code>Wait Between Tries (ms)</code> options.</p>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it may be worth escalating the issue to your upstream server administrators or developers. They may be able to provide more information about the upstream server configuration or help you troubleshoot the issue. Additionally, if you're using a third-party API or service, you may want to check their documentation or support resources for any known issues or workarounds.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

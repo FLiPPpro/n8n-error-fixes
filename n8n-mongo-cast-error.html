@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n MongoDB node explicit cast error</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;needs explicit cast.&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongo-cast-error.html">
+<meta property="og:title" content="n8n MongoDB node explicit cast error">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;needs explicit cast.&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n MongoDB node explicit cast error",
+  "description":"Fix the n8n MongoDB node error \"needs explicit cast.\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: needs explicit cast."
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n MongoDB node explicit cast error</h1>
+<div class="err">Error: needs explicit cast. · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "needs explicit cast" error in n8n's MongoDB node, it means that the node is unable to automatically convert the field value to the expected data type. This error typically occurs when the field value is of a different data type than what is specified in the node's settings.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes of this error:</p>
+<ol>
+<li><strong>Data type mismatch</strong>: The field value is of a different data type than what is specified in the node's settings. For example, if you're trying to set a field value to a string, but the field is defined as an integer.</li>
+<li><strong>Invalid field value</strong>: The field value is invalid or contains special characters that are not allowed in the specified data type.</li>
+<li><strong>Node settings not properly configured</strong>: The node's settings, such as the data type or field name, are not properly configured.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the field value</strong>: Verify that the field value is valid and does not contain any special characters. If the value is invalid, you'll need to correct it before proceeding.</li>
+<li><strong>Check the data type</strong>: Verify that the field value is of the correct data type. If it's not, you'll need to update the field value or change the data type in the node's settings.</li>
+<li><strong>Use an explicit cast</strong>: If the field value is of a different data type than what is specified in the node's settings, you'll need to use an explicit cast to convert the value to the correct data type. You can do this using the <code>JSON.parse()</code> function in a Code node.</li>
+</ol>
+<p>Here's an example of how to use an explicit cast in a Code node:</p>
+<pre><code class="language-json">{
+  "name": "Set Field Value",
+  "parameters": {
+    "value": "{\"field\": {{=json.parse(\"'123'\")}}}"
+  }
+}</code></pre>
+<p>In this example, the <code>json.parse()</code> function is used to convert the string <code>'123'</code> to an integer.</p>
+<ol>
+<li><strong>Update the node settings</strong>: Once you've verified the field value and data type, update the node settings to reflect the correct data type.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back in the future, follow these best practices:</p>
+<ul>
+<li><strong>Verify field values</strong>: Always verify that field values are valid and do not contain any special characters.</li>
+<li><strong>Use explicit casts</strong>: Use explicit casts to convert field values to the correct data type when necessary.</li>
+<li><strong>Update node settings</strong>: Regularly review and update node settings to ensure they are properly configured.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and are still experiencing issues, it's likely that the problem is more complex and requires further investigation. In this case, you should escalate the issue to the n8n support team for further assistance. Provide as much detail as possible about the error, including any relevant node settings and field values.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

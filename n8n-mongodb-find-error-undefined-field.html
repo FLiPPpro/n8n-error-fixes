@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MongoDB Find Node Error: TypeError: Cannot read properties of undefined</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;TypeError: Cannot read properties of undefined (reading 'X')&quot; — the three most common causes and a step-by-step solution you can">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongodb-find-error-undefined-field.html">
+<meta property="og:title" content="MongoDB Find Node Error: TypeError: Cannot read properties of undefined">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;TypeError: Cannot read properties of undefined (reading 'X')&quot; — the three most common causes and a step-by-step solution you can">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MongoDB Find Node Error: TypeError: Cannot read properties of undefined",
+  "description":"Fix the n8n MongoDB node error \"TypeError: Cannot read properties of undefined (reading 'X')\" — the three most common causes and a step-by-step solution you can",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: TypeError: Cannot read properties of undefined (reading 'X')"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MongoDB Find Node Error: TypeError: Cannot read properties of undefined</h1>
+<div class="err">Error: TypeError: Cannot read properties of undefined (reading 'X') · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the <code>TypeError: Cannot read properties of undefined (reading 'X')</code> error in n8n, it means that the node you're working with is trying to access a property of an object that doesn't exist. In this case, the error is specifically related to a MongoDB node, which is trying to filter results based on a field that doesn't exist.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Field does not exist in the MongoDB collection</strong>: This is the most common cause. If the field you're trying to filter by doesn't exist in the MongoDB collection, the error will occur.</li>
+<li><strong>Typo in field name</strong>: Make sure you've typed the field name correctly. A single typo can cause the error.</li>
+<li><strong>Incorrect data type</strong>: If the field exists but has a different data type than expected, the error can occur.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the MongoDB collection</strong>: Make sure the field you're trying to filter by exists in the MongoDB collection. You can do this by running a simple query in the MongoDB shell or using a tool like MongoDB Compass.</li>
+<li><strong>Verify the field name</strong>: Double-check the field name to ensure it's correct. If you're using a variable, make sure it's correctly defined.</li>
+<li><strong>Use the <code>exists</code> operator</strong>: Instead of trying to filter by a field that doesn't exist, use the <code>$exists</code> operator to check if the field exists. You can do this in the MongoDB node's settings by adding a new filter.</li>
+</ol>
+<p>Here's an example code block that demonstrates how to use the <code>$exists</code> operator:</p>
+<pre><code class="language-json">{
+  "filter": {
+    "name": {
+      "$exists": true
+    }
+  }
+}</code></pre>
+<p>In this example, we're checking if the <code>name</code> field exists in the collection. If it does, the filter will be applied.</p>
+<p>If you're using a variable to store the field name, you can use the following code block in a Code node:</p>
+<pre><code class="language-javascript">const fieldName = 'name'; // replace with your variable
+const filter = {
+  filter: {
+    [fieldName]: {
+      "$exists": true
+    }
+  }
+};
+return filter;</code></pre>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring again, make sure to:</p>
+<ul>
+<li>Verify the field name and data type before trying to filter by it.</li>
+<li>Use the <code>$exists</code> operator to check if the field exists.</li>
+<li>Test your workflow thoroughly to catch any errors before deploying it to production.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and still encounter the error, it's time to escalate the issue. Reach out to the n8n community or your organization's support team for further assistance. Provide as much detail as possible about the error, including the node configuration, workflow settings, and any relevant logs.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

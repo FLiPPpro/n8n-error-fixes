@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Webhook node rate limit error</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;Rate Limit: Webhook has exceeded the maximum allowed requests&quot; — the three most common causes and a step-by-step solution you ca">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-rate-limit.html">
+<meta property="og:title" content="n8n Webhook node rate limit error">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;Rate Limit: Webhook has exceeded the maximum allowed requests&quot; — the three most common causes and a step-by-step solution you ca">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Webhook node rate limit error",
+  "description":"Fix the n8n Webhook node error \"Rate Limit: Webhook has exceeded the maximum allowed requests\" — the three most common causes and a step-by-step solution you ca",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: Rate Limit: Webhook has exceeded the maximum allowed requests"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Webhook node rate limit error</h1>
+<div class="err">Error: Rate Limit: Webhook has exceeded the maximum allowed requests · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Rate Limit: Webhook has exceeded the maximum allowed requests" error in n8n indicates that the webhook you're trying to send requests to has reached its rate limit. This means that the number of requests you're sending to the webhook exceeds the maximum allowed by the webhook's provider. This can happen when you're sending a high volume of requests to the webhook, or if the webhook's rate limit is too low.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Insufficient rate limit configuration</strong>: If you're not configuring the rate limit correctly on the node, you may be sending too many requests to the webhook, exceeding its rate limit.</li>
+<li><strong>Inadequate retry configuration</strong>: If you're not configuring retries correctly on the node, you may be trying to send requests to the webhook too quickly, exceeding its rate limit.</li>
+<li><strong>High volume of requests</strong>: If you're sending a high volume of requests to the webhook, you may be exceeding its rate limit, even if you have the rate limit and retry configuration set correctly.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, you'll need to configure the rate limit and retry configuration correctly on the node. Here's a step-by-step guide:</p>
+<ol>
+<li><strong>Configure the rate limit</strong>: Go to the node's Settings tab and set the "Rate Limit" field to the maximum number of requests allowed by the webhook's provider. You can find this information in the webhook's documentation.</li>
+<li><strong>Configure retries</strong>: Go to the node's Settings tab and set the "Retry On Fail" field to "true". Set the "Max Tries" field to the number of times you want the node to retry sending the request. Set the "Wait Between Tries (ms)" field to the amount of time you want to wait between retries.</li>
+<li><strong>Add a delay</strong>: To add a delay between retries, you can use the "Wait" node. Create a new "Wait" node and set the "Duration" field to the amount of time you want to wait between retries.</li>
+<li><strong>Branch on error</strong>: To branch on error, you can use the "Error Trigger" workflow trigger. Create a new "Error Trigger" node and set the "Error" field to the error message you want to trigger on.</li>
+<li><strong>Write a retry function</strong>: To write a retry function, you can use the "Code" node. Here's an example of a retry function in JavaScript:</li>
+</ol>
+<pre><code class="language-javascript">function retryRequest(node, callback) {
+  const maxTries = node.settings.maxTries;
+  const waitBetweenTries = node.settings.waitBetweenTries;
+  let tries = 0;
+
+  function sendRequest() {
+    // Send the request to the webhook
+    // ...
+
+    // If the request fails, retry after the specified wait time
+    if (tries &lt; maxTries) {
+      setTimeout(sendRequest, waitBetweenTries);
+      tries++;
+    } else {
+      // If the maximum number of retries is reached, fail the node
+      callback(new Error('Maximum number of retries reached'));
+    }
+  }
+
+  sendRequest();
+}</code></pre>
+<p>You can paste this code into a "Code" node and use it to retry the request.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, you'll need to monitor the rate limit and retry configuration of the node. Here are some tips:</p>
+<ul>
+<li><strong>Monitor the rate limit</strong>: Keep an eye on the rate limit of the webhook's provider and adjust the rate limit configuration of the node accordingly.</li>
+<li><strong>Monitor the retry configuration</strong>: Keep an eye on the retry configuration of the node and adjust it accordingly to prevent excessive retries.</li>
+<li><strong>Use a load balancer</strong>: Consider using a load balancer to distribute the traffic to the webhook and prevent excessive requests from being sent to the webhook.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you're experiencing this error and have tried the steps above, it's likely that the issue is more complex and requires further investigation. In this case, you should escalate the issue to your team's lead or a senior engineer for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

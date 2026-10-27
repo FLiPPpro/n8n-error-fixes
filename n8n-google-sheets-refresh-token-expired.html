@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Google Sheets Refresh Token Expired — Fix</title>
+<meta name="description" content="Fix the n8n Google Sheets node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-sheets-refresh-token-expired.html">
+<meta property="og:title" content="n8n Google Sheets Refresh Token Expired — Fix">
+<meta property="og:description" content="Fix the n8n Google Sheets node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Google Sheets Refresh Token Expired — Fix",
+  "description":"Fix the n8n Google Sheets node error \"invalid_grant: Token has been expired or revoked\" — the three most common causes and a step-by-step solution you can paste",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Sheets node error: invalid_grant: Token has been expired or revoked"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Google Sheets Refresh Token Expired — Fix</h1>
+<div class="err">Error: invalid_grant: Token has been expired or revoked · Node: Google Sheets</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The <code>invalid_grant: Token has been expired or revoked</code> error in n8n is a common issue when using the Google Sheets node. This error occurs when the OAuth2 token used to authenticate with Google Sheets has expired or been revoked. There are three primary reasons for this error:</p>
+<ul>
+<li>The Google 7-day testing cap has been reached, forcing you to re-authenticate.</li>
+<li>You have changed your Google account password, invalidating the stored token.</li>
+<li>Your Google app has not been verified, causing the token to be revoked.</li>
+</ul>
+<h2>The three most common causes</h2>
+<p>To troubleshoot this issue, it's essential to understand the underlying causes. Here are the three most common reasons for this error:</p>
+<ol>
+<li><strong>Google 7-day testing cap</strong>: If you're using a Google account for testing purposes, you'll hit the 7-day limit for unverified apps. After this period, you'll need to re-authenticate to continue using the Google Sheets node.</li>
+<li><strong>Password change</strong>: If you change your Google account password, the stored token in n8n will become invalid. You'll need to re-authenticate to update the token.</li>
+<li><strong>App not verified</strong>: If your Google app hasn't been verified, the token will be revoked, causing the <code>invalid_grant</code> error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the <code>invalid_grant</code> error, follow these steps:</p>
+<ol>
+<li><strong>Re-authenticate with Google Sheets</strong>:</li>
+</ol>
+<p>* Go to the Google Sheets node in your n8n workflow. 	* Click on the "Settings" tab. 	* Scroll down to the "OAuth2" section. 	* Click on the "Re-authenticate" button. 	* Follow the prompts to re-authenticate with Google Sheets.</p>
+<ol>
+<li><strong>Update the token</strong>:</li>
+</ol>
+<p>* If you've changed your Google account password, update the token by re-authenticating. 	* If you're using a Google account for testing purposes, re-authenticate to update the token.</p>
+<ol>
+<li><strong>Verify your Google app</strong>:</li>
+</ol>
+<p>* Ensure your Google app has been verified by following the instructions in the Google Developers Console. 	* If your app hasn't been verified, re-authenticate to update the token.</p>
+<p>To automate the re-authentication process, you can use a <code>Code</code> node to update the token. Here's an example JavaScript code block that you can paste into a <code>Code</code> node:</p>
+<pre><code class="language-javascript">const google = require('googleapis').google;
+const auth = new google.auth.GoogleAuth({
+  client_id: 'YOUR_CLIENT_ID',
+  client_secret: 'YOUR_CLIENT_SECRET',
+  redirect_uri: 'YOUR_REDIRECT_URI',
+});
+
+const token = await auth.getAccessToken();
+const refreshToken = await auth.getRefreshToken();
+
+// Update the token in the n8n workflow
+// Assuming the token is stored in a workflow variable named "googleToken"
+const updateToken = {
+  'googleToken': token,
+  'googleRefreshToken': refreshToken,
+};
+
+// Update the token
+return updateToken;</code></pre>
+<p>Replace <code>YOUR_CLIENT_ID</code>, <code>YOUR_CLIENT_SECRET</code>, and <code>YOUR_REDIRECT_URI</code> with your actual Google OAuth2 credentials.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the <code>invalid_grant</code> error from occurring in the future, follow these best practices:</p>
+<ul>
+<li><strong>Use a verified Google app</strong>: Ensure your Google app has been verified to avoid token revocation.</li>
+<li><strong>Use a service account</strong>: Consider using a service account to authenticate with Google Sheets, which can help avoid token revocation issues.</li>
+<li><strong>Monitor your token expiration</strong>: Keep an eye on your token expiration dates and re-authenticate before the token expires.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and still encounter the <code>invalid_grant</code> error, it may be time to escalate the issue. Consider reaching out to the n8n support team or the Google support team for further assistance. Provide as much detail as possible about your workflow, including the node configurations and any relevant error messages.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Error Mongodb Client not defined in n8n Mongodb Node</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;MongodbClient is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongodb-node-mongodb-client-not-defined.html">
+<meta property="og:title" content="Error Mongodb Client not defined in n8n Mongodb Node">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;MongodbClient is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Error Mongodb Client not defined in n8n Mongodb Node",
+  "description":"Fix the n8n MongoDB node error \"MongodbClient is not defined\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: MongodbClient is not defined"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Error Mongodb Client not defined in n8n Mongodb Node</h1>
+<div class="err">Error: MongodbClient is not defined · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "MongodbClient is not defined" indicates that the n8n workflow is attempting to use the MongoDB node, but the necessary client library is not being imported or initialized correctly. This can occur due to a misconfiguration, a missing dependency, or an incorrect setup of the MongoDB node.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience and support requests, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Missing MongoDB client library</strong>: The MongoDB node requires the <code>mongodb</code> client library to be installed and imported in the n8n workflow. If this library is missing, the node will throw an error when trying to connect to the MongoDB database.</li>
+<li><strong>Incorrect MongoDB node configuration</strong>: The MongoDB node has several settings that need to be configured correctly, such as the MongoDB connection string, database name, and collection name. If these settings are incorrect or missing, the node will throw an error.</li>
+<li><strong>Dependency issues</strong>: If the <code>mongodb</code> client library is installed, but the n8n workflow is not configured to import it correctly, the node will throw an error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the MongoDB node configuration</strong>:</li>
+</ol>
+<p>* Open the n8n workflow and navigate to the MongoDB node. 	* Check that the MongoDB connection string, database name, and collection name are correctly configured. 	* Make sure that the "Host" and "Port" fields are correctly set.</p>
+<ol>
+<li><strong>Install the MongoDB client library</strong>:</li>
+</ol>
+<p>* If you are using a Code node to import the <code>mongodb</code> client library, make sure that the library is installed and imported correctly. 	* If you are using a <code>package.json</code> file to manage dependencies, make sure that the <code>mongodb</code> package is listed as a dependency.</p>
+<ol>
+<li><strong>Import the MongoDB client library</strong>:</li>
+</ol>
+<p>* If you are using a Code node to import the <code>mongodb</code> client library, make sure that the library is imported correctly. 	* If you are using a <code>package.json</code> file to manage dependencies, make sure that the <code>mongodb</code> package is imported correctly.</p>
+<p>Here is an example of how to import the <code>mongodb</code> client library in a Code node:</p>
+<pre><code class="language-javascript">const { MongoClient } = require('mongodb');
+
+const url = 'mongodb://localhost:27017';
+const dbName = 'mydatabase';
+
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+client.connect((err) =&gt; {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Connected to MongoDB');
+  }
+});</code></pre>
+<ol>
+<li><strong>Test the MongoDB node</strong>:</li>
+</ol>
+<p>* Save the changes to the n8n workflow. 	* Run the workflow and check that the MongoDB node is connecting to the MongoDB database correctly.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly check the MongoDB node configuration to ensure that it is correctly set up.</li>
+<li>Keep the <code>mongodb</code> client library up to date by running <code>npm update</code> or <code>yarn update</code>.</li>
+<li>Use a <code>package.json</code> file to manage dependencies and ensure that the <code>mongodb</code> package is listed as a dependency.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the error persists, it may be necessary to escalate the issue to the n8n support team. Provide as much detail as possible about the error, including the error message, the n8n workflow configuration, and any relevant logs or debug output. This will help the support team to diagnose and resolve the issue more efficiently.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

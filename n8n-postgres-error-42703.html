@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Postgres Node Returns Error 42703 Unknown Object</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;42703 Unknown object&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-error-42703.html">
+<meta property="og:title" content="Postgres Node Returns Error 42703 Unknown Object">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;42703 Unknown object&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Postgres Node Returns Error 42703 Unknown Object",
+  "description":"Fix the n8n Postgres node error \"42703 Unknown object\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: 42703 Unknown object"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Postgres Node Returns Error 42703 Unknown Object</h1>
+<div class="err">Error: 42703 Unknown object · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error message "42703 Unknown object" indicates that the Postgres node in n8n is unable to find or access the specified object (e.g., table, view, or function) in the Postgres database. This error can be caused by a variety of issues, including incorrect database credentials, invalid SQL syntax, or missing database objects.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect database credentials</strong>: Double-check that the database username, password, and host are correctly configured in the Postgres node.</li>
+<li><strong>Invalid SQL syntax</strong>: Review the SQL query being executed by the Postgres node to ensure it is correct and matches the expected database schema.</li>
+<li><strong>Missing database objects</strong>: Verify that the specified table, view, or function exists in the Postgres database and is accessible by the configured username.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve this issue, follow these steps:</p>
+<ol>
+<li><strong>Verify database credentials</strong>: Ensure that the database username, password, and host are correctly configured in the Postgres node. You can do this by checking the <code>Settings</code> tab of the Postgres node.</li>
+</ol>
+<pre><code class="language-json">{
+  "credentials": {
+    "username": "your_username",
+    "password": "your_password",
+    "host": "your_host",
+    "port": 5432
+  }
+}</code></pre>
+<ol>
+<li><strong>Check SQL syntax</strong>: Review the SQL query being executed by the Postgres node to ensure it is correct and matches the expected database schema. You can do this by checking the <code>SQL</code> field of the Postgres node.</li>
+</ol>
+<pre><code class="language-sql">SELECT * FROM your_table;</code></pre>
+<ol>
+<li><strong>Verify database objects</strong>: Use a tool like <code>psql</code> or a GUI client to verify that the specified table, view, or function exists in the Postgres database and is accessible by the configured username.</li>
+</ol>
+<pre><code class="language-bash">psql -U your_username -d your_database -c "SELECT * FROM your_table;"</code></pre>
+<ol>
+<li><strong>Update the Postgres node</strong>: If the issue persists, update the Postgres node with the corrected database credentials, SQL query, or database object name.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from recurring, consider the following:</p>
+<ol>
+<li><strong>Use a more robust database connection</strong>: Instead of using the Postgres node, consider using a more robust database connection method, such as a connection pool or a database driver.</li>
+<li><strong>Implement error handling</strong>: Use the <code>Error Trigger</code> to catch and handle errors that occur during database operations.</li>
+<li><strong>Regularly review and update database credentials</strong>: Regularly review and update database credentials to ensure they are correct and up-to-date.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you have followed the steps above and the issue persists, it may be necessary to escalate the issue to a database administrator or a n8n support specialist. Be prepared to provide detailed information about the issue, including:</p>
+<ul>
+<li>The exact error message and any relevant logs</li>
+<li>The database credentials and SQL query being executed</li>
+<li>Any relevant database object names or schema information</li>
+<li>Any error handling or retry configurations in place</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

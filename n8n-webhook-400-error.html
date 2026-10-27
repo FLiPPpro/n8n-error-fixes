@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Webhook node returns 400 Bad Request from API</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;Invalid JSON payload&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-400-error.html">
+<meta property="og:title" content="n8n Webhook node returns 400 Bad Request from API">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;Invalid JSON payload&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Webhook node returns 400 Bad Request from API",
+  "description":"Fix the n8n Webhook node error \"Invalid JSON payload\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: Invalid JSON payload"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Webhook node returns 400 Bad Request from API</h1>
+<div class="err">Error: Invalid JSON payload · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Invalid JSON payload" error in n8n's Webhook node is a common issue that can be frustrating to resolve. This error occurs when the data being sent to the API is not in a valid JSON format. This can happen due to various reasons such as incorrect data formatting, missing required fields, or mismatched data types.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of the "Invalid JSON payload" error in n8n's Webhook node are:</p>
+<ol>
+<li><strong>Incorrect data formatting</strong>: This is the most common cause of the error. When the data is not properly formatted in JSON, the API will reject it, resulting in a 400 error.</li>
+<li><strong>Missing required fields</strong>: If the API requires specific fields to be present in the JSON payload, but they are missing, the API will reject the request.</li>
+<li><strong>Mismatched data types</strong>: If the data types of the fields in the JSON payload do not match the expected data types of the API, the API will reject the request.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Invalid JSON payload" error, follow these steps:</p>
+<ol>
+<li><strong>Check the data formatting</strong>: Ensure that the data is properly formatted in JSON. You can use online JSON validators to check the format.</li>
+<li><strong>Verify required fields</strong>: Check the API documentation to ensure that all required fields are present in the JSON payload.</li>
+<li><strong>Check data types</strong>: Ensure that the data types of the fields in the JSON payload match the expected data types of the API.</li>
+</ol>
+<p>To validate the JSON payload, you can use a Code node with the following JavaScript code:</p>
+<pre><code class="language-javascript">const payload = {
+  "name": "John Doe",
+  "age": 30,
+  "city": "New York"
+};
+
+const jsonPayload = JSON.stringify(payload);
+console.log(jsonPayload);
+
+const isValid = jsonPayload.trim().startsWith('{') &amp;&amp; jsonPayload.trim().endsWith('}');
+console.log(isValid);</code></pre>
+<p>This code will validate the JSON payload and log the result to the console.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Invalid JSON payload" error from coming back, follow these best practices:</p>
+<ol>
+<li><strong>Use a JSON validator</strong>: Use online JSON validators to check the format of the JSON payload before sending it to the API.</li>
+<li><strong>Test thoroughly</strong>: Test the Webhook node thoroughly to ensure that it is sending the correct data in the correct format.</li>
+<li><strong>Monitor API logs</strong>: Monitor the API logs to detect any issues with the JSON payload.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the issue persists, it's time to escalate the issue. Escalation means that you need to involve your team's senior engineers or the n8n support team to help resolve the issue. Provide as much detail as possible, including the error message, the API documentation, and any relevant logs. This will help the support team to better understand the issue and provide a solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

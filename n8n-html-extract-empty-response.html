@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n HTML Extract node returns empty response</title>
+<meta name="description" content="Fix the n8n HTML Extract node error &quot;Unexpected end of JSON input&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-html-extract-empty-response.html">
+<meta property="og:title" content="n8n HTML Extract node returns empty response">
+<meta property="og:description" content="Fix the n8n HTML Extract node error &quot;Unexpected end of JSON input&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n HTML Extract node returns empty response",
+  "description":"Fix the n8n HTML Extract node error \"Unexpected end of JSON input\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTML Extract node error: Unexpected end of JSON input"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n HTML Extract node returns empty response</h1>
+<div class="err">Error: Unexpected end of JSON input · Node: HTML Extract</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Unexpected end of JSON input" error in n8n's HTML Extract node is a common issue that can be frustrating to resolve. This error occurs when the HTML Extract node is unable to parse the HTML response from the target URL, resulting in an empty response. In this article, we will explore the possible causes of this error and provide a step-by-step guide to fix it.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes of the "Unexpected end of JSON input" error in the HTML Extract node:</p>
+<ol>
+<li><strong>Invalid HTML response</strong>: The target URL returns HTML that is not in the expected format, causing the HTML Extract node to fail.</li>
+<li><strong>Missing or incorrect HTML selector</strong>: The HTML selector used in the HTML Extract node is not correctly configured, resulting in an empty response.</li>
+<li><strong>Network issues</strong>: Network connectivity issues or proxy settings can prevent the HTML Extract node from receiving the HTML response.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Unexpected end of JSON input" error in the HTML Extract node, follow these steps:</p>
+<ol>
+<li><strong>Check the HTML response</strong>: Verify that the target URL returns the expected HTML response. You can do this by using a tool like <code>curl</code> or a web browser to inspect the HTML response.</li>
+<li><strong>Configure the HTML selector</strong>: Ensure that the HTML selector used in the HTML Extract node is correctly configured. You can use the <code>Inspect</code> feature in n8n to verify the HTML structure and select the correct element.</li>
+<li><strong>Add a retry mechanism</strong>: Configure the HTML Extract node to retry the request in case of a network issue. You can do this by setting the "Retry On Fail" option to "true" and configuring the "Max Tries" and "Wait Between Tries (ms)" options.</li>
+<li><strong>Use a Code node to inspect the HTML response</strong>: Add a Code node to inspect the HTML response and verify that it is in the expected format. You can use the following JavaScript code to log the HTML response:</li>
+</ol>
+<pre><code class="language-javascript">console.log( workflow.getVariable('htmlResponse') );</code></pre>
+<p>This code logs the HTML response to the console, allowing you to inspect the HTML structure and identify any issues.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "Unexpected end of JSON input" error from occurring in the future, follow these best practices:</p>
+<ol>
+<li><strong>Verify the HTML response</strong>: Regularly verify that the target URL returns the expected HTML response.</li>
+<li><strong>Test the HTML selector</strong>: Test the HTML selector used in the HTML Extract node to ensure it is correctly configured.</li>
+<li><strong>Monitor network issues</strong>: Monitor network connectivity issues and proxy settings to prevent network-related errors.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you have followed the steps outlined above and the issue persists, it may be necessary to escalate the issue to the n8n support team. Provide the following information to assist with troubleshooting:</p>
+<ul>
+<li>The exact error message</li>
+<li>The n8n version and node version</li>
+<li>The target URL and HTML selector used in the HTML Extract node</li>
+<li>Any relevant logs or console output</li>
+</ul>
+<p>By following these steps and best practices, you should be able to resolve the "Unexpected end of JSON input" error in the HTML Extract node and ensure that your workflow is running smoothly.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Telegram API Node Returns Error 429 Too Many Requests</title>
+<meta name="description" content="Fix the n8n Telegram node error &quot;429 Too many requests&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-telegram-api-error-429.html">
+<meta property="og:title" content="Telegram API Node Returns Error 429 Too Many Requests">
+<meta property="og:description" content="Fix the n8n Telegram node error &quot;429 Too many requests&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Telegram API Node Returns Error 429 Too Many Requests",
+  "description":"Fix the n8n Telegram node error \"429 Too many requests\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Telegram node error: 429 Too many requests"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Telegram API Node Returns Error 429 Too Many Requests</h1>
+<div class="err">Error: 429 Too many requests · Node: Telegram</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see a 429 error in n8n, it means that the Telegram API has rate limited your requests. This is a common issue when making API calls, especially if you're making multiple requests in a short amount of time. The Telegram API has a limit on the number of requests you can make per minute, and if you exceed this limit, you'll get a 429 error.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for a 429 error in n8n when using the Telegram node:</p>
+<ol>
+<li><strong>Making too many requests in a short amount of time</strong>: If you're making multiple requests to the Telegram API in a short amount of time, you may exceed the rate limit and get a 429 error.</li>
+<li><strong>Using an outdated Telegram API token</strong>: If your Telegram API token is outdated, it may not be recognized by the Telegram API, leading to a 429 error.</li>
+<li><strong>Configuring the Telegram node incorrectly</strong>: If the Telegram node is not configured correctly, it may make multiple requests to the Telegram API in a short amount of time, leading to a 429 error.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the 429 error, follow these steps:</p>
+<ol>
+<li><strong>Check the Telegram API token</strong>: Make sure your Telegram API token is up-to-date and correct. You can check the token in the Telegram API settings.</li>
+<li><strong>Configure the Telegram node correctly</strong>: Make sure the Telegram node is configured correctly, including the API token, endpoint, and any other required settings.</li>
+<li><strong>Configure retries on the Telegram node</strong>: Go to the Telegram node's Settings tab and configure retries by setting "Retry On Fail" to <code>true</code>, "Max Tries" to a value higher than 1, and "Wait Between Tries (ms)" to a value that is at least 1 second.</li>
+<li><strong>Add a delay between requests</strong>: If you're making multiple requests to the Telegram API, add a delay between requests using the "Wait" node. This will give the Telegram API time to process each request and prevent you from exceeding the rate limit.</li>
+<li><strong>Write a custom retry logic</strong>: If you want more control over the retry logic, you can write a custom script using a "Code" node. Here's an example of how you can write a custom retry logic in JavaScript:</li>
+</ol>
+<pre><code class="language-javascript">const telegramNode = nodes.get('Telegram');
+const retryCount = 0;
+
+function retryTelegram() {
+  telegramNode.execute();
+  retryCount++;
+  if (retryCount &lt; 3) {
+    // Wait for 1 second before retrying
+    new Wait({
+      timeoutSeconds: 1
+    }).on('done', retryTelegram);
+  } else {
+    // If we've reached the maximum number of retries, throw an error
+    throw new Error('Maximum number of retries reached');
+  }
+}
+
+retryTelegram();</code></pre>
+<p>This script will retry the Telegram node up to 3 times, waiting 1 second between each retry.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the 429 error from coming back, make sure to:</p>
+<ul>
+<li>Use a valid and up-to-date Telegram API token</li>
+<li>Configure the Telegram node correctly</li>
+<li>Configure retries on the Telegram node</li>
+<li>Add a delay between requests using the "Wait" node</li>
+<li>Use a custom retry logic if needed</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the 429 error persists, it may be a sign of a more serious issue with your Telegram API token or your n8n configuration. In this case, you should:</p>
+<ul>
+<li>Check the Telegram API documentation to see if there are any known issues with the API token or your account</li>
+<li>Reach out to the n8n community or support team for further assistance</li>
+<li>Consider reaching out to the Telegram support team for help with your API token or account configuration.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

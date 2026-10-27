@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Drive node throws 'invalid_grant: Token has been expired or revoked' error</title>
+<meta name="description" content="Fix the n8n Google Drive node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste ">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-drive-token-expired.html">
+<meta property="og:title" content="Google Drive node throws 'invalid_grant: Token has been expired or revoked' error">
+<meta property="og:description" content="Fix the n8n Google Drive node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste ">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Google Drive node throws 'invalid_grant: Token has been expired or revoked' error",
+  "description":"Fix the n8n Google Drive node error \"invalid_grant: Token has been expired or revoked\" — the three most common causes and a step-by-step solution you can paste ",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Drive node error: invalid_grant: Token has been expired or revoked"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Google Drive node throws 'invalid_grant: Token has been expired or revoked' error</h1>
+<div class="err">Error: invalid_grant: Token has been expired or revoked · Node: Google Drive</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The <code>invalid_grant: Token has been expired or revoked</code> error is a common issue that can occur when using the Google Drive node in n8n. This error is thrown when the access token used to authenticate with the Google Drive API has expired or been revoked. This can happen for a variety of reasons, including:</p>
+<ul>
+<li>The access token has expired due to the time limit set by the Google Drive API (usually 1 hour)</li>
+<li>The user has revoked the access token in the Google Cloud Console</li>
+<li>The user has changed their Google account password, which invalidates the access token</li>
+</ul>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Expired access token</strong>: The access token has expired due to the time limit set by the Google Drive API.</li>
+<li><strong>Token revocation</strong>: The user has revoked the access token in the Google Cloud Console.</li>
+<li><strong>Password change</strong>: The user has changed their Google account password, which invalidates the access token.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the access token expiration</strong>: Check the access token expiration time in the Google Cloud Console. If the token has expired, you can obtain a new one by following the steps in the [Google Cloud Console documentation](https://support.google.com/cloud/answer/6159651).</li>
+<li><strong>Update the access token</strong>: Update the access token in the Google Drive node by clicking on the "Update" button next to the access token field.</li>
+<li><strong>Configure retry options</strong>: Configure the Google Drive node to retry the request if it fails due to an expired access token. To do this, go to the node's Settings tab and set "Retry On Fail" to <code>true</code>, "Max Tries" to a value greater than 1, and "Wait Between Tries (ms)" to a value greater than 0.</li>
+<li><strong>Add a delay</strong>: Add a delay between retries using the "Wait" node. This will give the access token time to refresh before retrying the request.</li>
+<li><strong>Check for token revocation</strong>: Check the Google Cloud Console to see if the access token has been revoked. If it has, you will need to obtain a new one.</li>
+</ol>
+<p>Here is an example code block that you can use to update the access token and configure retry options:</p>
+<pre><code class="language-json">{
+  "name": "Google Drive",
+  "credentials": {
+    "access_token": "YOUR_ACCESS_TOKEN",
+    "refresh_token": "YOUR_REFRESH_TOKEN"
+  },
+  "settings": {
+    "retry_on_fail": true,
+    "max_tries": 3,
+    "wait_between_tries": 30000
+  }
+}</code></pre>
+<p>This code block assumes that you have obtained a new access token and refresh token, and that you want to retry the request up to 3 times with a delay of 30 seconds between each retry.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly update the access token to ensure it does not expire</li>
+<li>Monitor the Google Cloud Console for any token revocation</li>
+<li>Use a more robust authentication flow, such as OAuth 2.0 with refresh tokens</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the error persists, it may be necessary to escalate the issue to the n8n support team. Please provide as much detail as possible about the error, including any error messages or logs, and any relevant configuration or code.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

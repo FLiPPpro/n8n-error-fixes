@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slack webhook not registered in n8n error</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;The requested webhook is not registered&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-webhook-not-registered.html">
+<meta property="og:title" content="Slack webhook not registered in n8n error">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;The requested webhook is not registered&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Slack webhook not registered in n8n error",
+  "description":"Fix the n8n Slack node error \"The requested webhook is not registered\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: The requested webhook is not registered"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Slack webhook not registered in n8n error</h1>
+<div class="err">Error: The requested webhook is not registered · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "The requested webhook is not registered" error in n8n while trying to test your Slack webhook after a workflow stopped listening, it means that the Slack webhook URL you're trying to use is not properly registered in your Slack workspace. This error is not related to n8n itself, but rather to the Slack API.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Webhook URL not registered</strong>: The most common cause is that the Slack webhook URL you're trying to use is not registered in your Slack workspace. Make sure that the webhook URL is created and registered in your Slack settings.</li>
+<li><strong>Webhook URL expired</strong>: Another possible cause is that the webhook URL has expired. Check the expiration date of your webhook URL in your Slack settings and recreate it if necessary.</li>
+<li><strong>Incorrect webhook URL</strong>: You might have entered the incorrect webhook URL in your n8n workflow. Double-check the URL to ensure it matches the one registered in your Slack workspace.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check your Slack webhook URL</strong>: Go to your Slack workspace settings and check the webhook URL. Make sure it's created and registered correctly.</li>
+<li><strong>Recreate the webhook URL</strong>: If the webhook URL has expired, recreate it in your Slack settings.</li>
+<li><strong>Update your n8n workflow</strong>: Update the webhook URL in your n8n workflow to match the new one created in your Slack settings.</li>
+</ol>
+<p>Here's an example of how to update the webhook URL in your n8n workflow using a Code node:</p>
+<pre><code class="language-json">{
+  "name": "Update Webhook URL",
+  "parameters": {
+    "functionCode": "function() {\n  // Update the webhook URL to the new one created in Slack settings\n  return {\n    webhookUrl: 'https://example.com/webhook'\n  };\n}"
+  },
+  "type": "n8n-nodes-base.code"
+}</code></pre>
+<p>Replace <code>https://example.com/webhook</code> with the new webhook URL created in your Slack settings.</p>
+<ol>
+<li><strong>Test your workflow</strong>: After updating the webhook URL, test your workflow again to ensure it's working correctly.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, make sure to:</p>
+<ul>
+<li>Regularly check your Slack webhook URL to ensure it's not expired.</li>
+<li>Update your n8n workflow with the new webhook URL if it changes.</li>
+<li>Use a Code node to update the webhook URL dynamically if it changes.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's likely a more complex issue that requires further investigation. In this case, it's recommended to:</p>
+<ul>
+<li>Reach out to the n8n community for further assistance.</li>
+<li>Check the n8n documentation for any updates or changes that may be causing the issue.</li>
+<li>If you're still unable to resolve the issue, consider reaching out to the n8n support team for further assistance.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

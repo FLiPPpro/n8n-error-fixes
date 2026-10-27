@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slack node throws 'invalid_grant: Token has been expired or revoked' error</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-token-expired.html">
+<meta property="og:title" content="Slack node throws 'invalid_grant: Token has been expired or revoked' error">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;invalid_grant: Token has been expired or revoked&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Slack node throws 'invalid_grant: Token has been expired or revoked' error",
+  "description":"Fix the n8n Slack node error \"invalid_grant: Token has been expired or revoked\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: invalid_grant: Token has been expired or revoked"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Slack node throws 'invalid_grant: Token has been expired or revoked' error</h1>
+<div class="err">Error: invalid_grant: Token has been expired or revoked · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the <code>invalid_grant</code> error with the message "Token has been expired or revoked" in n8n, it means that the access token used to authenticate with the Slack API has either expired or been revoked. This can happen if the token was generated with a short lifespan, or if the user who authorized the token has revoked it.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Expired token</strong>: The token was generated with a short lifespan and has expired.</li>
+<li><strong>Token revocation</strong>: The user who authorized the token has revoked it.</li>
+<li><strong>Incorrect token configuration</strong>: The token was not configured correctly in the Slack node.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check the token configuration</strong>: Go to the Slack node's Settings tab and verify that the access token is correct and has not been revoked.</li>
+<li><strong>Generate a new token</strong>: If the token has expired or been revoked, generate a new one by following the instructions in the Slack documentation.</li>
+<li><strong>Update the token in n8n</strong>: Once you have generated a new token, update it in the Slack node's Settings tab.</li>
+<li><strong>Configure retries</strong>: To handle cases where the token expires or is revoked, configure retries on the HTTP Request node. You can do this by going to the HTTP Request node's Settings tab and setting "Retry On Fail" to <code>true</code>, "Max Tries" to a suitable value, and "Wait Between Tries (ms)" to a suitable delay.</li>
+</ol>
+<p>Here is an example of how to configure retries in a Code node:</p>
+<pre><code class="language-json">{
+  "name": "Configure retries",
+  "parameters": {
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTriesMs": 30000
+  },
+  "type": "n8n-node-base"
+}</code></pre>
+<ol>
+<li><strong>Add a delay</strong>: To add a delay before retrying, use the "Wait" node. You can add a delay of 30 seconds, for example, to give the token time to refresh.</li>
+<li><strong>Branch on error</strong>: To handle cases where the token expires or is revoked, you can branch on error using the "Error Trigger" (real workflow trigger) or the "Continue On Fail" setting on a node.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, make sure to:</p>
+<ul>
+<li><strong>Regularly update tokens</strong>: Regularly update the tokens in your Slack nodes to ensure they do not expire or get revoked.</li>
+<li><strong>Monitor token expiration</strong>: Monitor the expiration of tokens and update them before they expire.</li>
+<li><strong>Configure retries</strong>: Configure retries on the HTTP Request node to handle cases where the token expires or is revoked.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you have tried the above steps and the issue persists, it may be necessary to escalate the issue to the n8n support team or the Slack support team for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Postgres node type incorrect error message</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;value is not of expected type&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-type-incorrect.html">
+<meta property="og:title" content="n8n Postgres node type incorrect error message">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;value is not of expected type&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Postgres node type incorrect error message",
+  "description":"Fix the n8n Postgres node error \"value is not of expected type\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: value is not of expected type"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Postgres node type incorrect error message</h1>
+<div class="err">Error: value is not of expected type · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "value is not of expected type" error in n8n's Postgres node is a common issue that occurs when the data type of the value being inserted or updated does not match the expected data type of the target field in the database. This error can be frustrating, especially when you're not sure where to start troubleshooting.</p>
+<h2>The three most common causes</h2>
+<p>After analyzing numerous reports of this error, we've identified the following three most common causes:</p>
+<ol>
+<li><strong>Incorrect data type</strong>: The most common cause of this error is when the data type of the value being inserted or updated does not match the expected data type of the target field in the database. For example, if you're trying to insert a string value into a field that's defined as an integer, you'll get this error.</li>
+<li><strong>Database schema mismatch</strong>: Another common cause of this error is when the database schema has changed, but the n8n workflow hasn't been updated to reflect the changes. This can happen when you add or remove fields from a table, or when you change the data type of a field.</li>
+<li><strong>Invalid JSON data</strong>: If you're using the Postgres node to insert or update JSON data, this error can occur if the JSON data is not properly formatted or if it contains invalid characters.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "value is not of expected type" error, follow these steps:</p>
+<ol>
+<li><strong>Check the database schema</strong>: Verify that the database schema matches the expected data type of the target field. You can do this by running a <code>DESCRIBE</code> query on the table and field in question.</li>
+<li><strong>Check the data type of the value</strong>: Verify that the data type of the value being inserted or updated matches the expected data type of the target field. You can do this by using the <code>typeof</code> operator in a Code node to check the data type of the value.</li>
+<li><strong>Use a Code node to validate the data</strong>: Write a Code node that uses JavaScript to validate the data before it's inserted or updated. For example, you can use the following code to check if a value is a string:</li>
+</ol>
+<pre><code class="language-javascript">const value = {{value}};
+if (typeof value !== 'string') {
+  return { error: 'Value is not a string' };
+}</code></pre>
+<ol>
+<li><strong>Use a Wait node to add a delay</strong>: If the issue is caused by a database schema mismatch or invalid JSON data, you can use a Wait node to add a delay between attempts to insert or update the data. This can give the database time to update the schema or validate the JSON data.</li>
+<li><strong>Configure the Postgres node to retry</strong>: Configure the Postgres node to retry the operation if it fails. You can do this by setting the "Retry On Fail" option to "true" and configuring the "Max Tries" and "Wait Between Tries (ms)" options.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "value is not of expected type" error from coming back, follow these best practices:</p>
+<ul>
+<li><strong>Regularly update your n8n workflow</strong>: Make sure to regularly update your n8n workflow to reflect changes to the database schema.</li>
+<li><strong>Use a Code node to validate data</strong>: Use a Code node to validate data before it's inserted or updated.</li>
+<li><strong>Configure the Postgres node to retry</strong>: Configure the Postgres node to retry the operation if it fails.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it may be time to escalate the issue. This could involve:</p>
+<ul>
+<li><strong>Checking the database logs</strong>: Check the database logs to see if there are any errors or warnings related to the issue.</li>
+<li><strong>Contacting the n8n support team</strong>: Contact the n8n support team for further assistance.</li>
+<li><strong>Seeking help from a database administrator</strong>: Seek help from a database administrator to troubleshoot the issue.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

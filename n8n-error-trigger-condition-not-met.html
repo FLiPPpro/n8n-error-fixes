@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Error Trigger node reports condition not met in n8n</title>
+<meta name="description" content="Fix the n8n Error Trigger node error &quot;Condition not met&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-error-trigger-condition-not-met.html">
+<meta property="og:title" content="Error Trigger node reports condition not met in n8n">
+<meta property="og:description" content="Fix the n8n Error Trigger node error &quot;Condition not met&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Error Trigger node reports condition not met in n8n",
+  "description":"Fix the n8n Error Trigger node error \"Condition not met\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Error Trigger node error: Condition not met"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Error Trigger node reports condition not met in n8n</h1>
+<div class="err">Error: Condition not met · Node: Error Trigger</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Condition not met" error in n8n's Error Trigger node is a straightforward message that indicates the condition you've set for the error trigger has not been met. This means that the Error Trigger node is not firing as expected, and the workflow is continuing without the desired error handling.</p>
+<h2>The three most common causes</h2>
+<p>After analyzing various scenarios, I've identified the three most common causes of this error:</p>
+<ol>
+<li><strong>Incorrect condition</strong>: The condition you've set for the error trigger is not being met due to incorrect syntax, logic, or data.</li>
+<li><strong>Missing or incomplete data</strong>: The data required for the condition to be met is missing or incomplete, causing the condition to fail.</li>
+<li><strong>Node configuration issues</strong>: The Error Trigger node or the preceding nodes are not configured correctly, leading to the condition not being met.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the "Condition not met" error, follow these steps:</p>
+<h3>1. Review the condition</h3>
+<p>Check the condition you've set for the error trigger and verify that it's correct. Make sure the syntax is correct, and the logic is sound.</p>
+<pre><code class="language-json">{
+  "condition": "={{ $node[\"My Node\"].json[\"error\"] === true }}"
+}</code></pre>
+<p>In this example, the condition checks if the <code>error</code> field in the output of the "My Node" node is <code>true</code>.</p>
+<h3>2. Check the data</h3>
+<p>Verify that the data required for the condition to be met is present and complete. You can use the <code>Debug</code> node to inspect the data flowing through the workflow.</p>
+<h3>3. Configure the nodes correctly</h3>
+<p>Ensure that the Error Trigger node and the preceding nodes are configured correctly. Check the <code>Settings</code> tab for each node to ensure that the correct options are selected.</p>
+<h3>4. Test the workflow</h3>
+<p>Run the workflow with sample data to test the condition and ensure it's met.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, follow these best practices:</p>
+<ul>
+<li>Double-check the condition and data before setting up the error trigger.</li>
+<li>Use the <code>Debug</code> node to inspect the data flowing through the workflow.</li>
+<li>Configure the nodes correctly, and test the workflow with sample data.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and the issue persists, it may be worth escalating the issue to the n8n community or support team. Provide as much detail as possible about the workflow, nodes, and data involved. This will help the community or support team to identify the root cause of the issue and provide a more accurate solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

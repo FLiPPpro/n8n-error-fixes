@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Google Drive API error on file upload</title>
+<meta name="description" content="Fix the n8n Google Drive node error &quot;Upload failed: ... ( error message )&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-drive-api-error.html">
+<meta property="og:title" content="n8n Google Drive API error on file upload">
+<meta property="og:description" content="Fix the n8n Google Drive node error &quot;Upload failed: ... ( error message )&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Google Drive API error on file upload",
+  "description":"Fix the n8n Google Drive node error \"Upload failed: ... ( error message )\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Drive node error: Upload failed: ... ( error message )"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Google Drive API error on file upload</h1>
+<div class="err">Error: Upload failed: ... ( error message ) · Node: Google Drive</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "Upload failed: ... (error message)" error in n8n while uploading a file to Google Drive, it means that the upload operation has failed due to an issue with the Google Drive API or your credentials. This error can be frustrating, especially if you're not sure what's causing it. In this article, we'll break down the common causes and provide a step-by-step fix to get your workflow up and running again.</p>
+<h2>The three most common causes</h2>
+<p>Before we dive into the fix, let's cover the three most common causes of this error:</p>
+<ol>
+<li><strong>Invalid credentials</strong>: Make sure your Google Drive API credentials are correct and up-to-date. Check that the client ID, client secret, and refresh token are properly configured.</li>
+<li><strong>Insufficient permissions</strong>: Ensure that the user running the workflow has the necessary permissions to upload files to Google Drive. Check the Google Drive API permissions and adjust them if needed.</li>
+<li><strong>Network issues</strong>: Verify that your network connection is stable and that you're not experiencing any issues with your internet connection.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Upload failed: ... (error message)" error, follow these steps:</p>
+<ol>
+<li><strong>Check your credentials</strong>: Go to the Google Cloud Console and verify that your credentials are correct and up-to-date. Make sure the client ID, client secret, and refresh token are properly configured.</li>
+<li><strong>Add retry logic</strong>: To handle temporary issues, you can add retry logic to your workflow. You can do this by configuring the "Retry On Fail" setting on the HTTP Request node to 3 attempts, with a 5-second wait between tries.</li>
+<li><strong>Add a delay</strong>: To introduce a delay between retries, you can add a "Wait" node with a duration of 5 seconds.</li>
+<li><strong>Check for network issues</strong>: Verify that your network connection is stable and that you're not experiencing any issues with your internet connection.</li>
+</ol>
+<p>Here's an example code block that demonstrates how to add retry logic and a delay:</p>
+<pre><code class="language-json">{
+  "name": "HTTP Request",
+  "parameters": {
+    "url": "https://www.googleapis.com/upload/drive/v3/files",
+    "method": "POST",
+    "retryOnFail": true,
+    "maxTries": 3,
+    "waitBetweenTries": 5000,
+    "headers": {
+      "Authorization": "Bearer {{credentials.oauthToken}}"
+    },
+    "body": {
+      "file": {
+        "name": "example.txt",
+        "mimeType": "text/plain"
+      }
+    }
+  }
+}</code></pre>
+<p>In this example, we're configuring the HTTP Request node to retry the upload operation 3 times, with a 5-second wait between tries.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly update your Google Drive API credentials to ensure they remain valid.</li>
+<li>Monitor your network connection for any issues that may cause the upload operation to fail.</li>
+<li>Test your workflow regularly to catch any issues before they become critical.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the steps above and the error persists, it's likely that the issue is more complex and requires further investigation. In this case, you may need to:</p>
+<ul>
+<li>Reach out to the n8n community for support and guidance.</li>
+<li>Contact the Google Drive API support team for assistance with your credentials or permissions.</li>
+<li>Escalate the issue to your IT department or a developer for further assistance.</li>
+</ul>
+<p>Remember to provide detailed error messages and screenshots to help the support team or developer diagnose the issue.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

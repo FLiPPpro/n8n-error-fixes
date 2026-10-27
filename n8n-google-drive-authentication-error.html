@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Drive Authentication Error in n8n Workflow</title>
+<meta name="description" content="Fix the n8n Google Drive node error &quot;Error: Authentication with Google Drive failed&quot; — the three most common causes and a step-by-step solution you can paste in">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-google-drive-authentication-error.html">
+<meta property="og:title" content="Google Drive Authentication Error in n8n Workflow">
+<meta property="og:description" content="Fix the n8n Google Drive node error &quot;Error: Authentication with Google Drive failed&quot; — the three most common causes and a step-by-step solution you can paste in">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Google Drive Authentication Error in n8n Workflow",
+  "description":"Fix the n8n Google Drive node error \"Error: Authentication with Google Drive failed\" — the three most common causes and a step-by-step solution you can paste in",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Google Drive node error: Error: Authentication with Google Drive failed"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Google Drive Authentication Error in n8n Workflow</h1>
+<div class="err">Error: Error: Authentication with Google Drive failed · Node: Google Drive</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error "Error: Authentication with Google Drive failed" in n8n, it means that the Google Drive node is unable to authenticate with the Google Drive API. This can be due to various reasons such as incorrect API credentials, expired tokens, or issues with the Google Drive API itself.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect API credentials</strong>: Make sure you have entered the correct Client ID and Client secret in the Google Drive node's Settings tab.</li>
+<li><strong>Expired tokens</strong>: Google Drive API tokens have a limited lifespan. If the token has expired, you'll need to refresh it.</li>
+<li><strong>Issues with the Google Drive API</strong>: Sometimes, the Google Drive API itself may be experiencing issues, causing the authentication to fail.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the error, follow these steps:</p>
+<h3>Step 1: Check API credentials</h3>
+<p>Double-check that you have entered the correct Client ID and Client secret in the Google Drive node's Settings tab.</p>
+<h3>Step 2: Refresh tokens</h3>
+<p>If you're using a token that has expired, you'll need to refresh it. You can do this by creating a new token in the Google Cloud Console and updating the Client ID and Client secret in the Google Drive node.</p>
+<pre><code class="language-json">// Create a new token in the Google Cloud Console
+{
+  "client_id": "YOUR_CLIENT_ID",
+  "client_secret": "YOUR_CLIENT_SECRET",
+  "refresh_token": "YOUR_REFRESH_TOKEN"
+}</code></pre>
+<h3>Step 3: Add retry logic</h3>
+<p>Configure the Google Drive node to retry the authentication in case it fails. You can do this by setting the "Retry On Fail" option to "true" and configuring the "Max Tries" and "Wait Between Tries (ms)" options.</p>
+<h3>Step 4: Add a delay</h3>
+<p>If the authentication fails, you can add a delay using the "Wait" node to wait for a certain amount of time before retrying.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly refresh your tokens to avoid expired tokens.</li>
+<li>Monitor the Google Drive API for any issues that may be causing the authentication to fail.</li>
+<li>Use a reliable API credentials management system to keep your Client ID and Client secret up-to-date.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely that the issue is more complex and requires further investigation. In this case, you should:</p>
+<ul>
+<li>Check the n8n logs for any error messages that may indicate the cause of the issue.</li>
+<li>Reach out to the n8n community or support team for further assistance.</li>
+<li>Consider reaching out to Google's support team to see if there are any issues with the Google Drive API that may be causing the authentication to fail.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Webhook node returns 404 Not Found error in n8n</title>
+<meta name="description" content="Fix the n8n Webhook node error &quot;404 Not Found&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-webhook-404.html">
+<meta property="og:title" content="Webhook node returns 404 Not Found error in n8n">
+<meta property="og:description" content="Fix the n8n Webhook node error &quot;404 Not Found&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Webhook node returns 404 Not Found error in n8n",
+  "description":"Fix the n8n Webhook node error \"404 Not Found\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Webhook node error: 404 Not Found"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Webhook node returns 404 Not Found error in n8n</h1>
+<div class="err">Error: 404 Not Found · Node: Webhook</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The 404 Not Found error in n8n's Webhook node indicates that the external service you're trying to send data to is not responding as expected. This could be due to a number of reasons, including a misconfigured URL, a service outage, or a firewall blocking the request.</p>
+<h2>The three most common causes</h2>
+<h3>1. Incorrect URL</h3>
+<p>Double-check the URL you've entered in the Webhook node's settings. Make sure it's correct and properly formatted. A common mistake is to forget to include the protocol (http or https) or to use an incorrect domain name.</p>
+<h3>2. Service Outage</h3>
+<p>Check the status of the external service you're trying to connect to. If it's down or experiencing issues, you'll need to wait for it to come back online or find an alternative service.</p>
+<h3>3. Firewall or Network Issues</h3>
+<p>Verify that there are no firewall rules or network issues blocking the request. You can try using a different network or contacting your IT department to check for any restrictions.</p>
+<h2>Step-by-step fix</h2>
+<h3>Step 1: Verify the URL</h3>
+<p>Make sure the URL is correct and properly formatted. You can use a tool like <code>curl</code> to test the URL from the command line:</p>
+<pre><code class="language-bash">curl -X GET 'https://example.com/api/data'</code></pre>
+<p>Replace <code>https://example.com/api/data</code> with the actual URL you're using in n8n.</p>
+<h3>Step 2: Add retries to the Webhook node</h3>
+<p>Configure the Webhook node to retry the request in case of a 404 error. You can do this by going to the node's Settings tab and enabling "Retry On Fail" with a sufficient number of retries (e.g. 3-5) and a reasonable wait time between retries (e.g. 10-30 seconds).</p>
+<h3>Step 3: Use a "Wait" node to add a delay</h3>
+<p>If you suspect that the external service is experiencing issues, you can add a "Wait" node to introduce a delay before retrying the request. This can help prevent overwhelming the service with requests.</p>
+<h3>Step 4: Use a "Code" node to handle errors</h3>
+<p>Create a "Code" node to handle the 404 error. You can use JavaScript to log the error and retry the request after a certain delay:</p>
+<pre><code class="language-javascript">const n8n = require('n8n');
+
+exports.onRequest = async (items) =&gt; {
+  try {
+    // Your code here to send the request
+  } catch (error) {
+    if (error.status === 404) {
+      // Log the error and retry the request after 10 seconds
+      console.log('Error:', error);
+      await new Promise(resolve =&gt; setTimeout(resolve, 10000));
+      // Retry the request
+      return await this.sendRequest(items);
+    } else {
+      // Handle other errors
+    }
+  }
+};</code></pre>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from recurring, make sure to:</p>
+<ul>
+<li>Regularly check the status of the external service</li>
+<li>Monitor your n8n logs for any errors or issues</li>
+<li>Test your Webhook node configuration regularly</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it's likely that there's a more complex issue at play. In this case, you should:</p>
+<ul>
+<li>Check the n8n documentation and community forums for any known issues or workarounds</li>
+<li>Reach out to the n8n support team for further assistance</li>
+<li>Consider escalating the issue to the external service provider or your IT department if necessary</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

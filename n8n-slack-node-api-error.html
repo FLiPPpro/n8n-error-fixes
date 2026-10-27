@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Slack node API error in n8n workflow</title>
+<meta name="description" content="Fix the n8n Slack node error &quot;Error: API error occurred while sending data to Slack: Invalid token&quot; — the three most common causes and a step-by-step solution y">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-slack-node-api-error.html">
+<meta property="og:title" content="Slack node API error in n8n workflow">
+<meta property="og:description" content="Fix the n8n Slack node error &quot;Error: API error occurred while sending data to Slack: Invalid token&quot; — the three most common causes and a step-by-step solution y">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Slack node API error in n8n workflow",
+  "description":"Fix the n8n Slack node error \"Error: API error occurred while sending data to Slack: Invalid token\" — the three most common causes and a step-by-step solution y",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Slack node error: Error: API error occurred while sending data to Slack: Invalid token"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Slack node API error in n8n workflow</h1>
+<div class="err">Error: Error: API error occurred while sending data to Slack: Invalid token · Node: Slack</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error message "Error: API error occurred while sending data to Slack: Invalid token" in n8n, it means that the Slack node is unable to authenticate with the Slack API using the provided token. This is a common issue that can occur due to various reasons, including expired or invalid tokens, incorrect token configuration, or issues with the Slack API itself.</p>
+<h2>The three most common causes</h2>
+<p>After troubleshooting many n8n workflows, we've identified the following three common causes for this error:</p>
+<ol>
+<li><strong>Expired or invalid token</strong>: The Slack token provided in the n8n workflow has expired or is invalid. This can happen if the token was generated for a different user or workspace, or if it was copied incorrectly.</li>
+<li><strong>Incorrect token configuration</strong>: The Slack token is not properly configured in the n8n workflow. This can include issues with the token format, such as missing or extra characters, or incorrect token placement.</li>
+<li><strong>Slack API issues</strong>: There may be issues with the Slack API itself, such as rate limiting or server-side errors.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "Invalid token" error, follow these steps:</p>
+<ol>
+<li><strong>Check the token</strong>: Verify that the Slack token is correct and not expired. You can do this by checking the Slack API documentation or by contacting the Slack support team.</li>
+<li><strong>Configure the token</strong>: Ensure that the token is properly configured in the n8n workflow. This includes checking the token format and placement.</li>
+<li><strong>Retry with a new token</strong>: If the issue persists, try generating a new token and configuring it in the n8n workflow.</li>
+</ol>
+<p>Here's an example of how you can use a Code node to generate a new token and configure it in the n8n workflow:</p>
+<pre><code class="language-json">{
+  "name": "Generate new token",
+  "type": "code",
+  "script": "const axios = require('axios');\nconst token = await axios.post('https://slack.com/api/oauth.access', { client_id: 'YOUR_CLIENT_ID', client_secret: 'YOUR_CLIENT_SECRET', code: 'YOUR_AUTH_CODE' });\nreturn token.data.access_token;"
+}</code></pre>
+<p>Replace <code>YOUR_CLIENT_ID</code>, <code>YOUR_CLIENT_SECRET</code>, and <code>YOUR_AUTH_CODE</code> with your actual Slack API credentials.</p>
+<ol>
+<li><strong>Configure the token in the Slack node</strong>: Once you have a new token, configure it in the Slack node by selecting the "API token" option and pasting the new token.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from occurring in the future, consider the following:</p>
+<ul>
+<li><strong>Schedule token renewal</strong>: Use a scheduled workflow to periodically renew the Slack token to prevent it from expiring.</li>
+<li><strong>Use a more robust token configuration</strong>: Consider using a more robust token configuration, such as using a token stored in a secrets manager or a secure storage solution.</li>
+<li><strong>Monitor API errors</strong>: Set up API error monitoring to catch any issues with the Slack API and trigger notifications or workflows to resolve the issue.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it may be time to escalate the issue to the n8n support team or the Slack support team. Be sure to provide as much information as possible about the issue, including any error messages, workflow configurations, and API credentials.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MongoDB Node Returns No Documents</title>
+<meta name="description" content="Fix the n8n MongoDB node error &quot;MongoDB query returned no documents&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-mongodb-no-results.html">
+<meta property="og:title" content="MongoDB Node Returns No Documents">
+<meta property="og:description" content="Fix the n8n MongoDB node error &quot;MongoDB query returned no documents&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"MongoDB Node Returns No Documents",
+  "description":"Fix the n8n MongoDB node error \"MongoDB query returned no documents\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"MongoDB node error: MongoDB query returned no documents"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>MongoDB Node Returns No Documents</h1>
+<div class="err">Error: MongoDB query returned no documents · Node: MongoDB</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error "MongoDB query returned no documents" in n8n, it means that the MongoDB node has executed the query you specified, but it has not returned any documents that match the query. This can happen for a variety of reasons, including incorrect query syntax, incorrect database or collection names, or data that simply doesn't exist.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Incorrect query syntax</strong>: Double-check that your query is correctly formatted and uses the correct MongoDB query operators. A simple typo or misplaced bracket can cause the query to return no documents.</li>
+<li><strong>Incorrect database or collection names</strong>: Make sure that you have specified the correct database and collection names in the MongoDB node's settings. If you're using a dynamic database or collection name, ensure that it's correctly resolved before the query is executed.</li>
+<li><strong>Data doesn't exist</strong>: If the data you're querying for doesn't exist in the MongoDB database, the query will naturally return no documents.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the issue, follow these steps:</p>
+<ol>
+<li><strong>Verify the query syntax</strong>: Check the query syntax in the MongoDB node's settings. Ensure that it's correctly formatted and uses the correct MongoDB query operators. You can use the MongoDB Node documentation to help with this.</li>
+<li><strong>Check database and collection names</strong>: Verify that the database and collection names are correct in the MongoDB node's settings. If you're using a dynamic database or collection name, ensure that it's correctly resolved before the query is executed.</li>
+<li><strong>Use the <code>find</code> method with a filter</strong>: If you're using the <code>find</code> method, try adding a filter to the query. This can help narrow down the results and return the correct documents. For example:</li>
+</ol>
+<pre><code class="language-json">{
+  "query": {
+    "filter": {
+      "name": "John",
+      "age": {
+        "$gt": 18
+      }
+    }
+  }
+}</code></pre>
+<p>This will return all documents where the <code>name</code> field is "John" and the <code>age</code> field is greater than 18.</p>
+<ol>
+<li><strong>Use the <code>find</code> method with a projection</strong>: If you're using the <code>find</code> method, try adding a projection to the query. This can help reduce the amount of data returned and improve performance. For example:</li>
+</ol>
+<pre><code class="language-json">{
+  "query": {
+    "projection": {
+      "name": 1,
+      "age": 1
+    }
+  }
+}</code></pre>
+<p>This will return only the <code>name</code> and <code>age</code> fields for each document.</p>
+<ol>
+<li><strong>Use the <code>aggregate</code> method</strong>: If you're trying to perform a complex query, consider using the <code>aggregate</code> method instead of the <code>find</code> method. This can help you perform more complex queries and return the correct documents. For example:</li>
+</ol>
+<pre><code class="language-json">{
+  "query": {
+    "pipeline": [
+      {
+        "$match": {
+          "name": "John"
+        }
+      },
+      {
+        "$project": {
+          "name": 1,
+          "age": 1
+        }
+      }
+    ]
+  }
+}</code></pre>
+<p>This will return all documents where the <code>name</code> field is "John" and project only the <code>name</code> and <code>age</code> fields.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from coming back, make sure to:</p>
+<ul>
+<li>Regularly test your workflows to ensure they're working as expected.</li>
+<li>Monitor your MongoDB database for any issues or errors.</li>
+<li>Keep your MongoDB node settings up-to-date and ensure they're correctly configured.</li>
+<li>Consider using a more robust error handling mechanism, such as the <code>Error Trigger</code> workflow trigger.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the issue persists, it may be time to escalate the issue to n8n support. Provide as much detail as possible about the issue, including the error message, your workflow configuration, and any relevant logs or debugging information. This will help the support team to better understand the issue and provide a more effective solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

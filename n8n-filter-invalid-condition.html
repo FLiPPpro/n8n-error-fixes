@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Filter node returns 'invalid condition'</title>
+<meta name="description" content="Fix the n8n Filter node error &quot;Error: invalid condition&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-filter-invalid-condition.html">
+<meta property="og:title" content="n8n Filter node returns 'invalid condition'">
+<meta property="og:description" content="Fix the n8n Filter node error &quot;Error: invalid condition&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Filter node returns 'invalid condition'",
+  "description":"Fix the n8n Filter node error \"Error: invalid condition\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Filter node error: Error: invalid condition"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Filter node returns 'invalid condition'</h1>
+<div class="err">Error: Error: invalid condition · Node: Filter</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "invalid condition" error in n8n's Filter node is a generic error message that doesn't provide much information about what's going wrong. However, it's usually related to an issue with the condition you're trying to filter on. This condition is the criteria that determines which items will pass through the Filter node and which will be discarded.</p>
+<p>In n8n, the Filter node uses a simple syntax to define conditions. It's similar to the syntax used in other programming languages, such as JavaScript or SQL. The condition is usually a combination of a property name, an operator, and a value. For example, <code>{{ $item.data.name }} == "John"</code>.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of the "invalid condition" error are:</p>
+<ol>
+<li><strong>Typo in the condition</strong>: This is the most common cause of the error. A small typo in the condition can make it invalid. For example, <code>{{ $item.data.name }} = "John"</code> instead of <code>{{ $item.data.name }} == "John"</code>.</li>
+<li><strong>Invalid operator</strong>: The operator used in the condition is not valid. For example, using <code>!=</code> instead of <code>!==</code> or <code>=</code> instead of <code>==</code>.</li>
+<li><strong>Missing or incorrect property name</strong>: The property name used in the condition is not valid or is missing. For example, trying to access a property that doesn't exist in the item's data.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "invalid condition" error, follow these steps:</p>
+<ol>
+<li><strong>Check the condition syntax</strong>: Make sure the condition syntax is correct. Check for any typos or invalid operators.</li>
+<li><strong>Verify the property name</strong>: Make sure the property name used in the condition is correct and exists in the item's data.</li>
+<li><strong>Use the correct operator</strong>: Use the correct operator for the comparison. For example, <code>===</code> for exact comparison and <code>!==</code> for not equal to.</li>
+<li><strong>Use the <code>{{ }}</code> syntax correctly</strong>: Make sure to use the <code>{{ }}</code> syntax correctly to access the item's data.</li>
+</ol>
+<p>Here's an example of a valid condition in JSON:</p>
+<pre><code class="language-json">{
+  "condition": "{{$item.data.name}} == 'John'"
+}</code></pre>
+<p>And here's an example of a valid condition in a Code node (JavaScript):</p>
+<pre><code class="language-javascript">const condition = `{{$item.data.name}} === 'John'`;</code></pre>
+<ol>
+<li><strong>Test the condition</strong>: Test the condition by running a single item through the Filter node. If the condition is valid, the item should pass through. If not, the error will be triggered.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "invalid condition" error from coming back, make sure to:</p>
+<ul>
+<li>Double-check the condition syntax and property names.</li>
+<li>Use the correct operator for the comparison.</li>
+<li>Test the condition regularly to ensure it's working as expected.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the "invalid condition" error persists, it's likely that there's a more complex issue at play. In this case, it's best to escalate the issue to the n8n community or support team for further assistance. Provide as much information as possible about the error, including the condition syntax, property names, and any relevant logs or error messages.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

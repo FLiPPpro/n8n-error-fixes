@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Schedule Trigger node returns SSL connection required error</title>
+<meta name="description" content="Fix the n8n Schedule Trigger node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-schedule-trigger-ssl-error.html">
+<meta property="og:title" content="n8n Schedule Trigger node returns SSL connection required error">
+<meta property="og:description" content="Fix the n8n Schedule Trigger node error &quot;SSL connection is required&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Schedule Trigger node returns SSL connection required error",
+  "description":"Fix the n8n Schedule Trigger node error \"SSL connection is required\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Schedule Trigger node error: SSL connection is required"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Schedule Trigger node returns SSL connection required error</h1>
+<div class="err">Error: SSL connection is required · Node: Schedule Trigger</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the error "SSL connection is required" in n8n, it means that the HTTP Request node is trying to connect to a server that requires a secure connection (HTTPS) but the node is not configured to use SSL/TLS. This can happen if you're trying to connect to a server that uses a self-signed certificate or if the certificate is not trusted by the node.</p>
+<h2>The three most common causes</h2>
+<p>There are three common causes for this error:</p>
+<ol>
+<li><strong>Incorrect protocol</strong>: Make sure that the protocol in the URL is set to HTTPS (http://example.com will not work).</li>
+<li><strong>Missing SSL/TLS configuration</strong>: Ensure that the SSL/TLS settings are configured correctly in the HTTP Request node.</li>
+<li><strong>Certificate issues</strong>: Verify that the certificate used by the server is trusted by the node.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the URL</strong>: Ensure that the protocol in the URL is set to HTTPS. You can do this by checking the URL in the HTTP Request node's Settings tab.</li>
+<li><strong>Configure SSL/TLS settings</strong>: In the HTTP Request node's Settings tab, ensure that the SSL/TLS settings are configured correctly. You can do this by selecting the correct certificate and key from the dropdown menus.</li>
+<li><strong>Verify certificate</strong>: If the certificate is self-signed or not trusted by the node, you'll need to add it to the node's certificate store. You can do this by uploading the certificate to the node's Settings tab.</li>
+<li><strong>Test the connection</strong>: After configuring the SSL/TLS settings, test the connection by running the workflow.</li>
+</ol>
+<p>Here's an example of how to configure the SSL/TLS settings in a Code node:</p>
+<pre><code class="language-json">{
+  "name": "Configure SSL/TLS",
+  "parameters": {
+    "useSSL": true,
+    "sslKey": "path/to/ssl/key",
+    "sslCert": "path/to/ssl/cert"
+  }
+}</code></pre>
+<p>You can paste this code into a Code node and run it to configure the SSL/TLS settings.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from coming back, make sure to:</p>
+<ul>
+<li>Regularly update the certificate and key in the node's Settings tab.</li>
+<li>Verify that the certificate is trusted by the node.</li>
+<li>Test the connection regularly to ensure that it's working correctly.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the steps above and the error persists, it may be worth escalating the issue to the n8n support team. Provide as much detail as possible about the error, including the error message, the node configuration, and any relevant logs.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Postgres Node Query Failed Error in n8n Workflow</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;Query failed: no results&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-query-failed.html">
+<meta property="og:title" content="Postgres Node Query Failed Error in n8n Workflow">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;Query failed: no results&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Postgres Node Query Failed Error in n8n Workflow",
+  "description":"Fix the n8n Postgres node error \"Query failed: no results\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: Query failed: no results"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Postgres Node Query Failed Error in n8n Workflow</h1>
+<div class="err">Error: Query failed: no results · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you see the error message "Query failed: no results" in n8n, it means that the Postgres node was unable to execute the query you specified and return any results. This can be due to a variety of reasons, including but not limited to:</p>
+<ul>
+<li>The query itself is invalid or incomplete</li>
+<li>The database connection is not established correctly</li>
+<li>The database does not contain the expected data</li>
+</ul>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect query syntax</strong>: Make sure that the query you're running is syntactically correct. Check for missing or extra brackets, semicolons, or other characters that can cause the query to fail.</li>
+<li><strong>Database connection issues</strong>: Ensure that the Postgres node is connected to the correct database and that the credentials are correct. Check the database logs for any errors related to the connection.</li>
+<li><strong>Data not found</strong>: Verify that the data you're trying to retrieve exists in the database. If the data is not present, the query will fail and return no results.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this issue, follow these steps:</p>
+<ol>
+<li><strong>Check the query syntax</strong>: Review the query you're running and ensure it's correct. You can use tools like <code>psql</code> or a database client to test the query directly on the database.</li>
+<li><strong>Verify database connection</strong>: Check the Postgres node's settings to ensure it's connected to the correct database and that the credentials are correct.</li>
+<li><strong>Test the query with a Code node</strong>: Create a new Code node and use the <code>pg</code> library to connect to the database and run the query. This will help you isolate the issue and ensure it's not related to the Postgres node.</li>
+<li><strong>Use a <code>SELECT</code> statement</strong>: Make sure the query is a <code>SELECT</code> statement, which is used to retrieve data from the database. If you're trying to insert, update, or delete data, use the corresponding <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> statement.</li>
+</ol>
+<p>Here's an example of how you can use a Code node to test the query:</p>
+<pre><code class="language-javascript">const pg = require('pg');
+
+const db = new pg.Client({
+  user: 'your_username',
+  host: 'your_host',
+  database: 'your_database',
+  password: 'your_password',
+  port: 5432
+});
+
+db.connect((err) =&gt; {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  const query = 'SELECT * FROM your_table';
+  db.query(query, (err, result) =&gt; {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(result.rows);
+    }
+  });
+});</code></pre>
+<p>Replace the placeholders with your actual database credentials and table name.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from occurring in the future, make sure to:</p>
+<ul>
+<li>Test your queries thoroughly before running them in n8n</li>
+<li>Verify the database connection and credentials</li>
+<li>Use a <code>SELECT</code> statement to retrieve data</li>
+<li>Use a Code node to test the query and isolate the issue</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and the issue persists, it's likely that there's a more complex problem at play. In this case, it's recommended to:</p>
+<ul>
+<li>Check the database logs for any errors related to the connection or query</li>
+<li>Reach out to your database administrator for assistance</li>
+<li>Consider seeking help from the n8n community or a professional developer</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

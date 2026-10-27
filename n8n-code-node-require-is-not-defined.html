@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n Code Node &quot;require is not defined&quot; — Fix</title>
+<meta name="description" content="Fix the n8n Code node error &quot;ReferenceError: require is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-code-node-require-is-not-defined.html">
+<meta property="og:title" content="n8n Code Node &quot;require is not defined&quot; — Fix">
+<meta property="og:description" content="Fix the n8n Code node error &quot;ReferenceError: require is not defined&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n Code Node \"require is not defined\" — Fix",
+  "description":"Fix the n8n Code node error \"ReferenceError: require is not defined\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Code node error: ReferenceError: require is not defined"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n Code Node &quot;require is not defined&quot; — Fix</h1>
+<div class="err">Error: ReferenceError: require is not defined · Node: Code</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The <code>ReferenceError: require is not defined</code> error in n8n's Code node is a common issue that occurs when trying to use Node.js modules in a sandbox environment without proper configuration. This error is thrown because the <code>require</code> function is not available by default in the Code node's sandbox.</p>
+<h2>The three most common causes</h2>
+<p>There are three primary reasons why you might encounter this error:</p>
+<ol>
+<li><strong>Missing configuration</strong>: The Code node is trying to use a Node.js module without the necessary configuration to allow external modules.</li>
+<li><strong>Incorrect module import</strong>: The Code node is trying to import a module using the wrong syntax or without the necessary permissions.</li>
+<li><strong>Unsupported module</strong>: The Code node is trying to use a module that is not supported in the sandbox environment.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve this issue, follow these steps:</p>
+<ol>
+<li><strong>Check the Code node's settings</strong>: Ensure that the <code>NODE_FUNCTION_ALLOW_EXTERNAL</code> option is enabled in the Code node's settings. This option allows the Code node to use external modules.</li>
+<li><strong>Use a supported module</strong>: If the module you're trying to use is not supported in the sandbox environment, consider using an alternative module or rewriting the code to use a supported module.</li>
+<li><strong>Use a require alternative</strong>: If you're trying to use a Node.js module that is not supported, consider using a require alternative like <code>import</code> or <code>require.main</code> (if available).</li>
+<li><strong>Use a Code node with a custom function</strong>: If you need to use a specific Node.js module, consider creating a custom function in the Code node using the <code>function</code> keyword. This will allow you to use the <code>require</code> function directly.</li>
+</ol>
+<p>Here's an example code block that demonstrates how to use a custom function in the Code node:</p>
+<pre><code class="language-javascript">function myCustomFunction() {
+  const myModule = require('my-module');
+  // Use myModule here
+}
+
+myCustomFunction();</code></pre>
+<p>In this example, we define a custom function <code>myCustomFunction</code> that uses the <code>require</code> function to import the <code>my-module</code> module. We then call the custom function to execute the code.</p>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, ensure that you:</p>
+<ul>
+<li>Always enable the <code>NODE_FUNCTION_ALLOW_EXTERNAL</code> option in the Code node's settings.</li>
+<li>Use supported modules or rewrite the code to use alternative modules.</li>
+<li>Test your workflows thoroughly to catch any errors before deploying them to production.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and still encounter the <code>ReferenceError: require is not defined</code> error, it may be necessary to escalate the issue to n8n's support team for further assistance. Be sure to provide detailed information about your workflow, including the Code node's settings and the exact error message.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-25 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

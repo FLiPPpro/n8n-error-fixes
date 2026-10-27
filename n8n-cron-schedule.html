@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cron Node Error - Invalid Schedule</title>
+<meta name="description" content="Fix the n8n Cron node error &quot;Cron schedule is invalid&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-cron-schedule.html">
+<meta property="og:title" content="Cron Node Error - Invalid Schedule">
+<meta property="og:description" content="Fix the n8n Cron node error &quot;Cron schedule is invalid&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Cron Node Error - Invalid Schedule",
+  "description":"Fix the n8n Cron node error \"Cron schedule is invalid\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Cron node error: Cron schedule is invalid"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Cron Node Error - Invalid Schedule</h1>
+<div class="err">Error: Cron schedule is invalid · Node: Cron</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "Cron schedule is invalid" error in n8n's Cron node indicates that the schedule you've set for the node is not correctly formatted or is not valid for the node to execute. This error can occur due to various reasons, including incorrect syntax, invalid time zones, or conflicts with existing schedules.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of this error are:</p>
+<ol>
+<li><strong>Incorrect syntax</strong>: Make sure you've entered the schedule in the correct format. The Cron node uses the standard Cron syntax, which consists of five fields: minute, hour, day of month, month, and day of week. Each field is separated by a space, and the fields are specified in the following order: minute, hour, day of month, month, and day of week.</li>
+<li><strong>Invalid time zones</strong>: Ensure that the time zone you've specified is valid and correctly formatted. The Cron node uses the <code>TZ</code> environment variable to determine the time zone. If you're using a time zone that's not in the list of supported time zones, you may encounter this error.</li>
+<li><strong>Conflicts with existing schedules</strong>: If you have multiple Cron nodes with overlapping schedules, you may encounter this error. Make sure that each schedule is unique and doesn't conflict with existing schedules.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix this error, follow these steps:</p>
+<ol>
+<li><strong>Check the schedule syntax</strong>: Double-check that your schedule is correctly formatted and free of syntax errors. You can use online Cron syntax validators to help you identify any issues.</li>
+<li><strong>Verify the time zone</strong>: Ensure that the time zone you've specified is valid and correctly formatted. You can use the <code>TZ</code> environment variable to specify the time zone.</li>
+<li><strong>Check for conflicts</strong>: Review your workflow and ensure that each Cron node has a unique schedule that doesn't conflict with existing schedules.</li>
+<li><strong>Use a Code node to validate the schedule</strong>: If you're still unsure about the schedule syntax or time zone, you can use a Code node to validate the schedule programmatically. Here's an example JavaScript code block that you can use in a Code node to validate the schedule:</li>
+</ol>
+<pre><code class="language-javascript">const schedule = '0 0 * * *'; // Replace with your schedule
+const cron = require('cron');
+const job = new cron.CronJob(schedule, () =&gt; {
+  console.log('Schedule is valid');
+}, null, true, 'America/New_York'); // Replace with your time zone
+if (job.cron.schedule(schedule)) {
+  console.log('Schedule is valid');
+} else {
+  console.log('Schedule is invalid');
+}</code></pre>
+<ol>
+<li><strong>Update the Cron node</strong>: Once you've validated the schedule, update the Cron node with the corrected schedule.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this error from occurring in the future, make sure to:</p>
+<ul>
+<li>Double-check the schedule syntax and time zone before setting up a new Cron node.</li>
+<li>Use a Code node to validate the schedule programmatically.</li>
+<li>Review your workflow regularly to ensure that each Cron node has a unique schedule that doesn't conflict with existing schedules.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and still encounter the "Cron schedule is invalid" error, it's likely due to a more complex issue that requires further investigation. In this case, please:</p>
+<ul>
+<li>Provide detailed logs and screenshots of the error.</li>
+<li>Share your workflow and Cron node configuration.</li>
+<li>Specify the exact error message and any relevant error codes.</li>
+<li>Describe any changes you've made to the workflow or Cron node configuration recently.</li>
+</ul>
+<p>This will help us to better understand the issue and provide a more accurate solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

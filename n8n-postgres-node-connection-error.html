@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Postgres node in n8n connection issue with SSL certificate</title>
+<meta name="description" content="Fix the n8n Postgres node error &quot;Error establishing connection: SSL certificate issue&quot; — the three most common causes and a step-by-step solution you can paste ">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-postgres-node-connection-error.html">
+<meta property="og:title" content="Postgres node in n8n connection issue with SSL certificate">
+<meta property="og:description" content="Fix the n8n Postgres node error &quot;Error establishing connection: SSL certificate issue&quot; — the three most common causes and a step-by-step solution you can paste ">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"Postgres node in n8n connection issue with SSL certificate",
+  "description":"Fix the n8n Postgres node error \"Error establishing connection: SSL certificate issue\" — the three most common causes and a step-by-step solution you can paste ",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"Postgres node error: Error establishing connection: SSL certificate issue"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>Postgres node in n8n connection issue with SSL certificate</h1>
+<div class="err">Error: Error establishing connection: SSL certificate issue · Node: Postgres</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The error "Error establishing connection: SSL certificate issue" in n8n indicates that there's a problem with the SSL encryption when connecting to your Postgres database. This can happen for a few reasons, but the underlying issue is usually related to the SSL certificate configuration.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Incompatible SSL certificate</strong>: Make sure the SSL certificate used by your Postgres database is compatible with the one used by n8n. This includes the certificate type (e.g., PEM, DER), the encryption algorithm, and the key size.</li>
+<li><strong>Incorrect SSL certificate path</strong>: Ensure that the path to the SSL certificate file is correct in the n8n configuration. Double-check the file path, file name, and extension.</li>
+<li><strong>Missing or incorrect trust store</strong>: If your Postgres database uses a self-signed certificate or a certificate from a custom Certificate Authority (CA), you might need to add the certificate or the CA's root certificate to the trust store.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To resolve the issue, follow these steps:</p>
+<ol>
+<li><strong>Verify the SSL certificate</strong>: Check the SSL certificate used by your Postgres database to ensure it's correct and compatible with n8n. You can do this by connecting to your Postgres database using a tool like <code>psql</code> or a GUI client like pgAdmin.</li>
+<li><strong>Configure the SSL certificate path</strong>: In the n8n workflow, navigate to the Postgres node's Settings tab and ensure the SSL certificate path is correct. If you're using a custom certificate, provide the path to the certificate file (e.g., <code>/path/to/ssl/cert.pem</code>).</li>
+<li><strong>Add the trust store</strong>: If your Postgres database uses a self-signed certificate or a custom CA, you need to add the certificate or the CA's root certificate to the trust store. You can do this by creating a new file (e.g., <code>truststore.pem</code>) containing the certificate or the CA's root certificate. Then, provide the path to this file in the Postgres node's Settings tab.</li>
+</ol>
+<p>Here's an example code block to add the trust store to the Postgres node's configuration:</p>
+<pre><code class="language-json">{
+  "name": "Postgres Node",
+  "settings": {
+    "ssl": {
+      "cert": "/path/to/ssl/cert.pem",
+      "key": "/path/to/ssl/key.pem",
+      "ca": "/path/to/truststore.pem"
+    }
+  }
+}</code></pre>
+<p>In this example, replace <code>/path/to/ssl/cert.pem</code> and <code>/path/to/ssl/key.pem</code> with the actual paths to your SSL certificate and key files. For the trust store, provide the path to the file containing the certificate or the CA's root certificate (e.g., <code>/path/to/truststore.pem</code>).</p>
+<ol>
+<li><strong>Test the connection</strong>: After configuring the SSL certificate path and trust store, test the connection to your Postgres database by running the workflow. If the connection is successful, you should see the data in the n8n workflow.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent this issue from recurring, make sure to:</p>
+<ul>
+<li>Regularly update your SSL certificate and key files to ensure they're compatible with n8n.</li>
+<li>Keep the trust store up-to-date by adding new certificates or CA's root certificates as needed.</li>
+<li>Monitor your n8n workflow logs for any SSL-related errors or warnings.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and still encounter the "Error establishing connection: SSL certificate issue" error, it's likely that the issue is more complex and requires further investigation. In this case, consider escalating the issue to your n8n support team or a PostgreSQL expert for further assistance.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

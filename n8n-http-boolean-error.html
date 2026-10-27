@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n HTTP Request node boolean value error</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;value is not of expected type&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-boolean-error.html">
+<meta property="og:title" content="n8n HTTP Request node boolean value error">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;value is not of expected type&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n HTTP Request node boolean value error",
+  "description":"Fix the n8n HTTP Request node error \"value is not of expected type\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: value is not of expected type"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n HTTP Request node boolean value error</h1>
+<div class="err">Error: value is not of expected type · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>The "value is not of expected type" error in the HTTP Request node is a common issue that can be frustrating to resolve. In this article, we'll dive into the possible causes and provide a step-by-step guide to fix the problem.</p>
+<p>When you encounter this error, it means that the HTTP Request node is expecting a value of a specific type (e.g., string, number, boolean) in a particular field, but the value being sent is not of that type. This can happen due to various reasons, such as incorrect data type in the input field, unexpected response from the API, or misconfigured node settings.</p>
+<h2>The three most common causes</h2>
+<p>Based on our experience, the three most common causes of the "value is not of expected type" error are:</p>
+<ol>
+<li><strong>Incorrect data type in the input field</strong>: Make sure that the data type in the input field matches the expected type in the HTTP Request node. For example, if the node expects a boolean value, ensure that the input field is set to a boolean value (e.g., <code>true</code> or <code>false</code>).</li>
+<li><strong>Unexpected response from the API</strong>: If the API returns an unexpected response, it may cause the HTTP Request node to fail. Check the API documentation to ensure that the expected response format is correct.</li>
+<li><strong>Misconfigured node settings</strong>: Double-check the node settings, especially the "Retry On Fail", "Max Tries", and "Wait Between Tries (ms)" settings. Ensure that the retry options are configured correctly to handle any potential errors.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "value is not of expected type" error, follow these steps:</p>
+<ol>
+<li><strong>Check the input field</strong>: Verify that the data type in the input field matches the expected type in the HTTP Request node.</li>
+<li><strong>Update the input field</strong>: If the data type is incorrect, update the input field to match the expected type.</li>
+<li><strong>Use a Code node to validate the data</strong>: Create a new Code node and use JavaScript to validate the data type. For example:</li>
+</ol>
+<pre><code class="language-javascript">const input = {{input}}
+if (typeof input !== 'boolean') {
+  return { error: 'Invalid input type' }
+}</code></pre>
+<p>In this code, we're checking if the input value is a boolean. If it's not, we return an error message. You can modify this code to suit your specific needs.</p>
+<ol>
+<li><strong>Configure the HTTP Request node</strong>: Ensure that the retry options are configured correctly. You can do this by navigating to the HTTP Request node's Settings tab and adjusting the "Retry On Fail", "Max Tries", and "Wait Between Tries (ms)" settings as needed.</li>
+</ol>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "value is not of expected type" error from occurring in the future, follow these best practices:</p>
+<ol>
+<li><strong>Use a Code node to validate the data</strong>: As mentioned earlier, use a Code node to validate the data type before sending the request.</li>
+<li><strong>Configure the HTTP Request node correctly</strong>: Ensure that the retry options are configured correctly to handle any potential errors.</li>
+<li><strong>Monitor the workflow</strong>: Keep an eye on the workflow's performance and adjust the node settings as needed to prevent errors.</li>
+</ol>
+<h2>When to escalate</h2>
+<p>If you've followed the steps above and still encounter the "value is not of expected type" error, it's time to escalate the issue. Reach out to your n8n support team or community for further assistance. Provide as much detail as possible about the error, including the node settings, input field values, and any relevant code. This will help the support team to identify the root cause of the issue and provide a more effective solution.</p>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>

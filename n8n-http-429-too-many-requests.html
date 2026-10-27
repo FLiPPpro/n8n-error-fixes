@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n workflow HTTP request node 429 Too Many Requests error</title>
+<meta name="description" content="Fix the n8n HTTP Request node error &quot;429 Too Many Requests&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<link rel="canonical" href="https://flipppro.github.io/n8n-error-fixes/n8n-http-429-too-many-requests.html">
+<meta property="og:title" content="n8n workflow HTTP request node 429 Too Many Requests error">
+<meta property="og:description" content="Fix the n8n HTTP Request node error &quot;429 Too Many Requests&quot; — the three most common causes and a step-by-step solution you can paste in.">
+<meta property="og:type" content="article">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"TechArticle",
+  "headline":"n8n workflow HTTP request node 429 Too Many Requests error",
+  "description":"Fix the n8n HTTP Request node error \"429 Too Many Requests\" — the three most common causes and a step-by-step solution you can paste in.",
+  "author":{"@type":"Person","name":"n8n Error Fix Index"},
+  "about":"HTTP Request node error: 429 Too Many Requests"
+}
+</script>
+<style>
+:root{--fg:#111;--mut:#555;--bg:#fff;--acc:#0b5fff;--card:#f6f7f9}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--fg:#eee;--mut:#aaa;--bg:#0f1115;--acc:#6aa0ff;--card:#1a1d24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:0 16px}
+main{max-width:720px;margin:40px auto}
+h1{font-size:1.75rem;line-height:1.25;margin:0 0 .5rem}
+.err{display:inline-block;background:var(--card);color:var(--mut);padding:2px 8px;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;margin-bottom:1rem}
+article{font-size:1.0625rem}
+article h2{margin-top:2rem;font-size:1.25rem}
+article pre{background:var(--card);padding:12px;border-radius:6px;overflow:auto;font-size:.9rem}
+article code{background:var(--card);padding:1px 4px;border-radius:3px;font-family:ui-monospace,Menlo,monospace;font-size:.9em}
+.cta{margin:2.5rem 0 1rem;padding:18px;background:var(--card);border-left:4px solid var(--acc);border-radius:6px}
+.cta a{color:var(--acc);font-weight:600;text-decoration:none}
+.cta a:hover{text-decoration:underline}
+footer{color:var(--mut);font-size:.85rem;margin:3rem 0 2rem;border-top:1px solid var(--card);padding-top:1rem}
+footer a{color:var(--mut)}
+nav a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<main>
+<nav><a href="./">← n8n Error Fix Index</a></nav>
+<h1>n8n workflow HTTP request node 429 Too Many Requests error</h1>
+<div class="err">Error: 429 Too Many Requests · Node: HTTP Request</div>
+<article>
+<h2>What this error actually means</h2>
+<p>When you encounter the "429 Too Many Requests" error in n8n, it means that the HTTP Request node is sending too many requests to the external API within a certain time frame. This can happen when the API has rate limiting in place to prevent abuse or when your workflow is designed to send a large number of requests in a short period.</p>
+<h2>The three most common causes</h2>
+<ol>
+<li><strong>Inadequate retry configuration</strong>: If you're not using the retry options on the HTTP Request node or have them set too low, your workflow may not wait long enough for the API to respond, leading to a flood of requests.</li>
+<li><strong>Insufficient delay between requests</strong>: If you're using the "Wait" node to add a delay between requests, the delay might not be long enough to avoid hitting the rate limit.</li>
+<li><strong>Incorrect API key or authentication</strong>: If your API key or authentication credentials are incorrect, the API might return a 429 error, even if you're not sending too many requests.</li>
+</ol>
+<h2>Step-by-step fix</h2>
+<p>To fix the "429 Too Many Requests" error, follow these steps:</p>
+<ol>
+<li><strong>Check the retry configuration</strong>:</li>
+</ol>
+<p>* Go to the HTTP Request node's Settings tab. 	* Check if "Retry On Fail" is enabled and the "Max Tries" is set high enough. 	* If not, enable "Retry On Fail" and increase the "Max Tries" value.</p>
+<ol>
+<li><strong>Add a sufficient delay between requests</strong>:</li>
+</ol>
+<p>* Insert a "Wait" node before the HTTP Request node. 	* Configure the "Wait" node to wait for a sufficient amount of time (e.g., 1-2 seconds) between requests.</p>
+<ol>
+<li><strong>Use the retry options on the HTTP Request node</strong>:</li>
+</ol>
+<p>* Go to the HTTP Request node's Settings tab. 	* Configure the "Retry Options" to add a delay between retries (e.g., 1-2 seconds). 	* Set the "Max Tries" value high enough to allow the API to respond.</p>
+<ol>
+<li><strong>Verify the API key or authentication</strong>:</li>
+</ol>
+<p>* Double-check your API key or authentication credentials. 	* If using an API key, ensure it's correctly formatted and not expired.</p>
+<p>Here's an example code block you can use in a Code node to add a delay between requests:</p>
+<pre><code class="language-json">{
+  "nodes": [
+    {
+      "name": "HTTP Request",
+      "parameters": {
+        "url": "https://example.com/api/endpoint",
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer YOUR_API_KEY"
+        }
+      },
+      "settings": {
+        "retryOnFail": true,
+        "maxTries": 5,
+        "waitBetweenTries": 1000 // 1 second
+      }
+    },
+    {
+      "name": "Wait",
+      "parameters": {
+        "milliseconds": 2000 // 2 seconds
+      }
+    }
+  ]
+}</code></pre>
+<h2>Prevent it from coming back</h2>
+<p>To prevent the "429 Too Many Requests" error from coming back, make sure to:</p>
+<ul>
+<li>Monitor your API usage and adjust your workflow accordingly.</li>
+<li>Regularly review and update your retry configuration and delay between requests.</li>
+<li>Ensure your API key or authentication credentials are correctly configured and up-to-date.</li>
+</ul>
+<h2>When to escalate</h2>
+<p>If you've tried the above steps and the error persists, it's likely due to a more complex issue, such as:</p>
+<ul>
+<li>The API has rate limiting in place that's not being respected.</li>
+<li>Your workflow is designed to send an excessive number of requests.</li>
+<li>There's an issue with your API key or authentication credentials.</li>
+</ul>
+<p>In this case, it's recommended to:</p>
+<ul>
+<li>Consult the API documentation to understand their rate limiting policies.</li>
+<li>Reach out to the API provider for assistance.</li>
+<li>Review your workflow design and adjust it to respect the API's rate limits.</li>
+</ul>
+</article>
+<div class="cta">
+<strong>Still stuck after trying the above?</strong><br>
+I debug n8n workflows for a living. If you'd rather hand it off than keep guessing, I'll fix this on a call —
+<a href="https://contra.com/jarvis_ki3j77sx">book a session on Contra</a>.
+</div>
+<footer>
+Last updated 2026-10-26 · <a href="./">All n8n error fixes</a>
+</footer>
+</main>
+</body>
+</html>
